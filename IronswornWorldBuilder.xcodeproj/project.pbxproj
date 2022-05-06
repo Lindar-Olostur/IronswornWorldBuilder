@@ -1,0 +1,456 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9D13445B281E8D2100D247DE /* OracleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13445A281E8D2100D247DE /* OracleModel.swift */; };
+		9D134461282273A000D247DE /* StartScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D134460282273A000D247DE /* StartScreenView.swift */; };
+		9D1344662822B49E00D247DE /* RegionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1344652822B49E00D247DE /* RegionView.swift */; };
+		9D1344682822B52F00D247DE /* CampaignClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1344672822B52F00D247DE /* CampaignClass.swift */; };
+		9D13446B2822B6D200D247DE /* CampaignModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13446A2822B6D200D247DE /* CampaignModel.swift */; };
+		9D1344712822E80100D247DE /* StarforgedTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D1344702822E80100D247DE /* StarforgedTemplate.json */; };
+		9D1344752822ED0E00D247DE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1344742822ED0E00D247DE /* RootView.swift */; };
+		9D2ED5E62823E1C200F9560B /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2ED5E52823E1C200F9560B /* LoadView.swift */; };
+		9D68A97E2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A97D2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift */; };
+		9D68A9802816EC8000A8AC15 /* SettlementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A97F2816EC8000A8AC15 /* SettlementView.swift */; };
+		9D68A9822816EC8100A8AC15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D68A9812816EC8100A8AC15 /* Assets.xcassets */; };
+		9D68A9852816EC8100A8AC15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D68A9842816EC8100A8AC15 /* Preview Assets.xcassets */; };
+		9D68A98C2816ECE700A8AC15 /* SettlementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */; };
+		9D68A9902816F27500A8AC15 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A98F2816F27500A8AC15 /* MainModel.swift */; };
+		9D7A656628184A28005DB22A /* YourTruthsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7A656528184A28005DB22A /* YourTruthsModel.swift */; };
+		9D838C382817179D005DC2ED /* SpaceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D838C372817179D005DC2ED /* SpaceModel.swift */; };
+		9D838C3A28171C65005DC2ED /* VehiclesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D838C3928171C65005DC2ED /* VehiclesModel.swift */; };
+		9D838C3C28171D03005DC2ED /* CharacterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D838C3B28171D03005DC2ED /* CharacterModel.swift */; };
+		9D838C3E28171F77005DC2ED /* CreaturesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D838C3D28171F77005DC2ED /* CreaturesModel.swift */; };
+		9D838C4028172044005DC2ED /* LocationsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D838C3F28172044005DC2ED /* LocationsModel.swift */; };
+		9DD6E5AA282434F6000F4907 /* RootEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6E5A9282434F6000F4907 /* RootEditView.swift */; };
+		9DD6E5AD28250F99000F4907 /* NewRegionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD6E5AC28250F99000F4907 /* NewRegionView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9D13445A281E8D2100D247DE /* OracleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleModel.swift; sourceTree = "<group>"; };
+		9D134460282273A000D247DE /* StartScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartScreenView.swift; sourceTree = "<group>"; };
+		9D1344652822B49E00D247DE /* RegionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionView.swift; sourceTree = "<group>"; };
+		9D1344672822B52F00D247DE /* CampaignClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignClass.swift; sourceTree = "<group>"; };
+		9D13446A2822B6D200D247DE /* CampaignModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignModel.swift; sourceTree = "<group>"; };
+		9D1344702822E80100D247DE /* StarforgedTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = StarforgedTemplate.json; sourceTree = "<group>"; };
+		9D1344742822ED0E00D247DE /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		9D2ED5E52823E1C200F9560B /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
+		9D68A97A2816EC8000A8AC15 /* IronswornWorldBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronswornWorldBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D68A97D2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronswornWorldBuilderApp.swift; sourceTree = "<group>"; };
+		9D68A97F2816EC8000A8AC15 /* SettlementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementView.swift; sourceTree = "<group>"; };
+		9D68A9812816EC8100A8AC15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9D68A9842816EC8100A8AC15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementModel.swift; sourceTree = "<group>"; };
+		9D68A98F2816F27500A8AC15 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
+		9D7A656528184A28005DB22A /* YourTruthsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTruthsModel.swift; sourceTree = "<group>"; };
+		9D838C372817179D005DC2ED /* SpaceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceModel.swift; sourceTree = "<group>"; };
+		9D838C3928171C65005DC2ED /* VehiclesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesModel.swift; sourceTree = "<group>"; };
+		9D838C3B28171D03005DC2ED /* CharacterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterModel.swift; sourceTree = "<group>"; };
+		9D838C3D28171F77005DC2ED /* CreaturesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreaturesModel.swift; sourceTree = "<group>"; };
+		9D838C3F28172044005DC2ED /* LocationsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationsModel.swift; sourceTree = "<group>"; };
+		9DD6E5A9282434F6000F4907 /* RootEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootEditView.swift; sourceTree = "<group>"; };
+		9DD6E5AC28250F99000F4907 /* NewRegionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRegionView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9D68A9772816EC8000A8AC15 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9D13445F2822738200D247DE /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9DD6E5AB28250F8A000F4907 /* Root */,
+				9D1344652822B49E00D247DE /* RegionView.swift */,
+				9D68A97F2816EC8000A8AC15 /* SettlementView.swift */,
+				9D134460282273A000D247DE /* StartScreenView.swift */,
+				9D2ED5E52823E1C200F9560B /* LoadView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9D1344642822781500D247DE /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				9D1344702822E80100D247DE /* StarforgedTemplate.json */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		9D1344692822B5D700D247DE /* Campaign */ = {
+			isa = PBXGroup;
+			children = (
+				9D1344672822B52F00D247DE /* CampaignClass.swift */,
+				9D13446A2822B6D200D247DE /* CampaignModel.swift */,
+				9D838C372817179D005DC2ED /* SpaceModel.swift */,
+				9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */,
+				9D838C3F28172044005DC2ED /* LocationsModel.swift */,
+				9D838C3D28171F77005DC2ED /* CreaturesModel.swift */,
+				9D838C3B28171D03005DC2ED /* CharacterModel.swift */,
+				9D838C3928171C65005DC2ED /* VehiclesModel.swift */,
+				9D1344642822781500D247DE /* Templates */,
+			);
+			path = Campaign;
+			sourceTree = "<group>";
+		};
+		9D68A9712816EC8000A8AC15 = {
+			isa = PBXGroup;
+			children = (
+				9D68A97C2816EC8000A8AC15 /* IronswornWorldBuilder */,
+				9D68A97B2816EC8000A8AC15 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9D68A97B2816EC8000A8AC15 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9D68A97A2816EC8000A8AC15 /* IronswornWorldBuilder.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9D68A97C2816EC8000A8AC15 /* IronswornWorldBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				9D68A97D2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift */,
+				9D13445F2822738200D247DE /* Views */,
+				9D68A98E2816ECFB00A8AC15 /* Model */,
+				9D68A9812816EC8100A8AC15 /* Assets.xcassets */,
+				9D68A9832816EC8100A8AC15 /* Preview Content */,
+			);
+			path = IronswornWorldBuilder;
+			sourceTree = "<group>";
+		};
+		9D68A9832816EC8100A8AC15 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				9D68A9842816EC8100A8AC15 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9D68A98E2816ECFB00A8AC15 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9D68A98F2816F27500A8AC15 /* MainModel.swift */,
+				9D13445A281E8D2100D247DE /* OracleModel.swift */,
+				9D7A656528184A28005DB22A /* YourTruthsModel.swift */,
+				9D1344692822B5D700D247DE /* Campaign */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		9DD6E5AB28250F8A000F4907 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				9D1344742822ED0E00D247DE /* RootView.swift */,
+				9DD6E5A9282434F6000F4907 /* RootEditView.swift */,
+				9DD6E5AC28250F99000F4907 /* NewRegionView.swift */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9D68A9792816EC8000A8AC15 /* IronswornWorldBuilder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D68A9882816EC8100A8AC15 /* Build configuration list for PBXNativeTarget "IronswornWorldBuilder" */;
+			buildPhases = (
+				9D68A9762816EC8000A8AC15 /* Sources */,
+				9D68A9772816EC8000A8AC15 /* Frameworks */,
+				9D68A9782816EC8000A8AC15 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IronswornWorldBuilder;
+			productName = IronswornWorldBuilder;
+			productReference = 9D68A97A2816EC8000A8AC15 /* IronswornWorldBuilder.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9D68A9722816EC8000A8AC15 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1330;
+				LastUpgradeCheck = 1330;
+				TargetAttributes = {
+					9D68A9792816EC8000A8AC15 = {
+						CreatedOnToolsVersion = 13.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 9D68A9752816EC8000A8AC15 /* Build configuration list for PBXProject "IronswornWorldBuilder" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9D68A9712816EC8000A8AC15;
+			productRefGroup = 9D68A97B2816EC8000A8AC15 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9D68A9792816EC8000A8AC15 /* IronswornWorldBuilder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9D68A9782816EC8000A8AC15 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D68A9852816EC8100A8AC15 /* Preview Assets.xcassets in Resources */,
+				9D1344712822E80100D247DE /* StarforgedTemplate.json in Resources */,
+				9D68A9822816EC8100A8AC15 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9D68A9762816EC8000A8AC15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D68A9902816F27500A8AC15 /* MainModel.swift in Sources */,
+				9D68A98C2816ECE700A8AC15 /* SettlementModel.swift in Sources */,
+				9DD6E5AD28250F99000F4907 /* NewRegionView.swift in Sources */,
+				9DD6E5AA282434F6000F4907 /* RootEditView.swift in Sources */,
+				9D838C3A28171C65005DC2ED /* VehiclesModel.swift in Sources */,
+				9D1344752822ED0E00D247DE /* RootView.swift in Sources */,
+				9D2ED5E62823E1C200F9560B /* LoadView.swift in Sources */,
+				9D68A9802816EC8000A8AC15 /* SettlementView.swift in Sources */,
+				9D68A97E2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift in Sources */,
+				9D838C3C28171D03005DC2ED /* CharacterModel.swift in Sources */,
+				9D13445B281E8D2100D247DE /* OracleModel.swift in Sources */,
+				9D7A656628184A28005DB22A /* YourTruthsModel.swift in Sources */,
+				9D1344682822B52F00D247DE /* CampaignClass.swift in Sources */,
+				9D1344662822B49E00D247DE /* RegionView.swift in Sources */,
+				9D134461282273A000D247DE /* StartScreenView.swift in Sources */,
+				9D838C3E28171F77005DC2ED /* CreaturesModel.swift in Sources */,
+				9D838C382817179D005DC2ED /* SpaceModel.swift in Sources */,
+				9D838C4028172044005DC2ED /* LocationsModel.swift in Sources */,
+				9D13446B2822B6D200D247DE /* CampaignModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9D68A9862816EC8100A8AC15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9D68A9872816EC8100A8AC15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9D68A9892816EC8100A8AC15 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"IronswornWorldBuilder/Preview Content\"";
+				DEVELOPMENT_TEAM = 537KS4297U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Lin.IronswornWorldBuilder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9D68A98A2816EC8100A8AC15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"IronswornWorldBuilder/Preview Content\"";
+				DEVELOPMENT_TEAM = 537KS4297U;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Lin.IronswornWorldBuilder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9D68A9752816EC8000A8AC15 /* Build configuration list for PBXProject "IronswornWorldBuilder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D68A9862816EC8100A8AC15 /* Debug */,
+				9D68A9872816EC8100A8AC15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9D68A9882816EC8100A8AC15 /* Build configuration list for PBXNativeTarget "IronswornWorldBuilder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D68A9892816EC8100A8AC15 /* Debug */,
+				9D68A98A2816EC8100A8AC15 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9D68A9722816EC8000A8AC15 /* Project object */;
+}
