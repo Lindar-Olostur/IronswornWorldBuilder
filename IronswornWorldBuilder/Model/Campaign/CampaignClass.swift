@@ -42,6 +42,33 @@ class Campaign: ObservableObject {
         }
     }
     
+    func getStarSystem() {
+        world = newStarSystem()
+        UserDefaults.standard.set(world.name, forKey: "lastCampaign")
+    }
+    
+    func newStarSystem<T: Decodable>() -> T {
+        let data: Data
+
+        guard let file = Bundle.main.url(forResource: "StarsTemplate", withExtension: "json")
+        else {
+            fatalError("Couldn't find StarsTemplate.json in main bundle.")
+        }
+
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load StarsTemplate.json from main bundle:\n\(error)")
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            fatalError("Couldn't parse StarsTemplate.json as \(T.self):\n\(error)")
+        }
+    }
+    
     func load<T: Decodable>(_ filename: String) -> T {
         let data: Data
         let documentDirectoryPath:String = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!

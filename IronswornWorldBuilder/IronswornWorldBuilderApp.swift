@@ -13,7 +13,7 @@ struct IronswornWorldBuilderApp: App {
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(campaign)
+               .environmentObject(campaign)
         }
     }
 }

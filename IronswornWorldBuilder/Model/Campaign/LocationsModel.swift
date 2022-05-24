@@ -7,18 +7,7 @@
 
 import Foundation
 
-struct Derelict: Identifiable {
-    var id = UUID()
-    var locationType = ""
-    var typeByLocation = ""
-    var condition = ""
-    var outerFirstLook = ""
-    var innerFirstLook: [String] = []
-    var name = ""
-    var description = ""
-    var rank = Rank.troublesome
-    var theme = ""
-}
+
 
 struct PrecursorVault: Identifiable {
     var id = UUID()
@@ -52,33 +41,5 @@ struct Location: Codable, Hashable, Identifiable {
 //    var innerFirstLook: [String] = []
 }
 
-enum Theme {
-    case chaotic
-    case fortified
-    case haunted
-    case infested
-    case inhabited
-    case ruined
-    case sacred
-    case ancient
-    case corrupted
-    case hallowed
-    case ravaged
-    case wild
-}
 
-enum Domain {
-    case barrow
-    case cavern
-    case frozenCavern
-    case icereach
-    case mine
-    case pass
-    case ruin
-    case seaCave
-    case shadowfen
-    case stronghold
-    case tanglewood
-    case underkeep
-}
 

@@ -1,0 +1,9 @@
+{
+  "subName" : "Custom star system",
+  "type" : "stars",
+  "name" : "New Campaign",
+  "description" : "",
+  "regions" : [],
+  "truth" : [],
+  "truthMode" : "Input"
+}

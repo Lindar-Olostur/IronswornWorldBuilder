@@ -7,7 +7,8 @@
 
 import Foundation
 
-class Oracle: ObservableObject {
+struct Oracle: Codable, Hashable {
+    static let sharedOracle = Oracle()
     
     func action() -> String {
         
@@ -66,188 +67,79 @@ class Oracle: ObservableObject {
         return answer.popLast() ?? "error"
     }
     
-    // Первый взгляд на поселение STARFORGED
-    func settlementLook() -> String {
- 
-        let dictionary = [
-            "eautiful architecture" : 3,
-            "Built from organic materials" : 6,
-            "Built from random scrap" : 6,
-            "Built within repurposed ship" : 6,
-            "Built within terrain or asteroid" : 5,
-            "Defensible location" : 5,
-            "Elevated or multi-level construction" : 4,
-            "Hidden or subsurface location" : 5,
-            "High-tech construction" : 3,
-            "Industrial architecture" : 6,
-            "Intimidating defenses" : 4,
-            "Moving or transforming" : 3,
-            "Obvious social stratification" : 5,
-            "Precarious location" : 5,
-            "Rustic architecture" : 6,
-            "Significant structural damage" : 4,
-            "Sprawling or dispersed structures" : 4,
-            "Temporary or seasonal location" : 3,
-            "Toxic or polluted habitat" : 4,
-            "Within or near Precursor Vault" : 3,
-            "\(description()) + \(focus())" : 10,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
-        }
-        
-        var answer = pool.shuffled()
-        
-        return answer.popLast() ?? "error"
-    }
-    // Власть в поселении STARFORGED
-    func settlementAuthtority() -> String {
- 
-        let dictionary = [
-            "None / lawless" : 15,
-            "Ineffectual" : 15,
-            "Tolerant" : 15,
-            "Fair" : 10,
-            "Unyielding" : 15,
-            "Corrupt" : 15,
-            "Oppressive" : 15,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
-        }
-        
-        var answer = pool.shuffled()
-        
-        return answer.popLast() ?? "error"
-    }
-    // Контакт с поселением STARFORGED
-    func settlementContact() -> String {
- 
-        let dictionary = [
-            "Welcoming" : 20,
-            "Neutral / automated" : 10,
-            "Wary" : 20,
-            "Uncooperative" : 10,
-            "Hostile" : 10,
-            "Asking for help" : 13,
-            "In battle" : 3,
-            "Captured" : 3,
-            "Unresponsive" : 3,
-            "Destroyed" : 3,
-            "Derelict" : 5,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
-        }
-        
-        var answer = pool.shuffled()
-        
-        return answer.popLast() ?? "error"
-    }
-    // Проблемы поселения STARFORGED
-    func settlementTrouble() -> String {
- 
-        let dictionary = [
-            "Betrayal from within" : 3,
-            "Blocked resource" : 4,
-            "Caught in the crossfire" : 2,
-            "Changing environment" : 4,
-            "Clash of cultures" : 2,
-            "Dangerous discovery" : 4,
-            "Depleted resource" : 4,
-            "Failing technology" : 4,
-            "Feuding factions" : 4,
-            "Ghostly visitations" : 2,
-            "Hazardous environment" : 4,
-            "Hostile lifeforms" : 4,
-            "Impending attack" : 3,
-            "Impending natural disaster" : 3,
-            "Invasive nature or lifeform" : 2,
-            "Mysterious deaths" : 2,
-            "Plagued by sickness" : 3,
-            "Preyed upon by raiders" : 3,
-            "Revolt against leadership" : 2,
-            "Sabotaged technology" : 2,
-            "Social strife" : 3,
-            "Someone is ill or injured" : 2,
-            "Someone is missing" : 2,
-            "Stolen technology or object" : 2,
-            "Strange phenomenon" : 3,
-            "Toxic waste or pollution" : 3,
-            "Volatile energy source" : 2,
-            "Vulnerable lifeforms" : 2,
-            "\(action()) + \(theme())" : 10,
-            "Roll twice" : 10,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
-        }
-        
-        var answer = pool.shuffled()
-        
-        return answer.popLast() ?? "error"
-    }
-    // Проекты поселения STARFORGED
-    func settlementProjects() -> String {
- 
-        let dictionary = [
-            "Agriculture" : 5,
-            "Archeology" : 2,
-            "Automation" : 2,
-            "Black market" : 2,
-            "Command" : 2,
-            "Defense" : 4,
-            "Energy" : 5,
-            "Engineering" : 3,
-            "Entertainment" : 2,
-            "Environmentalism" : 2,
-            "Evacuation" : 2,
-            "Expansion" : 2,
-            "Exploration" : 4,
-            "Festival" : 2,
-            "History" : 2,
-            "Hunting" : 2,
-            "Manufacturing" : 2,
-            "Medical" : 3,
-            "Migration" : 2,
-            "Mining" : 6,
-            "Pacifism" : 2,
-            "Raiding" : 3,
-            "Research" : 3,
-            "Salvage" : 4,
-            "Secrecy" : 3,
-            "Shipbuilding" : 3,
-            "Spirituality" : 3,
-            "Subsistence" : 6,
-            
-            "Surveillance" : 2,
-            "Terraforming" : 2,
-            "Trade" : 4,
-            "Warfare" : 3,
-            "\(action()) + \(theme())" : 5,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
-        }
-        
-        var answer = pool.shuffled()
-        
-        return answer.popLast() ?? "error"
-    }
+// E X P L O R A T I O N
+    // THEMES
     
+    func chaoticThemeFeatureSF() -> String {
+        let dictionary = [
+            "Alterations in the flow of time" : 2,
+            "Chaotic portal, focus, or conduit" : 2,
+            "Corrupted or warped architecture or terrain" : 2,
+            "Corrupted or warped environment or ecosystem" : 2,
+            "Corrupted or warped technology" : 2,
+            "Cryptic device harnesses or powers chaos" : 2,
+            "Distortions of gravity or physics" : 2,
+            "Energy field or barrier" : 2,
+            "Glimpses of alternate realities" : 2,
+            "Lifeforms mutated or altered by chaos" : 2,
+            "Lifeforms spawned from chaos" : 2,
+            "Visions of your past or future" : 2,
+            "\(description()) + \(focus())" : 1,
+        ]
+        
+        var pool: [String] = []
+        
+        for (value, ratio) in dictionary {
+            pool.append(contentsOf: repeatElement(value, count: ratio))
+        }
+        
+        var answer = pool.shuffled()
+        
+        return answer.popLast() ?? "error"
+    }
+    func chaoticThemePerilSF() -> String {
+        let dictionary = [
+            "Chaos makes its mark upon you" : 9,
+            "Chaos spreads or intensifies" : 9,
+            "Chaos tempts or lures you" : 9,
+            "Chaotic energies block the path or assail you" : 9,
+            "Disorienting changes in time or location" : 9,
+            "Dreadful scene of those who fell prey to chaos" : 9,
+            "Equipment is made unstable or dangerous" : 9,
+            "Foes harness or wield chaos" : 9,
+            "Hazardous environmental changes" : 9,
+            "Lifeforms made hostile by chaos" : 9,
+            "\(action()) + \(theme())" : 8,
+            "Roll twice" : 1,
+        ]
+        
+        var pool: [String] = []
+        
+        for (value, ratio) in dictionary {
+            pool.append(contentsOf: repeatElement(value, count: ratio))
+        }
+        
+        var answer = pool.shuffled()
+        
+        return answer.popLast() ?? "error"
+    }
+    func chaoticThemeOpportunitySF() -> String {
+        let dictionary = [
+            "Chaos ebbs or withdraws for a time" : 1,
+            "Chaos empowers you with strange but useful abilities" : 1,
+            "Chaos manifests as comforting or inspiring visions" : 1,
+            "Chaotic changes hamper your foes" : 1,
+            "Insight into the source or nature of the chaos" : 1,
+        ]
+        
+        var pool: [String] = []
+        
+        for (value, ratio) in dictionary {
+            pool.append(contentsOf: repeatElement(value, count: ratio))
+        }
+        
+        var answer = pool.shuffled()
+        
+        return answer.popLast() ?? "error"
+    }
 }
