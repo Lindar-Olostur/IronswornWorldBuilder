@@ -11,7 +11,6 @@ struct SettlementView: View {
     @Binding var settlement: Settlement
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
-    var themeList = getThemes()
     @State private var generatorIsOn = false
     @State private var displayText = ""
     
@@ -128,7 +127,7 @@ struct SettlementView: View {
                             }
                         }
                         //DERELICT
-                        if settlement.isDerilict == true {
+                        if settlement.derilict != [] {
                             Section(header:
                                         HStack {
                                 Text("Derelict").font(.title)
@@ -244,7 +243,7 @@ struct SettlementView: View {
                         }
                         
                         //POPULATION
-                        if settlement.population != "" && settlement.isDerilict == false {
+                        if settlement.population != "" && settlement.derilict != [] {
                             Section(header:
                                         HStack {
                                 Text("Population").font(.title)
@@ -405,12 +404,37 @@ struct SettlementView: View {
                             }
                         }
                         
+                        //PRECURSOR VAULT
+                        if settlement.vaults != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Precursor Vaults").font(.title)
+                                Spacer()
+                                Button {
+                                    settlement.hiddenVault.toggle()
+                                } label: {
+                                    Image(systemName: settlement.hiddenVault ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if settlement.hiddenVault {
+                                    ForEach($settlement.vaults, id: \.id) { $vault in
+                                        NavigationLink(destination: PrecursorVaultsView(vault: $vault, campaign: self.campaign)) {
+                                            Text(vault.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        settlement.vaults.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
 
                     Group {
                         
                         //TROUBLE
-                        if settlement.trouble != "" && settlement.isDerilict == false {
+                        if settlement.trouble != "" && settlement.derilict != [] {
                             Section(header:
                                         HStack {
                                 Text("Trouble").font(.title)
@@ -473,6 +497,31 @@ struct SettlementView: View {
                             }
                         }
                         
+                        //FACTIONS
+                        if settlement.factions != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Factions").font(.title)
+                                Spacer()
+                                Button {
+                                    settlement.hiddenFactions.toggle()
+                                } label: {
+                                    Image(systemName: settlement.hiddenFactions ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if settlement.hiddenFactions {
+                                    ForEach($settlement.factions, id: \.id) { $faction in
+                                       NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                           Text(faction.name)
+                                       }
+                                   }.onDelete { (indexSet) in
+                                       settlement.factions.remove(atOffsets: indexSet)
+                                   }
+                                }
+                            }
+                        }
+                        
                         //PERSONS
                         if settlement.persons != [] {
                             Section(header:
@@ -493,51 +542,6 @@ struct SettlementView: View {
                                         }
                                     }.onDelete { (indexSet) in
                                         settlement.persons.remove(atOffsets: indexSet)
-                                    }
-                                }
-                            }
-                        }
-                        
-                        //THEMES
-                        if settlement.theme != [] {
-                            Section(header:
-                                        HStack {
-                                Text("Themes").font(.title)
-                                Spacer()
-                                Button {
-                                    settlement.hiddenTheme.toggle()
-                                } label: {
-                                    Image(systemName: settlement.hiddenTheme ? "chevron.down" : "chevron.right")
-                                }
-                            }
-                            ) {
-                                if settlement.hiddenTheme {
-                                    if settlement.mode == "Generation" {
-                                        ForEach($settlement.theme) { $theme in
-                                            HStack {
-                                                Text(theme.name).focused($fieldIsFocused)
-                                                Spacer()
-                                                Button {
-                                                    theme.name = Theme.allCases.randomElement()!.rawValue
-                                                } label: {
-                                                    Image(systemName: "dice").font(.system(size: 20))
-                                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                            }
-                                        }.onDelete { (indexSet) in
-                                            settlement.theme.remove(atOffsets: indexSet)
-                                        }
-                                    }
-                                    if settlement.mode == "Selection" || settlement.mode == "Input" {
-                                        ForEach($settlement.theme) { $theme in
-                                            Picker(selection: $theme.name, label: EmptyView()) {
-                                                ForEach(themeList, id: \.self) { value in
-                                                    Text(value).font(.system(size: 50))
-                                                        .tag(value)
-                                                }
-                                            }.pickerStyle(.menu)
-                                        }.onDelete { (indexSet) in
-                                            settlement.theme.remove(atOffsets: indexSet)
-                                        }
                                     }
                                 }
                             }
@@ -624,8 +628,13 @@ struct SettlementView: View {
                         } label: {
                             Text("Mode")
                         }
-                        Toggle(isOn: $settlement.isDerilict) {
-                            Text("Derilict Settlement")
+                        if settlement.derilict.count < 1 {
+                            Button {
+                                campaign.writeToFile()
+                                settlement.derilict.insert(Derelict(isChild: true, location: settlement.locationType, type: "Derelict settlement", name: settlement.name), at: 0)
+                            } label: {
+                                Text("Is Derelict")
+                            }
                         }
                         Button {
                             campaign.writeToFile()
@@ -651,8 +660,6 @@ struct SettlementView: View {
                                         Text("Initial Contact")
                                     }
                                 }
-                            }
-                            Group {
                                 if settlement.population == "" {
                                     Button {
                                         campaign.writeToFile()
@@ -661,6 +668,8 @@ struct SettlementView: View {
                                         Text("Population")
                                     }
                                 }
+                            }
+                            Group {
                                 Button {
                                     campaign.writeToFile()
                                     settlement.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
@@ -693,9 +702,21 @@ struct SettlementView: View {
                                 }
                                 Button {
                                     campaign.writeToFile()
+                                    settlement.factions.append(Faction())
+                                } label: {
+                                    Text("Add Faction")
+                                }
+                                Button {
+                                    campaign.writeToFile()
                                     settlement.persons.insert(Person(), at: 0)
                                 } label: {
                                     Text("New Person")
+                                }
+                                Button {
+                                    campaign.writeToFile()
+                                    settlement.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                                } label: {
+                                    Text("Add Precursor Vault")
                                 }
                                 Button {
                                     campaign.writeToFile()
@@ -704,14 +725,7 @@ struct SettlementView: View {
                                     Text("New Location")
                                 }
                                 Group {
-                                    if settlement.theme.count < 1 {
-                                        Button {
-                                            campaign.writeToFile()
-                                            settlement.theme.insert(StringContainer(name: "None"), at: 0)
-                                        } label: {
-                                            Text("Theme")
-                                        }
-                                    }
+                                    
                                     Button {
                                         campaign.writeToFile()
                                         settlement.routes.insert(Route(), at: 0)
@@ -766,15 +780,8 @@ struct SettlementView: View {
             return "Wrong Home Region"
         }
     }
-    static func getThemes() -> [String] {
-        var list = ["None"]
-        for i in Theme.allCases {
-            list.append(i.rawValue)
-        }
-        return list
-    }
     func generateSettlement() {
-        if settlement.name == "Unknown Settlement" {
+        if settlement.name == "Unknown" {
             settlement.name = Settlement.randomName()
         }
         settlement.locationType = settlement.randomLocationType()

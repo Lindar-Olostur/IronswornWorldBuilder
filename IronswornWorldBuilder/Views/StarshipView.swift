@@ -285,13 +285,54 @@ struct StarshipView: View {
                         }
                     }
 
+                    //FACTIONS
+                    if starship.factions != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Factions").font(.title)
+                            Spacer()
+                            Button {
+                                starship.hiddenFactions.toggle()
+                            } label: {
+                                Image(systemName: starship.hiddenFactions ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if starship.hiddenFactions {
+                                ForEach($starship.factions, id: \.id) { $faction in
+                                   NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                       Text(faction.name)
+                                   }
+                               }.onDelete { (indexSet) in
+                                   starship.factions.remove(atOffsets: indexSet)
+                               }
+                            }
+                        }
+                    }
 
-//                    if starship.theme != "" {
-//                        Section(header: Text("Theme").font(.title)) {
-//                            TextEditor(text: $starship.theme)
-//                                .focused($fieldIsFocused)
-//                        }
-//                    }
+                    //DERELICT
+                    if starship.derilict != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Derelict").font(.title)
+                            Spacer()
+                            Button {
+                                starship.hiddenDerilict.toggle()
+                            } label: {
+                                Image(systemName: starship.hiddenDerilict ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if starship.hiddenDerilict {
+                                ForEach($starship.derilict, id: \.id) { $loc in
+                                    NavigationLink(destination: DerelictView(derelict: $loc, campaign: self.campaign)) {
+                                        Text("Derelict \(starship.name)")
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
 
                 }.listStyle(.inset)
             }
@@ -327,6 +368,14 @@ struct StarshipView: View {
                             }
                         } label: {
                             Text("Mode")
+                        }
+                        if starship.derilict.count < 1 {
+                            Button {
+                                campaign.writeToFile()
+                                starship.derilict.insert(Derelict(isChild: true, type: "Derelict starship", name: starship.name), at: 0)
+                            } label: {
+                                Text("Is Derelict")
+                            }
                         }
                         Button {
                             campaign.writeToFile()
@@ -366,6 +415,12 @@ struct StarshipView: View {
                                 } label: {
                                     Text("Initial Contact")
                                 }
+                            }
+                            Button {
+                                campaign.writeToFile()
+                                starship.factions.append(Faction())
+                            } label: {
+                                Text("Add Faction")
                             }
                             if starship.description == "" {
                                 Button {

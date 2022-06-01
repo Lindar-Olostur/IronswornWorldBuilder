@@ -177,6 +177,56 @@ struct SectorView: View {
                         }
                     }
                     
+                    //PRECURSOR VAULT
+                    if sector.vaults != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Precursor Vaults").font(.title)
+                            Spacer()
+                            Button {
+                                sector.hiddenVault.toggle()
+                            } label: {
+                                Image(systemName: sector.hiddenVault ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if sector.hiddenVault {
+                                ForEach($sector.vaults, id: \.id) { $vault in
+                                    NavigationLink(destination: PrecursorVaultsView(vault: $vault, campaign: self.campaign)) {
+                                        Text(vault.name)
+                                    }
+                                }.onDelete { (indexSet) in
+                                    sector.vaults.remove(atOffsets: indexSet)
+                                }
+                            }
+                        }
+                    }
+                    
+                    //FACTIONS
+                    if sector.factions != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Factions").font(.title)
+                            Spacer()
+                            Button {
+                                sector.hiddenFactions.toggle()
+                            } label: {
+                                Image(systemName: sector.hiddenFactions ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if sector.hiddenFactions {
+                                ForEach($sector.factions, id: \.id) { $faction in
+                                   NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                       Text(faction.name)
+                                   }
+                               }.onDelete { (indexSet) in
+                                   sector.factions.remove(atOffsets: indexSet)
+                               }
+                            }
+                        }
+                    }
+                    
                     //CREATURES
                     if sector.creatures != [] {
                         Section(header:
@@ -257,85 +307,99 @@ struct SectorView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
-                        Toggle(isOn: $sector.travelMode) {
-                            Text("Travel Mode")
-                        }
-                        Menu {
-                            if sector.mode != "Input" {
+                        Group {
+                            Toggle(isOn: $sector.travelMode) {
+                                Text("Travel Mode")
+                            }
+                            Menu {
+                                if sector.mode != "Input" {
+                                    Button {
+                                        sector.mode = "Input"
+                                    } label: {
+                                        Text("Input")
+                                    }
+                                }
+    //                            if sector.mode != "Selection" {
+    //                                Button {
+    //                                    sector.mode = "Selection"
+    //                                } label: {
+    //                                    Text("Selection")
+    //                                }
+    //                            }
+                                if sector.mode != "Generation" {
+                                    Button {
+                                        sector.mode = "Generation"
+                                    } label: {
+                                        Text("Generation")
+                                    }
+                                }
+                            } label: {
+                                Text("Mode")
+                            }
+                            if sector.description == "" {
                                 Button {
-                                    sector.mode = "Input"
+                                    campaign.writeToFile()
+                                    sector.description = " "
                                 } label: {
-                                    Text("Input")
+                                    Text("Add Description")
                                 }
                             }
-//                            if sector.mode != "Selection" {
-//                                Button {
-//                                    sector.mode = "Selection"
-//                                } label: {
-//                                    Text("Selection")
-//                                }
-//                            }
-                            if sector.mode != "Generation" {
-                                Button {
-                                    sector.mode = "Generation"
-                                } label: {
-                                    Text("Generation")
-                                }
-                            }
-                        } label: {
-                            Text("Mode")
-                        }
-                        if sector.description == "" {
+
                             Button {
                                 campaign.writeToFile()
-                                sector.description = " "
+                                sector.stellarObjects.insert(StellarObject(name: sector.randomStarName(), homeSector: sector.name), at: 0)
                             } label: {
-                                Text("Add Description")
+                                Text("Add Stellar Object")
+                            }
+                            
+                            Button {
+                                campaign.writeToFile()
+                                sector.planets.insert(Planet(homeSector: sector.name, homeStar: "Wandering", name: sector.randomRoguePlanetName()), at: 0)
+                            } label: {
+                                Text("Add Wandering Planet")
+                            }
+                            
+                            Button {
+                                campaign.writeToFile()
+                                sector.settlements.insert(Settlement(homeSector: sector.name), at: 0)
+                            } label: {
+                                Text("Add Settlement")
+                            }
+                            
+                        }
+                        Group {
+                            Button {
+                                campaign.writeToFile()
+                                sector.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                            } label: {
+                                Text("Add Precursor Vault")
+                            }
+                            Button {
+                                campaign.writeToFile()
+                                sector.locations.insert(Location(name: "Unknown Location"), at: 0)
+                            } label: {
+                                Text("Add Location")
+                            }
+                            Button {
+                                campaign.writeToFile()
+                                sector.factions.append(Faction())
+                            } label: {
+                                Text("Add Faction")
+                            }
+                            Button {
+                                campaign.writeToFile()
+                                sector.creatures.insert(Creature(homeSector: sector.name, name: "Unknown Creature"), at: 0)
+                            } label: {
+                                Text("Add Creature")
+                            }
+                            
+                            Button {
+                                campaign.writeToFile()
+                                sector.vehicles.insert(Starship(name: Starship.randomName(mod: ""), homeSector: sector.name), at: 0)
+                            } label: {
+                                Text("Add Starship")
                             }
                         }
-
-                        Button {
-                            campaign.writeToFile()
-                            sector.stellarObjects.insert(StellarObject(name: sector.randomStarName(), homeSector: sector.name), at: 0)
-                        } label: {
-                            Text("Add Stellar Object")
-                        }
-                        
-                        Button {
-                            campaign.writeToFile()
-                            sector.planets.insert(Planet(homeSector: sector.name, homeStar: "Wandering", name: sector.randomRoguePlanetName()), at: 0)
-                        } label: {
-                            Text("Add Wandering Planet")
-                        }
-                        
-                        Button {
-                            campaign.writeToFile()
-                            sector.settlements.insert(Settlement(homeSector: sector.name), at: 0)
-                        } label: {
-                            Text("Add Settlement")
-                        }
-                        
-                        Button {
-                            campaign.writeToFile()
-                            sector.locations.insert(Location(name: "Unknown Location"), at: 0)
-                        } label: {
-                            Text("Add Location")
-                        }
-                        
-                        Button {
-                            campaign.writeToFile()
-                            sector.creatures.insert(Creature(homeSector: sector.name, name: "Unknown Creature"), at: 0)
-                        } label: {
-                            Text("Add Creature")
-                        }
-                        
-                        Button {
-                            campaign.writeToFile()
-                            sector.vehicles.insert(Starship(name: Starship.randomName(mod: ""), homeSector: sector.name), at: 0)
-                        } label: {
-                            Text("Add Starship")
-                        }
-                        
                     } label: {
                         Image(systemName: "plus")
                     }

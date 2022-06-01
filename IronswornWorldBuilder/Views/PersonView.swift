@@ -11,6 +11,8 @@ struct PersonView: View {
     @Binding var person: Person
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
+    @State private var displayText = ""
+    
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -37,6 +39,35 @@ struct PersonView: View {
                         TextField("Another person info", text: $person.subName)
                             .multilineTextAlignment(.center)
                             .focused($fieldIsFocused)
+                    }
+                }
+                
+                //COMBAT BUTTONS
+                if person.combatMode {
+                    VStack {
+                        HStack(spacing: 15) {
+                            Button {
+                                displayText = "Action: \(person.oracle.randomAction())"
+                            } label: {
+                                Text("Combat Action")
+                                    .foregroundColor(.black)
+                            }
+                            .buttonStyle(BorderedButtonStyle())
+                            
+                        }
+                        ZStack(alignment: .center) {
+                            Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 0.6))
+                                .frame(maxWidth: .infinity)
+                                //.border(.gray, width: 2.5).opacity(0.5)
+                                    VStack(alignment: .leading) {
+                                        Text(displayText)
+                                            .padding(.vertical, 7)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                }
+                        .padding(.top, 5)
+                        .frame(minHeight: 40)
+                        .fixedSize(horizontal: false, vertical: true)
                     }
                 }
                 
@@ -243,6 +274,9 @@ struct PersonView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        Toggle(isOn: $person.combatMode) {
+                            Text("Combat Mode")
+                        }
                         Menu {
                             if person.mode != "Input" {
                                 Button {

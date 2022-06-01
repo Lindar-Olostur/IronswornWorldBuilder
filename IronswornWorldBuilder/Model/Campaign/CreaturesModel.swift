@@ -27,6 +27,8 @@ struct Creature: Codable, Hashable, Identifiable {
     var hiddenDescription = true
     var description = ""
     var mode = "Selection"
+    var oracle = Oracle.sharedOracle
+    var combatMode = false
     
     var environmentList = ["Space", "Interior", "Land", "Liquid", "Air", "Unknown"]
     func randomEnvironment() -> String {
@@ -94,7 +96,6 @@ struct Creature: Codable, Hashable, Identifiable {
     
     var formList = ["Amoeba / pseudopods", "Amorphous / elemental", "Avian / winged", "Beast / mammal", "Crustacean / shelled", "Fish / torpedo-shaped", "Humanoid / bipedal", "Insectoid / exoskeletal", "Jellyfish / gasbag", "Lizard / reptilian", "Octopoid / tentacled", "Plant / fungus", "Ray / flat-bodied", "Snake / eel", "Spider / web-weaver", "Starfish / symmetrical", "Worm / slug / larva"]
     func randomForm(environment: String) -> String {
-        
 
         var dictionary: [String: Int] = [:]
         

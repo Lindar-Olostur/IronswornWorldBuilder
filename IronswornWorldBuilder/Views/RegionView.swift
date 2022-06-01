@@ -46,7 +46,29 @@ struct RegionView: View {
                             }
                         }
                     }
-
+                    if region.factions != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Factions").font(.title)
+                            Spacer()
+                            Button {
+                                region.hiddenFactions.toggle()
+                            } label: {
+                                Image(systemName: region.hiddenFactions ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if region.hiddenFactions {
+                                ForEach($region.factions, id: \.id) { $faction in
+                                   NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                       Text(faction.name)
+                                   }
+                               }.onDelete { (indexSet) in
+                                   region.factions.remove(atOffsets: indexSet)
+                               }
+                            }
+                        }
+                    }
                     if region.description != "" {
                         Section(header:
                                     HStack {
@@ -77,6 +99,12 @@ struct RegionView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        Button {
+                            campaign.writeToFile()
+                            region.factions.append(Faction())
+                        } label: {
+                            Text("Add Faction")
+                        }
                         if region.description == "" {
                             Button {
                                 campaign.writeToFile()

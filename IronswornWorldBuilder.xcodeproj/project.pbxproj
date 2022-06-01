@@ -38,7 +38,12 @@
 		9DBF89B62836CAA3007961C2 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B52836CAA3007961C2 /* PersonModel.swift */; };
 		9DBF89BA283C04DD007961C2 /* DerelictModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B9283C04DD007961C2 /* DerelictModel.swift */; };
 		9DBF89BC283CFCB7007961C2 /* DerelictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89BB283CFCB7007961C2 /* DerelictView.swift */; };
-		9DBF89C3283D2106007961C2 /* Ironsworn-Starforged-Rulebook-PE-042721.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 9DBF89C2283D2106007961C2 /* Ironsworn-Starforged-Rulebook-PE-042721.pdf */; };
+		9DBF89C5283E0C4D007961C2 /* FactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89C4283E0C4D007961C2 /* FactionModel.swift */; };
+		9DBF89C7283E1EB5007961C2 /* FactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89C6283E1EB5007961C2 /* FactionView.swift */; };
+		9DE2426C2844D43C0050264B /* PrecursorVaultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */; };
+		9DE2426E2844F50F0050264B /* PrecursorVaultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE2426D2844F50F0050264B /* PrecursorVaultsView.swift */; };
+		9DE24270284762DC0050264B /* IronswornTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DE2426F28475C3C0050264B /* IronswornTemplate.json */; };
+		9DE242722847649B0050264B /* WorldTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DE24271284763F40050264B /* WorldTemplate.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,7 +79,12 @@
 		9DBF89B52836CAA3007961C2 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
 		9DBF89B9283C04DD007961C2 /* DerelictModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerelictModel.swift; sourceTree = "<group>"; };
 		9DBF89BB283CFCB7007961C2 /* DerelictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DerelictView.swift; sourceTree = "<group>"; };
-		9DBF89C2283D2106007961C2 /* Ironsworn-Starforged-Rulebook-PE-042721.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = "Ironsworn-Starforged-Rulebook-PE-042721.pdf"; path = "IronswornWorldBuilder/Model/Campaign/Ironsworn-Starforged-Rulebook-PE-042721.pdf"; sourceTree = SOURCE_ROOT; };
+		9DBF89C4283E0C4D007961C2 /* FactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactionModel.swift; sourceTree = "<group>"; };
+		9DBF89C6283E1EB5007961C2 /* FactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactionView.swift; sourceTree = "<group>"; };
+		9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecursorVaultsModel.swift; sourceTree = "<group>"; };
+		9DE2426D2844F50F0050264B /* PrecursorVaultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecursorVaultsView.swift; sourceTree = "<group>"; };
+		9DE2426F28475C3C0050264B /* IronswornTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = IronswornTemplate.json; sourceTree = "<group>"; };
+		9DE24271284763F40050264B /* WorldTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WorldTemplate.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +115,8 @@
 				9DBF89B12836C898007961C2 /* PersonView.swift */,
 				9D9D4158282AA1CD007E8C8C /* CreatureView.swift */,
 				9DBF89BB283CFCB7007961C2 /* DerelictView.swift */,
+				9DE2426D2844F50F0050264B /* PrecursorVaultsView.swift */,
+				9DBF89C6283E1EB5007961C2 /* FactionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -113,8 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				9D1344702822E80100D247DE /* StarforgedTemplate.json */,
-				9DBF89C2283D2106007961C2 /* Ironsworn-Starforged-Rulebook-PE-042721.pdf */,
+				9DE2426F28475C3C0050264B /* IronswornTemplate.json */,
 				9D1CB853282A9465007E0082 /* StarsTemplate.json */,
+				9DE24271284763F40050264B /* WorldTemplate.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -122,6 +135,7 @@
 		9D1344692822B5D700D247DE /* Campaign */ = {
 			isa = PBXGroup;
 			children = (
+				9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */,
 				9DBF89B9283C04DD007961C2 /* DerelictModel.swift */,
 				9D13446A2822B6D200D247DE /* CampaignModel.swift */,
 				9D1344672822B52F00D247DE /* CampaignClass.swift */,
@@ -130,6 +144,7 @@
 				9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */,
 				9D838C3F28172044005DC2ED /* LocationsModel.swift */,
 				9D838C3928171C65005DC2ED /* VehiclesModel.swift */,
+				9DBF89C4283E0C4D007961C2 /* FactionModel.swift */,
 				9DBF89B52836CAA3007961C2 /* PersonModel.swift */,
 				9D838C3D28171F77005DC2ED /* CreaturesModel.swift */,
 				9D1344642822781500D247DE /* Templates */,
@@ -241,10 +256,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9DE242722847649B0050264B /* WorldTemplate.json in Resources */,
+				9DE24270284762DC0050264B /* IronswornTemplate.json in Resources */,
 				9D1CB854282A994D007E0082 /* StarsTemplate.json in Resources */,
 				9D68A9852816EC8100A8AC15 /* Preview Assets.xcassets in Resources */,
 				9D1344712822E80100D247DE /* StarforgedTemplate.json in Resources */,
-				9DBF89C3283D2106007961C2 /* Ironsworn-Starforged-Rulebook-PE-042721.pdf in Resources */,
 				9D68A9822816EC8100A8AC15 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,11 +289,15 @@
 				9DA019CA282D736900923DFF /* PlanetModel.swift in Sources */,
 				9D1344682822B52F00D247DE /* CampaignClass.swift in Sources */,
 				9DBF89BA283C04DD007961C2 /* DerelictModel.swift in Sources */,
+				9DBF89C7283E1EB5007961C2 /* FactionView.swift in Sources */,
 				9D81E56128338421000622A8 /* YourTruthView.swift in Sources */,
+				9DE2426E2844F50F0050264B /* PrecursorVaultsView.swift in Sources */,
 				9D1344662822B49E00D247DE /* RegionView.swift in Sources */,
 				9D9D4155282AA1AF007E8C8C /* PlanetView.swift in Sources */,
 				9D9D4159282AA1CD007E8C8C /* CreatureView.swift in Sources */,
 				9D838C3E28171F77005DC2ED /* CreaturesModel.swift in Sources */,
+				9DBF89C5283E0C4D007961C2 /* FactionModel.swift in Sources */,
+				9DE2426C2844D43C0050264B /* PrecursorVaultsModel.swift in Sources */,
 				9D838C382817179D005DC2ED /* StellarObjModel.swift in Sources */,
 				9D838C4028172044005DC2ED /* LocationsModel.swift in Sources */,
 				9DBF89B42836C8F3007961C2 /* LocationView.swift in Sources */,

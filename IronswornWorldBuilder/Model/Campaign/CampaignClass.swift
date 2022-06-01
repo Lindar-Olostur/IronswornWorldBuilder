@@ -20,6 +20,31 @@ class Campaign: ObservableObject {
         UserDefaults.standard.set(world.name, forKey: "lastCampaign")
     }
     
+    func getIronsworn() {
+        world = newIronsworn()
+        UserDefaults.standard.set(world.name, forKey: "lastCampaign")
+    }
+    func newIronsworn<T: Decodable>() -> T {
+        let data: Data
+
+        guard let file = Bundle.main.url(forResource: "IronswornTemplate", withExtension: "json")
+        else {
+            fatalError("Couldn't find IronswornTemplate.json in main bundle.")
+        }
+
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load IronswornTemplate.json from main bundle:\n\(error)")
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            fatalError("Couldn't parse IronswornTemplate.json as \(T.self):\n\(error)")
+        }
+    }
     func newStarforged<T: Decodable>() -> T {
         let data: Data
 
@@ -46,7 +71,6 @@ class Campaign: ObservableObject {
         world = newStarSystem()
         UserDefaults.standard.set(world.name, forKey: "lastCampaign")
     }
-    
     func newStarSystem<T: Decodable>() -> T {
         let data: Data
 
@@ -66,6 +90,32 @@ class Campaign: ObservableObject {
             return try decoder.decode(T.self, from: data)
         } catch {
             fatalError("Couldn't parse StarsTemplate.json as \(T.self):\n\(error)")
+        }
+    }
+    
+    func getWorld() {
+        world = newWorld()
+        UserDefaults.standard.set(world.name, forKey: "lastCampaign")
+    }
+    func newWorld<T: Decodable>() -> T {
+        let data: Data
+
+        guard let file = Bundle.main.url(forResource: "WorldTemplate", withExtension: "json")
+        else {
+            fatalError("Couldn't find WorldTemplate.json in main bundle.")
+        }
+
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Couldn't load WorldTemplate.json from main bundle:\n\(error)")
+        }
+
+        do {
+            let decoder = JSONDecoder()
+            return try decoder.decode(T.self, from: data)
+        } catch {
+            fatalError("Couldn't parse WorldTemplate.json as \(T.self):\n\(error)")
         }
     }
     

@@ -1,0 +1,251 @@
+{
+  "subName" : "",
+  "type" : "IF",
+  "storyGenerator" : false,
+  "hiddenRegions" : true,
+  "hiddenDescription" : false,
+  "hiddenTruth" : false,
+  "hiddenFactions" : true,
+  "factions" : [],
+  "name" : "The Ironsworn",
+  "description" : "",
+  "regions" : [
+    {
+      "id" : "DBA3090B-B9EF-4307-8B15-EE12C938AA95",
+      "name" : "Ironlands",
+      "hiddenFactions" : true,
+      "factions" : [],
+      "hiddenSectors" : false,
+      "hiddenDescription" : false,
+      "description" : "The Ironlands is a vast peninsula in the northern ocean. The people who now refer to themselves as Ironlanders settled here two generations ago, cast out of their homelands by a catastrophic event. Since that time, they have survived but not prospered. The Ironlands are a harsh, dangerous place. The winters are long and brutal. Harvests are uncertain. Depending on the choices you make as you create your version of the Ironlands, monstrous beasts and dreaded horrors may be a constant threat.",
+      "sectors" : [
+          {
+            "id" : "8AF13D39-0542-4D67-9C31-4B28F1FDA781",
+            "name" : "Barrier Islands",
+            
+            "hiddenStellar" : true,
+            "hiddenPlanets" : true,
+            "hiddenSettlements" : true,
+            "hiddenLocations" : true,
+            "hiddenCreatures" : true,
+            "hiddenVehicles" : true,
+            "homeRegion" : "",
+            "stellarObjects" : [],
+            "planets" : [],
+            "settlements" : [],
+            "locations" : [],
+            "creatures" : [],
+            "vehicles" : [],
+            "hiddenVault" : true,
+            "vaults" : [],
+            
+            "mode" : "Input",
+            "travelMode" : false,
+            
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "This long string of islands parallels the Ragged Coast. They are beautiful, but imposing. The slate-gray cliffs rise dramatically out of the water, topped by treeless moors. Waterfalls, fed by persistent rains, plunge over these cliffs into the raging sea. The winds are fierce and ever-present. In the winter, sleet, snow, and ocean mist can cut visibility to the length of one’s arm.\nThe islands are sparsely populated by Ironlanders, mostly fisher-folk who brave the surrounding waters. Their settlements cling to narrow, rock-strewn shores or lie on high overlooks. At night, the dim lights of their fires and torches glimmer pitifully against the wild, storm-tossed sea.",
+          },
+          {
+            "id" : "9164F36F-5017-4C5D-B018-2B08D748EA23",
+            "name" : "Ragged Coast",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "This coast is marked by massive fjords. It is a rugged land of snow-capped cliffs overlooking blue waters.\nIronlander settlements are located at the head of the fjords in the shelter of narrow valleys. From there, both fisher-folk and raiders set sail. Their kin gather to see them off, laying wreaths of spruce in their wake.\nIn the center of each settlement, at the front of the longhouse, a stack of rune- marked river stones memorialize those who did not return—one stone for each of the lost.",
+          },
+          {
+            "id" : "8E0EE92F-E996-4330-977F-5C9AD86AF96F",
+            "name" : "Deep Wilds",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "The Deep Wilds are a vast swath of ancient forest. The ground is a lush carpet of ferns and lichens. The gnarled branches are cloaked in hanging moss. The air is almost perpetually misty and wet. Unlike the bordering regions, heavy snow is rare here. Instead, there is the ceaseless patter of rain dripping from high boughs and the rush of river over rock. The air carries the earthy smells of damp and decay.\nA few Ironlanders live along the fringes of the Deep Wilds, taking advantage of the relatively temperate climate and abundant game. However, most avoid this region. This is a land of the firstborn, of monstrous beasts, of horrors that defy description. This is the world before humans.",
+          },
+          {
+            "id" : "88AAFCB6-450B-42A7-AC97-625139A1B3BF",
+            "name" : "Flooded Lands",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "This is a low-lying region of bogs, swamps, lakes, and slow-moving rivers. Near the coast, the water is salty and riddled with dead trees. Further north, the morass of forested wetlands and bogs is interspersed with rare patches of higher ground. Through it all, twisting rivers make their sluggish journey to the sea. The smell of these lands is rotten and dank. It is the smell of slow death.\nA few hardy Ironlanders live here in small settlements built atop hillocks, or in homes standing on stilts over the wetlands. Most fish and forage, making their way among the waterways on flat-bottomed boats propelled by long poles. Some dig through peat for bog iron—a cold, wet, grueling task.\nTravel is precarious here. One step has you on solid ground. The next sends you plunging through a thin layer of peat into a murky bog. Then, bony hands reach out to you, grasping, pulling. “Stay with me,” a voice whispers. “Stay with me here in the dark.”",
+          },
+          {
+            "id" : "2A324A2B-6DEB-4737-B515-722849362592",
+            "name" : "Havens",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "This is an expansive region of forests, rivers, shrubland, and low hills. After an arduous journey, after untold losses, the first Ironlander settlers looked upon the Havens as a fresh start—a relative oasis in a fierce, uncaring land. It gave them hope.\nYears later, that hope is fading. Even within the Havens, there is little rest or safety. The winters are long. The harvests are never enough. Raiders strike without mercy. The thick woods, deep rivers and dark nights hold secrets and lurking horrors. Some say the Ironlands is a living thing, a malevolent spirit, intent on ridding itself of the human invaders. Slowly, season by season, year by year, it is succeeding.\nThe Ironlander settlements in this region typically stand on hills or at the confluence of rivers. The buildings are made of wood, or sometimes stone, with roofs covered in turf. The central homes and communal structures are protected by an outer palisade fashioned from earth and wood. Outside these walls, from spring through autumn, farmers work the meager fields. In winter, the settlements are smothered by deep snow and oppressive gray clouds.",
+          },
+          {
+            "id" : "BA1BB196-1120-4946-8DDF-CE741D97FBE3",
+            "name" : "Hinterlands",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "This high terrain consists of a long string of forested hills.\nIsolated Ironlander settlements in this region serve primarily as bases for hunters and trappers. A few farmers do the best they can with the rocky soil, but the people depend mostly on meat, mushrooms, berries, and other bounties from the forest to sustain them during the long winters.\nThose winters are bitter and harsh. Snow gathers as deep as an Ironlander is tall, or more. Hunters, cloaked in heavy furs, wear snowshoes to navigate across the rough terrain. At night, they make camp. They drink and tell stories. They try to ward away the encroaching darkness with a blazing fire. They cast nervous glances at sounds just beyond the light.\nIn the spring and summer, the melting snow feeds tumultuous rivers. The forests burst with rich life. But, always there is a chill in the air. Always there is a reminder of the coming winter.",
+          },
+          {
+            "id" : "C44F4CC7-CDAA-4C8D-933C-ADD0A3146B43",
+            "name" : "Tempest Hills",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "These highlands are defined by rugged hills and low mountains, thin conifer woods, and wide, grassy plateaus, leading up to the heights of the Veiled Mountains. Through most seasons, the constant ill-winds break against the sides of the hills, screeching and moaning. In the dead of winter, some say these winds carry the names of those fated to die during the long cold season.\nNomadic Ironlanders live among the hills, herding livestock. In the spring and summer they move among high pastures. In the winter, they find some relief from the brutal weather in sheltered valleys.\nOthers live in mining settlements, drawing iron ore from riverbeds and shallow digs. Their furnaces, sending up plumes of black smoke, convert the ore into wrought iron, which is sent south for trade with the Havens.",
+          },
+          {
+            "id" : "74D985CF-C860-465A-8D4D-091FA125152A",
+            "name" : "Veiled Mountains",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "Commonly referred to as the Veils, these great mountains mark the northern bounds of the settled lands. They are almost perpetually shrouded in cloud, snow, and mist. On the rare day they are visible to those Ironlanders far south in the Havens, the sight of the towering peaks is enough to inspire a mix of fear and awe.\nFor a few, that feeling is a call rather than a warning. The Ironlanders who dwell here are mostly members of small mining communities. They seek fortunes in iron or silver, but often find only death in the endless, brutal cold. Even those who manage to eke out some sort of life among the Veils are sure to head south before the onset of winter. Before the long dark takes hold.",
+          },
+          {
+            "id" : "1B344455-20E0-4007-B470-A7C91DA96B95",
+            "name" : "Shattered Wastes",
+            "hiddenFactions" : true,
+            "factions" : [],
+            "hiddenDescription" : false,
+            "description" : "To the north of the Veiled Mountains lies the Shattered Wastes, a plain of jagged, broken ice.\nNo one knows the bounds of this land or what lies beyond. No Ironlanders dwell here, and only a handful have explored the passage into the Wastes through the Veils. Those who survived the journey returned with stories of unimaginable cold and things moving beneath the ice.",
+          },
+      ],
+    },
+  ],
+  "truth" : [
+    {
+      "id" : "6C64B272-13F4-4720-8AD1-2B7762279F1B",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "The Old World",
+      "truth" : "The savage clans called the Skulde invaded the kingdoms of the Old World. Our armies fell. Most were killed or taken into slavery. Those who escaped set sail aboard anything that would float. After an arduous months-long voyage, the survivors made landfall upon the Ironlands.",
+      "options" : [
+          "The savage clans called the Skulde invaded the kingdoms of the Old World. Our armies fell. Most were killed or taken into slavery. Those who escaped set sail aboard anything that would float. After an arduous months-long voyage, the survivors made landfall upon the Ironlands.",
+          "The sickness moved like a horrible wave across the Old World, killing all in its path. Thousands fled aboard ships. However, the plague could not be outrun. On many ships, the disease was contained through ruthless measures—tossing overboard any who exhibited the slightest symptom. Other ships were forever lost. In the end, those who survived found the Ironlands and made it their new home. Some say we will forever be cursed by those we left behind.",
+          "The Old World could no longer sustain us. We were too large in number. We had felled the forests. Our crops withered in the barren ground. The cities and villages overflowed with desperate, hungry people. Petty kings battled for scraps. We cast our fate to the sea and found the Ironlands. A new world. A fresh start."
+      ],
+    },
+    {
+      "id" : "D96529A0-7215-4CAC-A34F-0F0A948E8570",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Iron",
+      "truth" : "The imposing hills and mountains of the Ironlands are rich in iron ore. Most prized of all is the star-forged black iron.",
+      "options" : [
+          "The imposing hills and mountains of the Ironlands are rich in iron ore. Most prized of all is the star-forged black iron.",
+          "The weather is bleak. Rain and wind sweep in from the ocean. The winters are long and bitter. One of the first settlers complained, “Only those made of iron dare live in this foul place”—and thus our land was named.",
+          "Inscrutable metal pillars are found throughout the land. They are iron gray, and smooth as river stone. No one knows their purpose. Some say they are as old as the world. Some, such as the Iron Priests, worship them and swear vows upon them. Most make the warding sign and hurry along their way when they happen across one. The pillars do not tarnish, and even the sharpest blade cannot mark them."
+      ],
+    },
+    {
+      "id" : "04DB9BB8-1A10-4A72-8989-E6F35D910DD9",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Legacies",
+      "truth" : "We are the first humans to walk these lands.",
+      "options" : [
+          "We are the first humans to walk these lands.",
+          "Other humans sailed here from the Old World untold years ago, but all that is left of them is a savage, feral people we call the broken. Is their fate to become our own?",
+          "Before the Ironlanders, before even the firstborn, another people lived here. Their ancient ruins are found throughout the Ironlands."
+      ],
+    },
+    {
+      "id" : "39AD87AA-5051-4CD0-9098-06A2F08FC6C0",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Communities",
+      "truth" : "We are few in number in this accursed land. Most rarely have contact with anyone outside our own small steading or village, and strangers are viewed with deep suspicion.",
+      "options" : [
+          "We are few in number in this accursed land. Most rarely have contact with anyone outside our own small steading or village, and strangers are viewed with deep suspicion.",
+          "We live in communities called circles. These are settlements ranging in size from a steading with a few families to a village of several hundred. Some circles belong to nomadic folk. Some powerful circles might include a cluster of settlements. We trade (and sometimes feud) with other circles.",
+          "We have forged the Ironlands into a home. Villages within the Havens are connected by well-trod roads. Trade caravans travel between settlements in the Havens and those in outlying regions. Even so, much of this land is untamed."
+      ],
+    },
+    {
+      "id" : "6990093B-6A66-4752-B73B-1F323C4973B3",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Leaders",
+      "truth" : "Leadership is as varied as the people. Some communities are governed by the head of a powerful family. Or, they have a council of elders who make decisions and settle disputes. In others, the priests hold sway. For some, it is duels in the circle that decide.",
+      "options" : [
+          "Leadership is as varied as the people. Some communities are governed by the head of a powerful family. Or, they have a council of elders who make decisions and settle disputes. In others, the priests hold sway. For some, it is duels in the circle that decide.",
+          "Each of our communities has its own leader, called an overseer. Every seventh spring, the people affirm their current overseer or choose a new one. Some overseers wear the iron circlet reluctantly, while others thirst for power and gain it through schemes or threats.",
+          "Numerous clan-chiefs rule over petty domains. Most are intent on becoming the one true king. Their squabbles will be our undoing."
+      ],
+    },
+    {
+      "id" : "1741C2CE-EB0A-40D2-8252-1A19CAC04312",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Defense",
+      "truth" : "Here in the Ironlands, supplies are too precious, and the lands are too sparsely populated, to support organized fighting forces. When a community is threatened, the people stand together to protect their own.",
+      "options" : [
+          "Here in the Ironlands, supplies are too precious, and the lands are too sparsely populated, to support organized fighting forces. When a community is threatened, the people stand together to protect their own.",
+          "The wardens are our soldiers, guards, and militia. They serve their communities by standing sentry, patrolling surrounding lands, and organizing defenses in times of crisis. Most have strong ties to their community. Others, called free wardens, are wandering mercenaries who hire on to serve a community or protect caravans.",
+          "Our warbands are rallied to strike at our enemies or defend our holdings. Though not nearly as impressive as the armies that once marched across the Old World, these forces are as well-trained and equipped as their communities can manage. The banners of the warbands are adorned with depictions of their Old World history and Ironland victories."
+      ],
+    },
+    {
+      "id" : "7A74C47C-B90C-43BF-A8F0-5B49A2CA5B15",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Mysticism",
+      "truth" : "Some still find comfort in the old ways. They call on mystics to divine the fortune of their newborn, or ask them to perform rituals to invoke a bountiful harvest. Others act out of fear against those who they suspect of having power. However, most folk believe true magic—if it ever existed— is lost to us now.",
+      "options" : [
+          "Some still find comfort in the old ways. They call on mystics to divine the fortune of their newborn, or ask them to perform rituals to invoke a bountiful harvest. Others act out of fear against those who they suspect of having power. However, most folk believe true magic—if it ever existed— is lost to us now.",
+          "Magic is rare and dangerous, but those few who wield the power are truly gifted.",
+          "Magic courses through this land as the rivers flow through the hills. The power is there for those who choose to harness it, and even the common folk often know a helpful ritual or two."
+      ],
+    },
+    {
+      "id" : "F51DADAA-52A6-4675-A42C-E0855BF89D16",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Religion",
+      "truth" : "A few Ironlanders still make signs or mumble prayers out of habit or tradition, but most believe the gods long ago abandoned us.",
+      "options" : [
+          "A few Ironlanders still make signs or mumble prayers out of habit or tradition, but most believe the gods long ago abandoned us.",
+          "The people honor old gods and new. In this harsh land, a prayer is a simple but powerful comfort.",
+          "Our gods are many. They make themselves known through manifestations and miracles. Some say they even secretly walk among us. The priests convey the will of the gods and hold sway over many communities."
+      ],
+    },
+    {
+      "id" : "5AC1AC47-53D1-4529-A08C-C69B2AF4CCFF",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Firstborn",
+      "truth" : "The firstborn have passed into legend. Some say the remnants of the old tribes still dwell in deep forests or high mountains. Most believe they were never anything more than myth.",
+      "options" : [
+          "The firstborn have passed into legend. Some say the remnants of the old tribes still dwell in deep forests or high mountains. Most believe they were never anything more than myth.",
+          "The firstborn live in isolation and are fiercely protective of their own lands.",
+          "The firstborn hold sway in the Ironlands. The elves of the deep forests and the giants of the hills tolerate us and even trade with us—for now. Ironlanders fear the day they decide we are no longer welcome here."
+      ],
+    },
+    {
+      "id" : "A7EA50C8-5C29-4041-A841-8023B720D62E",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Beasts",
+      "truth" : "The beasts of old are nothing but legend. A few who travel into the deep forests and high mountains return with wild tales of monstrous creatures, but they are obviously delusional. No such things exist.",
+      "options" : [
+          "The beasts of old are nothing but legend. A few who travel into the deep forests and high mountains return with wild tales of monstrous creatures, but they are obviously delusional. No such things exist.",
+          "Monstrous beasts stalk the wild areas of the Ironlands.",
+          "Beasts of all sorts roam the Ironlands. They dwell primarily in the reaches, but range into the settled lands to hunt. There, they often prey on cattle, but attacks on travelers, caravans, or even settlements are not uncommon."
+      ],
+    },
+    {
+      "id" : "FABB3EA7-43C2-48CC-98CE-5928973C92F8",
+      "mode" : "Selection",
+      "current" : 0,
+      "title" : "Horrors",
+      "truth" : "Nothing but stories to frighten children.",
+      "options" : [
+          "Nothing but stories to frighten children.",
+          "We are wary of dark forests and deep waterways, for monsters lurk in those places. In the depths of the long-night, when all is wreathed in darkness, only fools venture beyond their homes.",
+          "The dead do not rest in the Ironlands. At night we light torches, scatter salt, and post sentries at the gate. It is not enough. They are coming."
+      ],
+    },
+  ],
+}

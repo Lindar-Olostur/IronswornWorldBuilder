@@ -24,6 +24,7 @@ struct Person: Codable, Hashable, Identifiable {
     var hiddenAspect = true
     var revealdAspect: [StringContainer] = []
     var mode = "Input"
+    var combatMode = false
     var oracle = Oracle.sharedOracle
     
     var firstLookList = ["Accented", "Energetic", "Shifty", "Accompanied", "Flashy", "Sickly", "Adorned", "Graceful", "Slight", "Aged", "Grim", "Swaggering", "Alluring", "Haggard", "Tattooed", "Armed", "Illequipped", "Threatened", "Armored", "Imposing", "Uncanny", "Athletic", "Large", "Visibly disabled", "Attractive", "Mutated", "Weathered", "Augmented", "Plain", "Wellequipped", "Concealed", "Poised", "Wiry", "Distracted", "Scarred", "Wounded", "Eccentric", "Scruffy", "Youthful"]

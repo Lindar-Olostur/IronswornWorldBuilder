@@ -11,7 +11,7 @@ struct DerelictView: View {
     @Binding var derelict: Derelict
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
-    var themeList: [String] = []
+    @State private var displayText = ""
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,7 +27,150 @@ struct DerelictView: View {
                 }
             }
             
+            //TRAVEL BUTTONS
+            if derelict.travelMode {
+                VStack {
+                    VStack {
+                        if derelict.mode == "Generation" {
+                            HStack {
+                                Spacer()
+                                Text("Zone: \(derelict.currentZone)")
+                                    .font(.system(size: 30))
+                                    .focused($fieldIsFocused)
+                                Spacer()
+                                Button {
+                                    derelict.currentZone = derelict.randomZone(type: derelict.type)
+                                    derelict.currentArea = randomArea(zone: derelict.currentZone)
+                                } label: {
+                                    Image(systemName: "dice").font(.system(size: 20))
+                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                
+                            }.padding(.horizontal)
+                        }
+                        if derelict.mode == "Selection" {
+                            Menu {
+                                Picker(selection: $derelict.currentZone) {
+                                    ForEach(derelict.currentZoneList, id: \.self) { value in
+                                        Text(value)
+                                            .tag(value)
+                                            
+                                    }
+                                } label: {}
+                            } label: {
+                                Text("Zone: \(derelict.currentZone)")
+                                    .font(.system(size: 30))
+                            }
+                        }
+                    }
+                    .padding(.vertical, 7)
+                    VStack {
+                        if derelict.mode == "Generation" {
+                            HStack {
+                                Spacer()
+                                Text("Area: \(derelict.currentArea)")
+                                    .font(.system(size: 20))
+                                    .focused($fieldIsFocused)
+                                Spacer()
+                                Button {
+                                    derelict.currentArea = randomArea(zone: derelict.currentZone)
+                                } label: {
+                                    Image(systemName: "dice").font(.system(size: 20))
+                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                
+                            }.padding(.horizontal)
+                        }
+                        if derelict.mode == "Selection" {
+                            Menu {
+                                Picker(selection: $derelict.currentArea) {
+                                    ForEach(derelict.areaList, id: \.self) { value in
+                                        Text(value)
+                                            .tag(value)
+                                            
+                                    }
+                                } label: {}
+                            } label: {
+                                Text("Zone: \(derelict.currentArea)")
+                                    .font(.system(size: 20))
+                            }
+                        }
+                    }
+                    .padding(.bottom, 17)
+                    HStack(spacing: 15) {
+                        Button {
+                            displayText = "Feature: \(randomFeature(zone: derelict.currentZone))"
+                        } label: {
+                            Text("Derelict\n Feature")
+                                .foregroundColor(.black)
+                                .frame(width: 100)
+                        }
+                        .buttonStyle(BorderedButtonStyle())
+                        Button {
+                            displayText = "Peril: \(randomPeril(zone: derelict.currentZone))"
+                        } label: {
+                            Text("Derelict\n Peril")
+                                .frame(width: 100)
+                                .foregroundColor(.red)
+                        }
+                        .buttonStyle(BorderedButtonStyle())
+                        Button {
+                            displayText = "Opportunity: \(randomOpportunity(zone: derelict.currentZone))"
+                        } label: {
+                            Text("Derelict\n Opportunity")
+                                .frame(width: 100)
+                        }
+                        .buttonStyle(BorderedButtonStyle())
+                    }
+                    ZStack(alignment: .center) {
+                        Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 0.6))
+                            .frame(maxWidth: .infinity)
+                            //.border(.gray, width: 2.5).opacity(0.5)
+                                VStack(alignment: .leading) {
+                                    Text(displayText)
+                                        .padding(.vertical, 7)
+                                        .multilineTextAlignment(.center)
+                                }
+                            }
+                    .padding(.top, 5)
+                    .frame(minHeight: 40)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            
             List {
+                //RANK
+                Section(header:
+                            HStack {
+                            Text("Rank").font(.title)
+                    Spacer()
+                    Button {
+                        derelict.hiddenRank.toggle()
+                    } label: {
+                        Image(systemName: derelict.hiddenRank ? "chevron.down" : "chevron.right")
+                    }
+                }
+                ) {
+                    if derelict.hiddenRank {
+                        if derelict.mode == "Generation" {
+                            HStack {
+                                Text(derelict.rank).focused($fieldIsFocused)
+                                Spacer()
+                                Button {
+                                    derelict.rank = Rank.allCases.randomElement()!.rawValue
+                                } label: {
+                                    Image(systemName: "dice").font(.system(size: 20))
+                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                            }
+                        }
+                        if derelict.mode == "Selection" || derelict.mode == "Input" {
+                            Picker(selection: $derelict.rank, label: EmptyView()) {
+                                ForEach(Rank.allCases, id: \.self) { value in
+                                    Text(value.rawValue).font(.system(size: 50))
+                                        .tag(value)
+                                }
+                            }.pickerStyle(.menu)
+                        }
+                    }
+                }
                 //LOCATION
                 if derelict.location != "" {
                     Section(header:
@@ -235,45 +378,69 @@ struct DerelictView: View {
                         }
                     }
                 }
+                //WAYPOINTS
+                if derelict.waypoints != [] {
+                    Section(header:
+                                HStack {
+                        Text("Waypoints").font(.title)
+                        Spacer()
+                        Button {
+                            derelict.hiddenWaypoints.toggle()
+                        } label: {
+                            Image(systemName: derelict.hiddenWaypoints ? "chevron.down" : "chevron.right")
+                        }
+                    }
+                    ) {
+                        if derelict.hiddenWaypoints {
+                            ForEach($derelict.waypoints, id: \.id) { $point in
+                                NavigationLink(destination: DerelictView(derelict: $point, campaign: Campaign())) {
+                                    Text("\(point.name)")
+                                }
+                            }.onDelete { (indexSet) in
+                                derelict.waypoints.remove(atOffsets: indexSet)
+                            }
+                        }
+                    }
+                }
                 //THEMES
-                if derelict.theme != [] {
+                if derelict.themes != [] {
                     Section(header:
                                 HStack {
                         Text("Themes").font(.title)
                         Spacer()
                         Button {
-                            derelict.hiddenTheme.toggle()
+                            derelict.hiddenThemes.toggle()
                         } label: {
-                            Image(systemName: derelict.hiddenTheme ? "chevron.down" : "chevron.right")
+                            Image(systemName: derelict.hiddenThemes ? "chevron.down" : "chevron.right")
                         }
                     }
                     ) {
-                        if derelict.hiddenTheme {
+                        if derelict.hiddenThemes {
                             if derelict.mode == "Generation" {
-                                ForEach($derelict.theme) { $theme in
+                                ForEach($derelict.themes) { $theme in
                                     HStack {
                                         Text(theme.name).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            theme.name = Theme.allCases.randomElement()!.rawValue
+                                            theme.name = derelict.oracle.randomTheme()
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
                                     }
                                 }.onDelete { (indexSet) in
-                                    derelict.theme.remove(atOffsets: indexSet)
+                                    derelict.themes.remove(atOffsets: indexSet)
                                 }
                             }
                             if derelict.mode == "Selection" || derelict.mode == "Input" {
-                                ForEach($derelict.theme) { $theme in
+                                ForEach($derelict.themes) { $theme in
                                     Picker(selection: $theme.name, label: EmptyView()) {
-                                        ForEach(themeList, id: \.self) { value in
+                                        ForEach(derelict.oracle.themeList, id: \.self) { value in
                                             Text(value).font(.system(size: 50))
                                                 .tag(value)
                                         }
                                     }.pickerStyle(.menu)
                                 }.onDelete { (indexSet) in
-                                    derelict.theme.remove(atOffsets: indexSet)
+                                    derelict.themes.remove(atOffsets: indexSet)
                                 }
                             }
                         }
@@ -332,6 +499,9 @@ struct DerelictView: View {
             }
             ToolbarItem(placement: .destructiveAction) {
                 Menu {
+                    Toggle(isOn: $derelict.travelMode) {
+                        Text("Travel Mode")
+                    }
                     Menu {
                         if derelict.mode != "Input" {
                             Button {
@@ -406,7 +576,13 @@ struct DerelictView: View {
                         }
                         Button {
                             campaign.writeToFile()
-                            derelict.theme.insert(StringContainer(name: "None"), at: 0)
+                            derelict.waypoints.insert(Derelict(isChild: true, location: derelict.location, type: derelict.type, name: "\(derelict.currentArea) of \(derelict.currentZone) Zone", rank: derelict.rank, themes: derelict.themes, currentZone: derelict.currentZone, currentArea: derelict.currentArea, areaList: derelict.areaList), at: 0)
+                        } label: {
+                            Text("New Waypoint")
+                        }
+                        Button {
+                            campaign.writeToFile()
+                            derelict.themes.insert(StringContainer(name: "None"), at: 0)
                         } label: {
                             Text("New Theme")
                         }
@@ -453,12 +629,251 @@ struct DerelictView: View {
         derelict.innerFirstLook[0].name = derelict.randomInnerFirstLook()
     }
     
-    func getThemes() -> [String] {
-        var list = ["None"]
-        for i in Theme.allCases {
-            list.append(i.rawValue)
+    func randomArea(zone: String) -> String {
+        var area = ""
+        
+        switch zone {
+        case "Access" :
+            area = Derelict.randomAccessArea()
+        case "Community" :
+            area = derelict.randomCommunityArea()
+        case "Engineering" :
+            area = derelict.randomEngineeringArea()
+        case "Living" :
+            area = derelict.randomLivingArea()
+        case "Medical" :
+            area = derelict.randomMedicalArea()
+        case "Operations" :
+            area = derelict.randomOperationsArea()
+        case "Production" :
+            area = derelict.randomProductionArea()
+        case "Research" :
+            area = derelict.randomResearchArea()
+        default:
+            area = "ERROR"
         }
-        return list
+        return area
+    }
+    func randomFeature(zone: String) -> String {
+        let zoneFeature = getZoneFeature(zone: zone)
+        let themeFeature = getThemesFeature()
+
+        func getZoneFeature(zone: String) -> String {
+            var featureList: [String] = []
+            switch zone {
+            case "Access" :
+                featureList.insert(derelict.randomAccessFeature(), at: 0)
+            case "Community" :
+                featureList.insert(derelict.randomResearchFeature(), at: 0)
+            case "Engineering" :
+                featureList.insert(derelict.randomEngineeringFeature(), at: 0)
+            case "Living" :
+                featureList.insert(derelict.randomLivingFeature(), at: 0)
+            case "Medical" :
+                featureList.insert(derelict.randomMedicalFeature(), at: 0)
+            case "Operations" :
+                featureList.insert(derelict.randomOperationsFeature(), at: 0)
+            case "Production" :
+                featureList.insert(derelict.randomProductionFeature(), at: 0)
+            case "Research" :
+                featureList.insert(derelict.randomResearchFeature(), at: 0)
+            default:
+                featureList.insert("", at: 0)
+            }
+            var answer = featureList.shuffled()
+            return answer.popLast() ?? "error"
+        }
+        func getThemesFeature() -> String {
+            var featureList: [String] = []
+            if derelict.themes.count != 0 {
+                for theme in derelict.themes {
+                    switch theme.name {
+                    case "Chaotic" :
+                        featureList.insert(derelict.oracle.chaoticThemeFeatureSF(), at: 0)
+                    case "Fortified" :
+                        featureList.insert(derelict.oracle.fortifiedThemeFeatureSF(), at: 0)
+                    case "Haunted" :
+                        featureList.insert(derelict.oracle.hauntedThemeFeatureSF(), at: 0)
+                    case "Infested" :
+                        featureList.insert(derelict.oracle.infestedThemeFeatureSF(), at: 0)
+                    case "Inhabited" :
+                        featureList.insert(derelict.oracle.inhabitedThemeFeatureSF(), at: 0)
+                    case "Mechanical" :
+                        featureList.insert(derelict.oracle.mechanicalThemeFeatureSF(), at: 0)
+                    case "Ruined" :
+                        featureList.insert(derelict.oracle.ruinedThemeFeatureSF(), at: 0)
+                    case "Sacred" :
+                        featureList.insert(derelict.oracle.sacredThemeFeatureSF(), at: 0)
+                    default:
+                        featureList.insert("", at: 0)
+                    }
+                }
+            }
+            var answer = featureList.shuffled()
+            return answer.popLast() ?? "error"
+        }
+        
+        var pool: [String] = []
+
+        for _ in 1...3 {
+            pool.append(zoneFeature)
+        }
+
+        if derelict.themes != [] {
+            for _ in 1...3 {
+                pool.append(themeFeature)
+            }
+        }
+
+        var answer = pool.shuffled()
+
+        return answer.popLast() ?? "error"
+    }
+    func randomPeril(zone: String) -> String {
+        let zonePeril = getZonePeril(zone: zone)
+        let themePril = getThemesPeril()
+        let thePrice = derelict.oracle.payThePrice()
+        func getThemesPeril() -> String {
+            var perilList: [String] = []
+            if derelict.themes.count != 0 {
+                for theme in derelict.themes {
+                    switch theme.name {
+                    case "Chaotic" :
+                        perilList.insert(derelict.oracle.chaoticThemePerilSF(), at: 0)
+                    case "Fortified" :
+                        perilList.insert(derelict.oracle.fortifiedThemePerilSF(), at: 0)
+                    case "Haunted" :
+                        perilList.insert(derelict.oracle.hauntedThemePerilSF(), at: 0)
+                    case "Infested" :
+                        perilList.insert(derelict.oracle.infestedThemePerilSF(), at: 0)
+                    case "Inhabited" :
+                        perilList.insert(derelict.oracle.inhabitedThemePerilSF(), at: 0)
+                    case "Mechanical" :
+                        perilList.insert(derelict.oracle.mechanicalThemePerilSF(), at: 0)
+                    case "Ruined" :
+                        perilList.insert(derelict.oracle.ruinedThemePerilSF(), at: 0)
+                    case "Sacred" :
+                        perilList.insert(derelict.oracle.sacredThemePerilSF(), at: 0)
+                    default:
+                        perilList.insert(derelict.randomAccessPeril(), at: 0)
+                    }
+                }
+            }
+            var answer = perilList.shuffled()
+            return answer.popLast() ?? "error"
+        }
+        func getZonePeril(zone: String) -> String {
+            var peril = ""
+            switch zone {
+            case "Access" :
+                peril = derelict.randomAccessPeril()
+            case "Community" :
+                peril = derelict.randomCommunityPeril()
+            case "Engineering" :
+                peril = derelict.randomEngineeringPeril()
+            case "Living" :
+                peril = derelict.randomLivingPeril()
+            case "Medical" :
+                peril = derelict.randomMedicalPeril()
+            case "Operations" :
+                peril = derelict.randomOperationsPeril()
+            case "Production" :
+                peril = derelict.randomProductionPeril()
+            case "Research" :
+                peril = derelict.randomResearchPeril()
+            default:
+                peril = "ERROR"
+            }
+            return peril
+        }
+        
+        var pool: [String] = []
+
+        for _ in 1...3 {
+            pool.append(zonePeril)
+        }
+        pool.append(thePrice)
+        if derelict.themes != [] {
+            for _ in 1...3 {
+                pool.append(themePril)
+            }
+        }
+
+        var answer = pool.shuffled()
+
+        return answer.popLast() ?? "error"
+    }
+    func randomOpportunity(zone: String) -> String {
+        let zoneOpportunity = getZoneOpportunity(zone: zone)
+        let themeOpportunity = getThemesOpportunity()
+        func getThemesOpportunity() -> String {
+            var opportunityList: [String] = []
+            if derelict.themes.count != 0 {
+                for theme in derelict.themes {
+                    switch theme.name {
+                    case "Chaotic" :
+                        opportunityList.insert(derelict.oracle.chaoticThemeOpportunitySF(), at: 0)
+                    case "Fortified" :
+                        opportunityList.insert(derelict.oracle.fortifiedThemeOpportunitySF(), at: 0)
+                    case "Haunted" :
+                        opportunityList.insert(derelict.oracle.hauntedThemeOpportunitySF(), at: 0)
+                    case "Infested" :
+                        opportunityList.insert(derelict.oracle.infestedThemeOpportunitySF(), at: 0)
+                    case "Inhabited" :
+                        opportunityList.insert(derelict.oracle.inhabitedThemeOpportunitySF(), at: 0)
+                    case "Mechanical" :
+                        opportunityList.insert(derelict.oracle.mechanicalThemeOpportunitySF(), at: 0)
+                    case "Ruined" :
+                        opportunityList.insert(derelict.oracle.ruinedThemeOpportunitySF(), at: 0)
+                    case "Sacred" :
+                        opportunityList.insert(derelict.oracle.sacredThemeOpportunitySF(), at: 0)
+                    default:
+                        opportunityList.insert(derelict.randomAccessOpportunity(), at: 0)
+                    }
+                }
+            }
+            var answer = opportunityList.shuffled()
+            return answer.popLast() ?? "error"
+        }
+        func getZoneOpportunity(zone: String) -> String {
+            var opportunity = ""
+            switch zone {
+            case "Access" :
+                opportunity = derelict.randomAccessOpportunity()
+            case "Community" :
+                opportunity = derelict.randomCommunityOpportunity()
+            case "Engineering" :
+                opportunity = derelict.randomEngineeringOpportunity()
+            case "Living" :
+                opportunity = derelict.randomLivingOpportunity()
+            case "Medical" :
+                opportunity = derelict.randomMedicalOpportunity()
+            case "Operations" :
+                opportunity = derelict.randomOperationsOpportunity()
+            case "Production" :
+                opportunity = derelict.randomProductionOpportunity()
+            case "Research" :
+                opportunity = derelict.randomResearchOpportunity()
+            default:
+                opportunity = "ERROR"
+            }
+            return opportunity
+        }
+        var pool: [String] = []
+
+        for _ in 1...3 {
+            pool.append(zoneOpportunity)
+        }
+        //pool.append(thePrice)
+        if derelict.themes != [] {
+            for _ in 1...3 {
+                pool.append(themeOpportunity)
+            }
+        }
+
+        var answer = pool.shuffled()
+
+        return answer.popLast() ?? "error"
     }
 }
 

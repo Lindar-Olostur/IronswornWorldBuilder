@@ -13,6 +13,7 @@ struct RootView: View {
     @State private var openedLoadView = false
     @State private var isShowingRegionView = false
     @FocusState private var fieldIsFocused: Bool
+    @State private var displayText = ""
     
     init() {
             UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.clear]
@@ -30,6 +31,36 @@ struct RootView: View {
                         .multilineTextAlignment(.center)
                         .focused($fieldIsFocused)
                 }
+                //STORY BUTTONS
+                if campaign.world.storyGenerator {
+                    VStack {
+                        HStack(spacing: 15) {
+                            Button {
+                                displayText = randomStory()
+                            } label: {
+                                Text("Generate Story")
+                                    .foregroundColor(.black)
+                            }
+                            .buttonStyle(BorderedButtonStyle())
+                            
+                        }
+                        ZStack(alignment: .center) {
+                            Color(#colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 0.6))
+                                .frame(maxWidth: .infinity)
+                                //.border(.gray, width: 2.5).opacity(0.5)
+                                    VStack(alignment: .leading) {
+                                        Text(displayText)
+                                            .padding(.vertical, 7)
+                                            .padding(.horizontal, 7)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                }
+                        .padding(.top, 5)
+                        .frame(minHeight: 40)
+                        .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                
                 List {
                     // REGIONS
                     if campaign.world.regions != [] {
@@ -55,7 +86,30 @@ struct RootView: View {
                             }
                         }
                     }
-                    
+                    // FACTIONS
+                    if campaign.world.factions != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Factions").font(.title)
+                            Spacer()
+                            Button {
+                                campaign.world.hiddenFactions.toggle()
+                            } label: {
+                                Image(systemName: campaign.world.hiddenFactions ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if campaign.world.hiddenFactions {
+                                ForEach($campaign.world.factions, id: \.id) { $faction in
+                                   NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                       Text(faction.name)
+                                   }
+                               }.onDelete { (indexSet) in
+                                   campaign.world.factions.remove(atOffsets: indexSet)
+                               }
+                            }
+                        }
+                    }
                     // DESCRIPTION
                     if campaign.world.description != "" {
                         Section(header:
@@ -132,19 +186,21 @@ struct RootView: View {
                             campaign.getStarSystem()
                         } label: {
                             Text("New Custom Star System")
-                        }.disabled(true)
+                        }
                         
                         Button {
-                            //
+                            campaign.writeToFile()
+                            campaign.getIronsworn()
                         } label: {
                             Text("New Ironsworn Campaign")
-                        }.disabled(true)
+                        }
                         
                         Button {
-                            //
+                            campaign.writeToFile()
+                            campaign.getWorld()
                         } label: {
                             Text("New Custom World")
-                        }.disabled(true)
+                        }
                         
                     } label: {
                         Image(systemName: "line.3.horizontal")
@@ -186,12 +242,20 @@ struct RootView: View {
                                 Text("Add Description")
                             }
                         }
-                        
+                        Toggle(isOn: $campaign.world.storyGenerator) {
+                            Text("Story Generator")
+                        }
                         Button {
                             campaign.writeToFile()
                             campaign.world.regions.append(Region(name: "New Region"))
                         } label: {
                             Text("Add Region")
+                        }
+                        Button {
+                            campaign.writeToFile()
+                            campaign.world.factions.append(Faction())
+                        } label: {
+                            Text("Add Faction")
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -215,6 +279,19 @@ struct RootView: View {
                 campaign.writeToFile()
             }
         }
+    }
+    func randomStory() -> String {
+        let action = Oracle.action(Oracle())
+        let theme = Oracle.theme(Oracle())
+        let description = Oracle.description(Oracle())
+        let focus = Oracle.focus(Oracle())
+        let sector = Sector.randomSectorName(Sector())
+        let enemyName = Person.randomName(Person())
+        let role = Person.randomRole(Person())
+        let goal = Person.randomGoal(Person())
+        
+        let story = "I swear to \(action()) a \(theme()) of a \(description()) \(focus()) located in \(sector()). I am opposed by \(enemyName()), a \(role()) who wants to \(goal())."
+        return story
     }
 }
 

@@ -21,6 +21,9 @@ struct World: Codable {
     var hiddenTruth = true
     var regions: [Region] = []
     var truth: [YourTruth] = []
+    var hiddenFactions = true
+    var factions: [Faction] = []
+    var storyGenerator = false
 }
 
 struct Region: Codable, Hashable, Identifiable {
@@ -30,6 +33,8 @@ struct Region: Codable, Hashable, Identifiable {
     var hiddenDescription = true
     var description: String = ""
     var sectors: [Sector] = []
+    var hiddenFactions = true
+    var factions: [Faction] = []
 }
 
 struct Sector: Codable, Hashable, Identifiable {
@@ -50,6 +55,10 @@ struct Sector: Codable, Hashable, Identifiable {
     var locations: [Location] = []
     var creatures: [Creature] = []
     var vehicles: [Starship] = []
+    var hiddenFactions = true
+    var factions: [Faction] = []
+    var hiddenVault = true
+    var vaults: [PrecursorVaults] = []
     
     var oracle = Oracle.sharedOracle
     var mode = "Input"
@@ -473,3 +482,5 @@ struct YourTruth: Codable, Hashable, Identifiable {
         }
     }
 }
+
+

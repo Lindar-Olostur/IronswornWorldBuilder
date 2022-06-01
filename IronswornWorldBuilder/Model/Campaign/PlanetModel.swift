@@ -61,6 +61,10 @@ struct Planet: Codable, Hashable, Identifiable {
     var biomes: [StringContainer] = []
     var hiddenRoutes = true
     var routes: [Route] = []
+    var hiddenFactions = true
+    var factions: [Faction] = []
+    var hiddenVault = true
+    var vaults: [PrecursorVaults] = []
     
     var oracle = Oracle.sharedOracle
     var mode = "Input"

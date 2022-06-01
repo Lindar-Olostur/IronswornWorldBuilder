@@ -76,6 +76,31 @@ struct StellarObjectView: View {
                         }
                     }
                     
+                    //FACTIONS
+                    if stellarObject.factions != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Factions").font(.title)
+                            Spacer()
+                            Button {
+                                stellarObject.hiddenFactions.toggle()
+                            } label: {
+                                Image(systemName: stellarObject.hiddenFactions ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if stellarObject.hiddenFactions {
+                                ForEach($stellarObject.factions, id: \.id) { $faction in
+                                   NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                       Text(faction.name)
+                                   }
+                               }.onDelete { (indexSet) in
+                                   stellarObject.factions.remove(atOffsets: indexSet)
+                               }
+                            }
+                        }
+                    }
+                    
                     //SETTLEMENTS
                     if stellarObject.settlements != [] {
                         Section(header:
@@ -96,6 +121,31 @@ struct StellarObjectView: View {
                                     }
                                 }.onDelete { (indexSet) in
                                     stellarObject.settlements.remove(atOffsets: indexSet)
+                                }
+                            }
+                        }
+                    }
+                    
+                    //PRECURSOR VAULT
+                    if stellarObject.vaults != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Precursor Vaults").font(.title)
+                            Spacer()
+                            Button {
+                                stellarObject.hiddenVault.toggle()
+                            } label: {
+                                Image(systemName: stellarObject.hiddenVault ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if stellarObject.hiddenVault {
+                                ForEach($stellarObject.vaults, id: \.id) { $vault in
+                                    NavigationLink(destination: PrecursorVaultsView(vault: $vault, campaign: self.campaign)) {
+                                        Text(vault.name)
+                                    }
+                                }.onDelete { (indexSet) in
+                                    stellarObject.vaults.remove(atOffsets: indexSet)
                                 }
                             }
                         }
@@ -256,7 +306,12 @@ struct StellarObjectView: View {
                         } label: {
                             Text("Mode")
                         }
-                        
+                        Button {
+                            campaign.writeToFile()
+                            stellarObject.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                        } label: {
+                            Text("Add Precursor Vault")
+                        }
                         
                         if stellarObject.description == "" {
                             Button {
@@ -266,7 +321,12 @@ struct StellarObjectView: View {
                                 Text("Description")
                             }
                         }
-
+                        Button {
+                            campaign.writeToFile()
+                            stellarObject.factions.append(Faction())
+                        } label: {
+                            Text("Add Faction")
+                        }
                         Button {
                             campaign.writeToFile()
                             stellarObject.planets.insert(Planet(homeSector: stellarObject.homeSector, homeStar: stellarObject.name, name: stellarObject.randomPlanetName()), at: 0)

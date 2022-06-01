@@ -10,8 +10,12 @@ import Foundation
 struct Settlement: Codable, Hashable, Identifiable {
     
     var id = UUID()
-    var name = Settlement.randomName()
-    var subName = ""
+    var name = "Unknown" {
+        didSet {
+            derilict[0].name = self.name
+        }
+    }
+    var subName = "Settlement"
     var hiddenDescription = true
     var description = ""
     var hiddenLocType = true
@@ -29,12 +33,12 @@ struct Settlement: Codable, Hashable, Identifiable {
     var hiddenProjects = true
     var projects: [StringContainer] = []
     var hiddenTrouble = true
+    var hiddenFactions = true
+    var factions: [Faction] = []
     var trouble = ""
     var hiddenRoutes = true
     var routes: [Route] = []
     var homeSector = ""
-    var hiddenTheme = true
-    var theme: [StringContainer] = []
     var mode = "Input"
     var oracle = Oracle.sharedOracle
     var travelMode = false
@@ -42,9 +46,10 @@ struct Settlement: Codable, Hashable, Identifiable {
     var places: [Location] = []
     var hiddenPersons = true
     var persons: [Person] = []
-    var isDerilict = false
     var hiddenDerilict = true
-    var derilict: [Derelict] = [Derelict(isChild: true)]
+    var derilict: [Derelict] = []
+    var hiddenVault = true
+    var vaults: [PrecursorVaults] = []
     
     func randomLocationType() -> String {
         let dictionary = [
@@ -113,29 +118,29 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         return answer.popLast() ?? "error"
     }
-    var firstLookList = ["Beautiful architecture", "Built from organic materials", "Built from random scrap", "Built within repurposed ship", "Built within terrain or asteroid", "Defensible location", "Elevated or multi-level construction", "Hidden or subsurface location", "Intimidating defenses", "Precarious location", "Rustic architecture", "Significant structural damage", "Sprawling or dispersed structures", "Temporary or seasonal location", "Toxic or polluted habitat", "Within or near Precursor Vault"]
+    var firstLookList = ["Beautiful architecture", "Built from natural materials", "Built from scrap metal", "Built within repurposed ship", "Built within terrain or asteroid", "Elevated or multilevel construction", "Hidden or subsurface location", "Hightech construction", "Industrial architecture", "Intimidating defenses", "Moving or transforming", "Obvious social stratification", "Precarious location", "Prominent emblems or signage", "Rustic architecture", "Significant structural damage", "Sprawling or dispersed structures", "Temporary or seasonal location", "Toxic or polluted habitat", "Within or near Precursor Vault"]
     func randomFirstLook() -> String {
         let dictionary = [
-            "Beautiful architecture" : 3,
-            "Built from organic materials" : 6,
-            "Built from random scrap" : 6,
+            "Beautiful architecture" : 4,
+            "Built from natural materials" : 4,
+            "Built from scrap metal" : 6,
             "Built within repurposed ship" : 6,
             "Built within terrain or asteroid" : 5,
-            "Defensible location" : 5,
-            "Elevated or multi-level construction" : 4,
+            "Elevated or multilevel construction" : 4,
             "Hidden or subsurface location" : 5,
-            "High-tech construction" : 3,
+            "Hightech construction" : 3,
             "Industrial architecture" : 6,
-            "Intimidating defenses" : 4,
+            "Intimidating defenses" : 5,
             "Moving or transforming" : 3,
             "Obvious social stratification" : 5,
             "Precarious location" : 5,
+            "Prominent emblems or signage" : 4,
             "Rustic architecture" : 6,
-            "Significant structural damage" : 4,
+            "Significant structural damage" : 6,
             "Sprawling or dispersed structures" : 4,
             "Temporary or seasonal location" : 3,
             "Toxic or polluted habitat" : 4,
-            "Within or near Precursor Vault" : 3,
+            "Within or near >Precursor Vault" : 2,
             "\(oracle.description()) + \(oracle.focus())" : 10,
         ]
         
@@ -245,39 +250,43 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         return answer.popLast() ?? "error"
     }
-    var troubleList = ["Betrayal from within", "Blocked resource", "Caught in the crossfire", "Changing environment", "Clash of cultures", "Dangerous discovery", "Depleted resource", "Failing technology", "Feuding factions", "Ghostly visitations", "Hazardous environment", "Hostile lifeforms", "Impending attack", "Impending natural disaster", "Invasive nature or lifeform", "Mysterious deaths", "Plagued by sickness", "Preyed upon by raiders", "Revolt against leadership", "Sabotaged technology", "Social strife", "Someone is ill or injured", "Someone is missing", "Stolen technology or object", "Strange phenomenon", "Toxic waste or pollution", "Volatile energy source", "Vulnerable lifeforms"]
+    var troubleList = ["Battle for leadership", "Mounting debt", "Betrayal from within", "Mysterious deaths", "Caught in the crossfire", "Overdue delivery", "Changing environment", "Plagued by sickness", "Clash of cultures", "Preyed upon by raiders", "Dangerous discovery", "Revolt against leadership", "Depleted supplies", "Sabotaged technology", "Deprived of a resource", "Shunned by others", "Failing technology", "Social strife", "Feuding factions", "Someone is ill or injured", "Ghostly visitations", "Someone is missing", "Hazardous environment", "Stolen technology or object", "Hostile lifeforms", "Strange phenomenon", "Impassable route", "Toxic waste or pollution", "Impending attack", "Volatile energy source", "Impending natural disaster", "Vulnerable lifeforms", "Invasive organisms"]
     func randomTrouble() -> String {
         let dictionary = [
+            "Battle for leadership" : 3,
+            "Mounting debt" : 2,
             "Betrayal from within" : 3,
-            "Blocked resource" : 4,
-            "Caught in the crossfire" : 2,
-            "Changing environment" : 4,
-            "Clash of cultures" : 2,
-            "Dangerous discovery" : 4,
-            "Depleted resource" : 4,
-            "Failing technology" : 4,
-            "Feuding factions" : 4,
-            "Ghostly visitations" : 2,
-            "Hazardous environment" : 4,
-            "Hostile lifeforms" : 4,
-            "Impending attack" : 3,
-            "Impending natural disaster" : 3,
-            "Invasive nature or lifeform" : 2,
             "Mysterious deaths" : 2,
-            "Plagued by sickness" : 3,
+            "Caught in the crossfire" : 2,
+            "Overdue delivery" : 3,
+            "Changing environment" : 3,
+            "Plagued by sickness" : 2,
+            "Clash of cultures" : 2,
             "Preyed upon by raiders" : 3,
+            "Dangerous discovery" : 4,
             "Revolt against leadership" : 2,
+            "Depleted supplies" : 4,
             "Sabotaged technology" : 2,
+            "Deprived of a resource" : 3,
+            "Shunned by others" : 2,
+            "Failing technology" : 4,
             "Social strife" : 3,
+            "Feuding factions" : 4,
             "Someone is ill or injured" : 2,
+            "Ghostly visitations" : 2,
             "Someone is missing" : 2,
+            "Hazardous environment" : 4,
             "Stolen technology or object" : 2,
+            "Hostile lifeforms" : 4,
             "Strange phenomenon" : 3,
+            "Impassable route" : 3,
             "Toxic waste or pollution" : 3,
+            "Impending attack" : 3,
             "Volatile energy source" : 2,
+            "Impending natural disaster" : 3,
             "Vulnerable lifeforms" : 2,
+            "Invasive organisms" : 2,
             "\(oracle.action()) + \(oracle.theme())" : 10,
-            "Roll twice" : 10,
         ]
         
         var pool: [String] = []
@@ -293,7 +302,7 @@ struct Settlement: Codable, Hashable, Identifiable {
     static func randomName() -> String {
         
         let nameFormat = Int.random(in: 0...15)
-        var name = "Unknown settlement"
+        var name = "Unknown"
         
         func getPrefix() -> String {
             let list = ["Base", "Citadel", "Depot", "Fortress", "Hold", "Landing", "Outpost", "Port", "Station", "Terminal"]

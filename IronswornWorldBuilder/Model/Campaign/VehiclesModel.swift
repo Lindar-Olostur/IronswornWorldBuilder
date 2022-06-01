@@ -71,8 +71,12 @@ struct Starship: Codable, Hashable, Identifiable {
     var hiddenTheme = true
     var theme = ""
     var homeSector = ""
+    var hiddenFactions = true
+    var factions: [Faction] = []
     var mode = "Input"
     var oracle = Oracle.sharedOracle
+    var hiddenDerilict = true
+    var derilict: [Derelict] = []
     
     static func randomName(mod: String) -> String {
         var nameFormat = 0

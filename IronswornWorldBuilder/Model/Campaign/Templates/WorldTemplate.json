@@ -1,0 +1,15 @@
+{
+  "subName" : "Custom world",
+  "type" : "world",
+  "storyGenerator" : false,
+  "hiddenRegions" : true,
+  "hiddenDescription" : false,
+  "hiddenTruth" : false,
+  "hiddenFactions" : false,
+  "factions" : [],
+  "name" : "New Campaign",
+  "description" : "",
+  "regions" : [],
+  "truth" : [],
+  "truthMode" : "Input"
+}
