@@ -8,9 +8,19 @@
 import Foundation
 
 struct World: Codable {
-    var type: String = "" // stars, world, IS, SF ...
+    var type: String = "" {// stars, world, IS, SF ...
+        didSet {
+            switch type {
+            case "stars" : sectorIsLand = false
+            case "SF" : sectorIsLand = false
+            case "IS" : sectorIsLand = true
+            case "world" : sectorIsLand = true
+            default: sectorIsLand = false
+            }
+        }
+    }
     var name: String = "" {
-        willSet {//UserDefaults.standard.set(newValue, forKey: "lastCampaign")
+        willSet {UserDefaults.standard.set(newValue, forKey: "lastCampaign")
             
         }
     }
@@ -21,8 +31,10 @@ struct World: Codable {
     var hiddenTruth = true
     var regions: [Region] = []
     var truth: [YourTruth] = []
-    var hiddenFactions = true
-    var factions: [Faction] = []
+    var sectorIsLand = false
+//    var hiddenFactions = true
+//    var factions: [Faction] = []
+//    var waitingForFaction = false
     var storyGenerator = false
 }
 
@@ -35,37 +47,43 @@ struct Region: Codable, Hashable, Identifiable {
     var sectors: [Sector] = []
     var hiddenFactions = true
     var factions: [Faction] = []
+    var waitingForFaction = false
 }
 
 struct Sector: Codable, Hashable, Identifiable {
-    var id = UUID()
-    var hiddenStellar = true
-    var hiddenDescription = true
-    var hiddenPlanets = true
-    var hiddenSettlements = true
-    var hiddenLocations = true
-    var hiddenCreatures = true
-    var hiddenVehicles = true
-    var name = ""
-    var homeRegion = ""
-    var description = ""
+
+    var id: UUID = UUID()
+    var hiddenStellar: Bool = true
+    var hiddenDescription: Bool = true
+    var hiddenPlanets: Bool = true
+    var hiddenSettlements: Bool = true
+    var hiddenLocations: Bool = true
+    var hiddenCreatures: Bool = true
+    var hiddenVehicles: Bool = true
+    var name: String = ""
+    var homeRegion: String = ""
+    var description: String = ""
     var stellarObjects: [StellarObject] = []
     var planets: [Planet] = []
     var settlements: [Settlement] = []
     var locations: [Location] = []
     var creatures: [Creature] = []
     var vehicles: [Starship] = []
-    var hiddenFactions = true
+    var hiddenFactions: Bool = true
     var factions: [Faction] = []
-    var hiddenVault = true
+    var hiddenVault: Bool = true
     var vaults: [PrecursorVaults] = []
-    
-    var oracle = Oracle.sharedOracle
-    var mode = "Input"
-    var travelMode = false
+    //var oracle: Oracle = Oracle.sharedOracle
+    var mode: String = "Input"
+    var travelMode: Bool = false
+    var waitingForStarship = false
+    var waitingForSettlement = false
+    var waitingForCreature = false
+    var waitingForFaction = false
     
     func randomEncounter() -> String {
-        
+        let description = Oracle.description(Oracle())
+        let focus = Oracle.focus(Oracle())
         var dictionary: [String: Int] = [:]
         
         switch homeRegion {
@@ -78,7 +96,7 @@ struct Sector: Codable, Hashable, Identifiable {
                 "Derelict" : 4,
                 "Precursor Vault" : 2,
                 "Creature" : 2,
-                "\(oracle.description()) + \(oracle.focus())" : 4,
+                "\(description()) + \(focus())" : 4,
                 "Debris field: Mineral asteroids" : 5,
                 "Debris field: Frozen asteroids" : 3,
                 "Debris field: Crystalline asteroids" : 2,
@@ -102,7 +120,7 @@ struct Sector: Codable, Hashable, Identifiable {
                 "Derelict" : 3,
                 "Precursor Vault" : 3,
                 "Creature" : 3,
-                "\(oracle.description()) + \(oracle.focus())" : 6,
+                "\(description()) + \(focus())" : 6,
                 "Debris field: Mineral asteroids" : 5,
                 "Debris field: Frozen asteroids" : 3,
                 "Debris field: Crystalline asteroids" : 2,
@@ -126,7 +144,7 @@ struct Sector: Codable, Hashable, Identifiable {
                 "Derelict" : 2,
                 "Precursor Vault" : 4,
                 "Creature" : 4,
-                "\(oracle.description()) + \(oracle.focus())" : 7,
+                "\(description()) + \(focus())" : 7,
                 "Debris field: Mineral asteroids" : 5,
                 "Debris field: Frozen asteroids" : 3,
                 "Debris field: Crystalline asteroids" : 2,
@@ -150,7 +168,7 @@ struct Sector: Codable, Hashable, Identifiable {
                 "Derelict" : 1,
                 "Precursor Vault" : 1,
                 "Creature" : 1,
-                "\(oracle.description()) + \(oracle.focus())" : 5,
+                "\(description()) + \(focus())" : 5,
                 "Debris field: Mineral asteroids" : 10,
                 "Debris field: Frozen asteroids" : 10,
                 "Debris field: Crystalline asteroids" : 10,
@@ -178,7 +196,8 @@ struct Sector: Codable, Hashable, Identifiable {
         return answer.popLast() ?? "error"
     }
     func randomPeril() -> String {
-        
+        let action = Oracle.action(Oracle())
+        let theme = Oracle.theme(Oracle())
         let dictionary = [
             "Artificial gravity generator malfunctions" : 3,
             "Automated defenses or mines protect this area" : 3,
@@ -212,7 +231,7 @@ struct Sector: Codable, Hashable, Identifiable {
             "Troubling visions or apparitions" : 3,
             "True nature of a cargo, occupant, or passenger is revealed" : 3,
             "Unsettling sounds or disturbances" : 3,
-            "\(oracle.action()) + \(oracle.theme())" : 3,
+            "\(action()) + \(theme())" : 3,
             "Roll twice" : 1,
         ]
         

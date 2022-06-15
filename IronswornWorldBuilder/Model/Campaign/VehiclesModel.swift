@@ -77,6 +77,13 @@ struct Starship: Codable, Hashable, Identifiable {
     var oracle = Oracle.sharedOracle
     var hiddenDerilict = true
     var derilict: [Derelict] = []
+    var waitingForPerson = false
+    var hiddenPersons = true
+    var persons: [Person] = []
+    var waitingForCreature = false
+    var hiddenCreature = true
+    var creatures: [Creature] = []
+    var waitingForFaction = false
     
     static func randomName(mod: String) -> String {
         var nameFormat = 0

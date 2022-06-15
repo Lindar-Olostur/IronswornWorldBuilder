@@ -12,7 +12,9 @@ struct PersonView: View {
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
     @State private var displayText = ""
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    var buffer = movingBuffer.shared
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -27,7 +29,7 @@ struct PersonView: View {
                         if person.mode == "Generation" {
                             Spacer()
                             Button {
-                                person.name = person.randomName()
+                                person.name = person.randomName(isLand: campaign.world.sectorIsLand)
                             } label: {
                                 Image(systemName: "dice").font(.system(size: 20))
                             }
@@ -99,7 +101,7 @@ struct PersonView: View {
                                             TextField("Enter first look", text: $look.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                look.name = person.randomFirstLook()
+                                                look.name = person.randomFirstLook(isLand: campaign.world.sectorIsLand)
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -111,7 +113,7 @@ struct PersonView: View {
                                 if person.mode == "Selection" {
                                     ForEach($person.firstLook) { $look in
                                         Picker(selection: $look.name, label: EmptyView()) {
-                                            ForEach(person.firstLookList, id: \.self) { value in
+                                            ForEach(campaign.world.sectorIsLand ? person.firstLookListIS : person.firstLookListSF, id: \.self) { value in
                                                 Text(value).font(.system(size: 50))
                                                     .tag(value)
                                             }
@@ -186,7 +188,7 @@ struct PersonView: View {
                                         TextField("Enter role", text: $person.role).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            person.role = person.randomRole()
+                                            person.role = person.randomRole(isLand: campaign.world.sectorIsLand)
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -194,7 +196,7 @@ struct PersonView: View {
                                 }
                                 if person.mode == "Selection" {
                                     Picker(selection: $person.role, label: EmptyView()) {
-                                        ForEach(person.roleList, id: \.self) { value in
+                                        ForEach(campaign.world.sectorIsLand ? person.roleListIS : person.roleListSF, id: \.self) { value in
                                             Text(value).font(.system(size: 50))
                                                 .tag(value)
                                         }
@@ -226,7 +228,7 @@ struct PersonView: View {
                                         TextField("Enter goal", text: $person.goal).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            person.goal = person.randomGoal()
+                                            person.goal = person.randomGoal(isLand: campaign.world.sectorIsLand)
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -234,7 +236,7 @@ struct PersonView: View {
                                 }
                                 if person.mode == "Selection" {
                                     Picker(selection: $person.goal, label: EmptyView()) {
-                                        ForEach(person.goalList, id: \.self) { value in
+                                        ForEach(campaign.world.sectorIsLand ? person.goalListIS : person.goalListSF, id: \.self) { value in
                                             Text(value).font(.system(size: 50))
                                                 .tag(value)
                                         }
@@ -266,6 +268,7 @@ struct PersonView: View {
                     
                 }.listStyle(.inset)
             }
+            //.navigationTitle(person.name)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                         Button("Hide") {
@@ -303,40 +306,40 @@ struct PersonView: View {
                             Text("Mode")
                         }
                         Button {
+                            generatePerson(isLand: campaign.world.sectorIsLand)
                             campaign.writeToFile()
-                            generatePerson()
                         } label: {
                             Text("Generate Person")
                         }
                         Menu {
                             if person.firstLook.count < 2 {
                                 Button {
-                                    campaign.writeToFile()
                                     person.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New First Look")
                                 }
                             }
                             if person.disposition == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     person.disposition = person.randomDisposition()
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Disposition")
                                 }
                             }
                             if person.role == "" {
                                 Button {
+                                    person.role = person.randomRole(isLand: campaign.world.sectorIsLand)
                                     campaign.writeToFile()
-                                    person.role = person.randomRole()
                                 } label: {
                                     Text("Role")
                                 }
                             }
                             if person.goal == "" {
                                 Button {
+                                    person.goal = person.randomGoal(isLand: campaign.world.sectorIsLand)
                                     campaign.writeToFile()
-                                    person.goal = person.randomGoal()
                                 } label: {
                                     Text("Goal")
                                 }
@@ -344,22 +347,30 @@ struct PersonView: View {
                             
                             if person.description == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     person.description = "New Description"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Description")
                                 }
                             }
                             if person.subName == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     person.subName = "Any Subtitle"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Subtitle")
                                 }
                             }
                         } label: {
                             Text("Add")
+                        }
+                        Button {
+                            buffer.personBuffer.insert(Person(id: person.id, name: person.name, subName: person.subName, hiddenDescription: person.hiddenDescription, description: person.description, hiddenFirstLook: person.hiddenFirstLook, firstLook: person.firstLook, hiddenDisposition: person.hiddenDisposition, disposition: person.disposition, hiddenRole: person.hiddenRole, role: person.role, hiddenGoal: person.hiddenGoal, goal: person.goal, hiddenAspect: person.hiddenAspect, revealdAspect: person.revealdAspect, mode: person.mode, combatMode: person.combatMode, oracle: Oracle.sharedOracle, firstLookListIS: person.firstLookListIS, dispositionList: person.dispositionList, roleListIS: person.roleListIS, goalListSF: person.goalListSF, aspectList: person.aspectList), at: 0)
+                            person.name = "toDelate"
+                            self.mode.wrappedValue.dismiss()
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Move Person")
                         }
                     } label: {
                         Image(systemName: "plus")
@@ -369,21 +380,21 @@ struct PersonView: View {
             Spacer()
         }
     }
-    func generatePerson() {
-        person.name = person.randomName()
+    func generatePerson(isLand: Bool) {
+        person.name = person.randomName(isLand: campaign.world.sectorIsLand)
         person.hiddenGoal = false
-        person.goal = person.randomGoal()
+        person.goal = person.randomGoal(isLand: campaign.world.sectorIsLand)
         person.hiddenRole = false
-        person.role = person.randomRole()
+        person.role = person.randomRole(isLand: campaign.world.sectorIsLand)
         person.hiddenDisposition = false
         person.disposition = person.randomDisposition()
         
         person.hiddenFirstLook = false
         person.firstLook = []
         person.firstLook.insert(StringContainer(), at: 0)
-        person.firstLook[0].name = person.randomFirstLook()
+        person.firstLook[0].name = person.randomFirstLook(isLand: campaign.world.sectorIsLand)
         person.firstLook.insert(StringContainer(), at: 0)
-        person.firstLook[0].name = person.randomFirstLook()
+        person.firstLook[0].name = person.randomFirstLook(isLand: campaign.world.sectorIsLand)
     }
 }
 

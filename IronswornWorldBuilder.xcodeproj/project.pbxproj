@@ -19,7 +19,6 @@
 		9D68A9822816EC8100A8AC15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D68A9812816EC8100A8AC15 /* Assets.xcassets */; };
 		9D68A9852816EC8100A8AC15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D68A9842816EC8100A8AC15 /* Preview Assets.xcassets */; };
 		9D68A98C2816ECE700A8AC15 /* SettlementModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */; };
-		9D68A9902816F27500A8AC15 /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A98F2816F27500A8AC15 /* MainModel.swift */; };
 		9D81E55D283171AA000622A8 /* StellarObjectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D81E55C283171AA000622A8 /* StellarObjectView.swift */; };
 		9D81E56128338421000622A8 /* YourTruthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D81E56028338421000622A8 /* YourTruthView.swift */; };
 		9D838C382817179D005DC2ED /* StellarObjModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D838C372817179D005DC2ED /* StellarObjModel.swift */; };
@@ -33,6 +32,7 @@
 		9D9D415F282AB1BD007E8C8C /* RouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9D415E282AB1BD007E8C8C /* RouteView.swift */; };
 		9DA019CA282D736900923DFF /* PlanetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA019C9282D736900923DFF /* PlanetModel.swift */; };
 		9DAF1938282542B40032E567 /* SectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF1937282542B40032E567 /* SectorView.swift */; };
+		9DB9A19D2859F26400F297A6 /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A19C2859F26400F297A6 /* FirstLaunchView.swift */; };
 		9DBF89B22836C898007961C2 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B12836C898007961C2 /* PersonView.swift */; };
 		9DBF89B42836C8F3007961C2 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B32836C8F3007961C2 /* LocationView.swift */; };
 		9DBF89B62836CAA3007961C2 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B52836CAA3007961C2 /* PersonModel.swift */; };
@@ -60,7 +60,6 @@
 		9D68A9812816EC8100A8AC15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D68A9842816EC8100A8AC15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementModel.swift; sourceTree = "<group>"; };
-		9D68A98F2816F27500A8AC15 /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
 		9D81E55C283171AA000622A8 /* StellarObjectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StellarObjectView.swift; sourceTree = "<group>"; };
 		9D81E56028338421000622A8 /* YourTruthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YourTruthView.swift; sourceTree = "<group>"; };
 		9D838C372817179D005DC2ED /* StellarObjModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StellarObjModel.swift; sourceTree = "<group>"; };
@@ -74,6 +73,7 @@
 		9D9D415E282AB1BD007E8C8C /* RouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteView.swift; sourceTree = "<group>"; };
 		9DA019C9282D736900923DFF /* PlanetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetModel.swift; sourceTree = "<group>"; };
 		9DAF1937282542B40032E567 /* SectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectorView.swift; sourceTree = "<group>"; };
+		9DB9A19C2859F26400F297A6 /* FirstLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchView.swift; sourceTree = "<group>"; };
 		9DBF89B12836C898007961C2 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		9DBF89B32836C8F3007961C2 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		9DBF89B52836CAA3007961C2 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
@@ -103,20 +103,21 @@
 			children = (
 				9D2ED5E52823E1C200F9560B /* LoadView.swift */,
 				9D1344742822ED0E00D247DE /* RootView.swift */,
+				9DB9A19C2859F26400F297A6 /* FirstLaunchView.swift */,
 				9D81E56028338421000622A8 /* YourTruthView.swift */,
 				9D1344652822B49E00D247DE /* RegionView.swift */,
 				9D81E55C283171AA000622A8 /* StellarObjectView.swift */,
 				9DAF1937282542B40032E567 /* SectorView.swift */,
 				9D9D415E282AB1BD007E8C8C /* RouteView.swift */,
-				9DBF89B32836C8F3007961C2 /* LocationView.swift */,
 				9D9D415C282AA303007E8C8C /* SettlementView.swift */,
 				9D9D4154282AA1AF007E8C8C /* PlanetView.swift */,
 				9D9D415A282AA1D6007E8C8C /* StarshipView.swift */,
 				9DBF89B12836C898007961C2 /* PersonView.swift */,
 				9D9D4158282AA1CD007E8C8C /* CreatureView.swift */,
-				9DBF89BB283CFCB7007961C2 /* DerelictView.swift */,
 				9DE2426D2844F50F0050264B /* PrecursorVaultsView.swift */,
 				9DBF89C6283E1EB5007961C2 /* FactionView.swift */,
+				9DBF89BB283CFCB7007961C2 /* DerelictView.swift */,
+				9DBF89B32836C8F3007961C2 /* LocationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -135,6 +136,7 @@
 		9D1344692822B5D700D247DE /* Campaign */ = {
 			isa = PBXGroup;
 			children = (
+				9D838C3F28172044005DC2ED /* LocationsModel.swift */,
 				9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */,
 				9DBF89B9283C04DD007961C2 /* DerelictModel.swift */,
 				9D13446A2822B6D200D247DE /* CampaignModel.swift */,
@@ -142,7 +144,6 @@
 				9D838C372817179D005DC2ED /* StellarObjModel.swift */,
 				9DA019C9282D736900923DFF /* PlanetModel.swift */,
 				9D68A98B2816ECE700A8AC15 /* SettlementModel.swift */,
-				9D838C3F28172044005DC2ED /* LocationsModel.swift */,
 				9D838C3928171C65005DC2ED /* VehiclesModel.swift */,
 				9DBF89C4283E0C4D007961C2 /* FactionModel.swift */,
 				9DBF89B52836CAA3007961C2 /* PersonModel.swift */,
@@ -191,7 +192,6 @@
 		9D68A98E2816ECFB00A8AC15 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				9D68A98F2816F27500A8AC15 /* MainModel.swift */,
 				9D13445A281E8D2100D247DE /* OracleModel.swift */,
 				9D1344692822B5D700D247DE /* Campaign */,
 			);
@@ -273,7 +273,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DBF89B22836C898007961C2 /* PersonView.swift in Sources */,
-				9D68A9902816F27500A8AC15 /* MainModel.swift in Sources */,
 				9D68A98C2816ECE700A8AC15 /* SettlementModel.swift in Sources */,
 				9D838C3A28171C65005DC2ED /* VehiclesModel.swift in Sources */,
 				9D9D415B282AA1D6007E8C8C /* StarshipView.swift in Sources */,
@@ -287,6 +286,7 @@
 				9D13445B281E8D2100D247DE /* OracleModel.swift in Sources */,
 				9DBF89B62836CAA3007961C2 /* PersonModel.swift in Sources */,
 				9DA019CA282D736900923DFF /* PlanetModel.swift in Sources */,
+				9DB9A19D2859F26400F297A6 /* FirstLaunchView.swift in Sources */,
 				9D1344682822B52F00D247DE /* CampaignClass.swift in Sources */,
 				9DBF89BA283C04DD007961C2 /* DerelictModel.swift in Sources */,
 				9DBF89C7283E1EB5007961C2 /* FactionView.swift in Sources */,

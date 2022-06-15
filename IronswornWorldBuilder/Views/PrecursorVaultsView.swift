@@ -581,6 +581,7 @@ struct PrecursorVaultsView: View {
                 }
             }.listStyle(.inset)
         }
+        //.navigationTitle(vault.name)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button("Hide") {
@@ -620,8 +621,8 @@ struct PrecursorVaultsView: View {
                         Text("Mode")
                     }
                     Button {
-                        campaign.writeToFile()
                         generateVault()
+                        campaign.writeToFile()
                     } label: {
                         Text("Generate Precursor Vault")
                     }
@@ -629,56 +630,56 @@ struct PrecursorVaultsView: View {
                         Group {
                             if vault.scale == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.scale = "Unknown"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Scale")
                                 }
                             }
                             if vault.form == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.form = "Unknown"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Form")
                                 }
                             }
                             if vault.shape == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.shape = "Unknown"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Shape")
                                 }
                             }
                             if vault.material == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.material = "Unknown"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Material")
                                 }
                             }
                             if vault.outerFirstLook.count < 2 && vault.currentZone == "Exterior" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.outerFirstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Outer First Look")
                                 }
                             }
                             if vault.innerFirstLook.count < 2 && vault.currentZone == "Interior" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.innerFirstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Inner First Look")
                                 }
                             }
                             if vault.vaultPurpose == "" && vault.currentZone == "Interior" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.vaultPurpose = "Unknown"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Vault Purpose")
                                 }
@@ -686,36 +687,36 @@ struct PrecursorVaultsView: View {
                         }
                         Group {
                             Button {
-                                campaign.writeToFile()
                                 vault.waypoints.insert(PrecursorVaults(name: vault.name, location: vault.location, rank: vault.rank, scale: vault.scale, form: vault.form, shape: vault.shape, material: vault.material, themes: vault.themes, currentZone: vault.currentZone), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("New Waypoint")
                             }
                             Button {
-                                campaign.writeToFile()
                                 vault.themes.insert(StringContainer(name: "None"), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("New Theme")
                             }
                             Button {
-                                campaign.writeToFile()
                                 vault.routes.insert(Route(), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("New Route")
                             }
 
                             if vault.description == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.description = "New Description"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Description")
                                 }
                             }
                             if vault.subName == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     vault.subName = "Any Subtitle"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Subtitle")
                                 }

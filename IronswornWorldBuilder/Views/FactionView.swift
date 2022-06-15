@@ -11,6 +11,9 @@ struct FactionView: View {
     @Binding var faction: Faction
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
+    
+    var buffer = movingBuffer.shared
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -541,6 +544,7 @@ struct FactionView: View {
                 }
             }.listStyle(.inset)
         }
+        //.navigationTitle(faction.name)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button("Hide") {
@@ -549,6 +553,18 @@ struct FactionView: View {
             }
             ToolbarItem(placement: .destructiveAction) {
                 Menu {
+                    Group {
+                        if faction.waitingForPerson{
+                            Button {
+                                faction.persons.insert(buffer.personBuffer[0], at: 0)
+                                //starship.persons[0].homeSector = settlement.homeSector
+                                buffer.personBuffer = []
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Insert a person")
+                            }
+                        }
+                    }
                     Menu {
                         if faction.mode != "Input" {
                             Button {
@@ -575,8 +591,8 @@ struct FactionView: View {
                         Text("Mode")
                     }
                     Button {
-                        campaign.writeToFile()
                         generateFaction()
+                        campaign.writeToFile()
                     } label: {
                         Text("Generate Faction")
                     }
@@ -584,8 +600,8 @@ struct FactionView: View {
                         Group {
                             if faction.influence == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.influence = faction.randomInfluence()
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Influence")
                                 }
@@ -593,32 +609,32 @@ struct FactionView: View {
                             
                             if faction.dominion.count < 3 && faction.type == "Dominion" {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.dominion.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Dominion type")
                                 }
                             }
                             if faction.dominionLeadership == "" && faction.type == "Dominion"  {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.dominionLeadership = faction.randomDominionLeadership()
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Dominion Leadership")
                                 }
                             }
                             if faction.guild == "" && faction.type == "Guild"  {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.guild = faction.randomGuild()
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Guild type")
                                 }
                             }
                             if faction.fringeGroup == "" && faction.type == "Fringe Group"  {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.fringeGroup = faction.randomFringeGroup()
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Fringe Group")
                                 }
@@ -628,37 +644,37 @@ struct FactionView: View {
                         Group {
                             if faction.projects.count < 2 {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.projects.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Project")
                                 }
                             }
                             Button {
-                                campaign.writeToFile()
                                 faction.relationships.insert(StringContainer(name: "Unknown"), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("New Relationships")
                             }
                             if faction.quirks.count < 2 {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.quirks.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Quirk")
                                 }
                             }
                             if faction.rumors.count < 2 {
                                 Button {
-                                    campaign.writeToFile()
                                     faction.rumors.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Rumor")
                                 }
                             }
                             Button {
-                                campaign.writeToFile()
                                 faction.persons.insert(Person(), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("New Person")
                             }
@@ -667,16 +683,16 @@ struct FactionView: View {
                             
                                 if faction.subName == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         faction.subName = "Any Subtitle"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Subtitle")
                                     }
                                 }
                                 if faction.description == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         faction.description = "New Description"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Description")
                                     }
@@ -686,8 +702,27 @@ struct FactionView: View {
                     } label: {
                         Text("Add")
                     }
+                    Button {
+                        buffer.factionBuffer.insert(Faction(id: faction.id, name: faction.name, subName: faction.subName, hiddenDescription: faction.hiddenDescription, description: faction.description, hiddenType: faction.hiddenType, type: faction.type, typeSummary: faction.typeSummary, hiddenInfluence: faction.hiddenInfluence, influence: faction.influence, influenceSummary: faction.influenceSummary, hiddenDominion: faction.hiddenDominion, dominion: faction.dominion, hiddenDominionLeadership: faction.hiddenDominionLeadership, dominionLeadership: faction.dominionLeadership, hiddenGuild: faction.hiddenGuild, guild: faction.guild, hiddenPersons: faction.hiddenPersons, persons: faction.persons, hiddenFringeGroup: faction.hiddenFringeGroup, fringeGroup: faction.fringeGroup, hiddenProjects: faction.hiddenProjects, projects: faction.projects, hiddenRelationships: faction.hiddenRelationships, relationships: faction.relationships, hiddenRumors: faction.hiddenRumors, rumors: faction.rumors, hiddenQuirks: faction.hiddenQuirks, quirks: faction.quirks, mode: faction.mode, oracle: Oracle.sharedOracle, waitingForPerson: faction.waitingForPerson, rumorsList: faction.rumorsList, quirksList: faction.quirksList, relationshipList: faction.relationshipList, projectList: faction.projectList, fringeGroupList: faction.fringeGroupList, guildList: faction.guildList, dominionLeadershipList: faction.dominionLeadershipList, dominionList: faction.dominionList, influenceList: faction.influenceList, typeList: faction.typeList), at: 0)
+                        faction.name = "toDelate"
+                        self.mode.wrappedValue.dismiss()
+                        campaign.writeToFile()
+                    } label: {
+                        Text("Move Faction")
+                    }
                 } label: {
                     Image(systemName: "plus")
+                }
+            }
+        }
+        .onAppear {
+            if buffer.personBuffer != [] {
+                faction.waitingForPerson = true
+            }
+            
+            for _ in faction.persons {
+                if let index = faction.persons.firstIndex(where: { $0.name == "toDelate" }) {
+                    faction.persons.remove(at: index)
                 }
             }
         }

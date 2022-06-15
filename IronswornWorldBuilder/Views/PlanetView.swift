@@ -13,6 +13,7 @@ struct PlanetView: View {
     @State private var generatorIsOn = false
     @FocusState private var fieldIsFocused: Bool
     @State private var displayText = ""
+    var buffer = movingBuffer.shared
     
     //MARK: вынести его из меню на экран---меню выбор всего---имена
     
@@ -262,11 +263,12 @@ struct PlanetView: View {
                                     } label: {
                                         Image(systemName: "dice").font(.system(size: 20))
                                     }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                    Button {
-                                        planet.hiddenSettlements.toggle()
-                                    } label: {
-                                        Image(systemName: planet.hiddenSettlements ? "chevron.down" : "chevron.right")
-                                    }
+                                }
+                                Spacer()
+                                Button {
+                                    planet.hiddenSettlements.toggle()
+                                } label: {
+                                    Image(systemName: planet.hiddenSettlements ? "chevron.down" : "chevron.right")
                                 }
                             }
                             ) {
@@ -441,7 +443,82 @@ struct PlanetView: View {
                                 }
                             }
                         }
+                        
+                        //VEHICLES
+                        if planet.vehicles != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Starships").font(.title)
+                                Spacer()
+                                Button {
+                                    planet.hiddenVehicles.toggle()
+                                } label: {
+                                    Image(systemName: planet.hiddenVehicles ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if planet.hiddenVehicles {
+                                    ForEach($planet.vehicles, id: \.id) { $vehicle in
+                                        NavigationLink(destination: StarshipView(starship: $vehicle, campaign: Campaign())) {
+                                            Text(vehicle.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        planet.vehicles.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
 
+                        //CREATURES
+                        if planet.creatures != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Creatures").font(.title)
+                                Spacer()
+                                Button {
+                                    planet.hiddenCreature.toggle()
+                                } label: {
+                                    Image(systemName: planet.hiddenCreature ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if planet.hiddenCreature {
+                                    ForEach($planet.creatures, id: \.id) { $creature in
+                                        NavigationLink(destination: CreatureView(creature: $creature, campaign: Campaign())) {
+                                            Text(creature.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        planet.creatures.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //LOCATIONS
+                        if planet.locations != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Locations").font(.title)
+                                Spacer()
+                                Button {
+                                    planet.hiddenLocations.toggle()
+                                } label: {
+                                    Image(systemName: planet.hiddenLocations ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if planet.hiddenLocations {
+                                    ForEach($planet.locations, id: \.id) { $location in
+                                        NavigationLink(destination: LocationView(location: $location, campaign: Campaign())) {
+                                            Text(location.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        planet.locations.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
+                        
                         //ROUTES
                         if planet.routes != [] {
                             Section(header:
@@ -489,6 +566,8 @@ struct PlanetView: View {
                     }
                 }.listStyle(.inset)
             }
+            .navigationTitle(planet.name)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                         Button("Hide") {
@@ -497,16 +576,59 @@ struct PlanetView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        Group {
+                            if planet.waitingForCreature {
+                                Button {
+                                    planet.creatures.insert(buffer.creatureBuffer[0], at: 0)
+                                    planet.creatures[0].homeSector = planet.homeSector
+                                    buffer.creatureBuffer = []
+                                    planet.waitingForCreature = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the creature")
+                                }
+                            }
+                            if planet.waitingForFaction {
+                                Button {
+                                    planet.factions.insert(buffer.factionBuffer[0], at: 0)
+                                    buffer.factionBuffer = []
+                                    planet.waitingForFaction = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the faction")
+                                }
+                            }
+                            if planet.waitingForStarship {
+                                Button {
+                                    planet.vehicles.insert(buffer.starshipBuffer[0], at: 0)
+                                    planet.vehicles[0].homeSector = planet.homeSector
+                                    buffer.starshipBuffer = []
+                                    planet.waitingForStarship = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the starship")
+                                }
+                            }
+                            if planet.waitingForSettlement {
+                                Button {
+                                    planet.settlements.insert(buffer.settlementBuffer[0], at: 0)
+                                    planet.settlements[0].homeSector = planet.homeSector
+                                    buffer.settlementBuffer = []
+                                    planet.waitingForSettlement = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the settlement")
+                                }
+                            }
+                        }
                         Toggle(isOn: $planet.travelMode) {
                             Text("Travel Mode")
                         }
-                        if planet.type == "Unknown World" {
-                            Button {
-                                campaign.writeToFile()
-                                randomPlanet()
-                            } label: {
-                                Text("Generate Planet")
-                            }
+                        Button {
+                            randomPlanet()
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Generate Planet")
                         }
                         
                         Menu {
@@ -538,8 +660,8 @@ struct PlanetView: View {
                             Group {
                                 if planet.atmosphere == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.atmosphere = "Unknown"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Atmosphere")
                                     }
@@ -547,8 +669,8 @@ struct PlanetView: View {
                                 
                                 if planet.viewFromSpace.count < 2 {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.viewFromSpace.insert(StringContainer(), at: 0)
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("New View From Space")
                                     }
@@ -556,45 +678,45 @@ struct PlanetView: View {
                                 
                                 if planet.features.count < 2 {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.features.insert(StringContainer(), at: 0)
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("New Feature")
                                     }
                                 }
                                 Button {
-                                    campaign.writeToFile()
                                     planet.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Add Precursor Vault")
                                 }
                                 Button {
-                                    campaign.writeToFile()
                                     planet.settlements.insert(Settlement(homeSector: planet.homeSector), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Settlement")
                                 }
                                 
                                 if planet.life == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.life = "Unknown"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Life")
                                     }
                                 }
                                 Button {
+                                    planet.factions.insert(Faction(), at: 0)
                                     campaign.writeToFile()
-                                    planet.factions.append(Faction())
                                 } label: {
                                     Text("Add Faction")
                                 }
                                 if planet.type == "Vital World" && planet.biomes == [] {
                                     Button {
-                                        campaign.writeToFile()
                                         for _ in 1...randomDivercity() {
                                             planet.biomes.insert(StringContainer(name: planet.randomBiome()), at: 0)
                                         }
+                                        campaign.writeToFile()
                                         
                                     } label: {
                                         Text("New Biome")
@@ -606,17 +728,34 @@ struct PlanetView: View {
                             Group {
                                 if planet.homeStar == "Wandering" {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.routes.insert(Route(), at: 0)
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("New Route")
                                     }
                                 }
-                                
+                                Button {
+                                    planet.locations.insert(Location(name: "New location"), at: 0)
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("New Location")
+                                }
+                                Button {
+                                    planet.vehicles.insert(Starship(name: Starship.randomName(mod: ""), homeSector: planet.homeSector), at: 0)
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("New Starship")
+                                }
+                                Button {
+                                    planet.creatures.insert(Creature(homeSector: planet.homeSector, name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("New Creature")
+                                }
                                 if planet.subName == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.subName = "Any Subtitle"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Subtitle")
                                     }
@@ -624,8 +763,8 @@ struct PlanetView: View {
                                 
                                 if planet.description == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         planet.description = "New Description"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Description")
                                     }
@@ -640,6 +779,49 @@ struct PlanetView: View {
                 }
             }
             Spacer()
+        }
+        .onAppear {
+            if buffer.starshipBuffer != [] {
+                planet.waitingForStarship = true
+            } else {
+                planet.waitingForStarship = false
+            }
+            if buffer.settlementBuffer != [] {
+                planet.waitingForSettlement = true
+            } else {
+                planet.waitingForSettlement = false
+            }
+            if buffer.creatureBuffer != [] {
+                planet.waitingForCreature = true
+            } else {
+                planet.waitingForCreature = false
+            }
+            if buffer.factionBuffer != [] {
+                planet.waitingForFaction = true
+            } else {
+                planet.waitingForFaction = false
+            }
+            
+            for _ in planet.factions {
+                if let index = planet.factions.firstIndex(where: { $0.name == "toDelate" }) {
+                    planet.factions.remove(at: index)
+                }
+            }
+            for _ in planet.creatures {
+                if let index = planet.creatures.firstIndex(where: { $0.name == "toDelate" }) {
+                    planet.creatures.remove(at: index)
+                }
+            }
+            for _ in planet.vehicles {
+                if let index = planet.vehicles.firstIndex(where: { $0.name == "toDelate" }) {
+                    planet.vehicles.remove(at: index)
+                }
+            }
+            for _ in planet.settlements {
+                if let index = planet.settlements.firstIndex(where: { $0.name == "toDelate" }) {
+                    planet.settlements.remove(at: index)
+                }
+            }
         }
     }
     func getHomeRegion(homeSector: String) -> String {
@@ -698,19 +880,18 @@ struct PlanetView: View {
         }
     }
     func randomPlanet() {
+        planet.hiddenType = false
         planet.type = planet.randomPlanetType()
-        
+        planet.hiddenViewFromSpace = false
         planet.viewFromSpace = []
         let howManyViewsFromSpace = Int.random(in: 0...3)
         if howManyViewsFromSpace > 0 {
-            planet.viewFromSpace.insert(StringContainer(), at: 0)
-            planet.viewFromSpace[0].name = planet.randomViewFromSpace(type: planet.type)
+            planet.viewFromSpace.insert(StringContainer(name: planet.randomViewFromSpace(type: planet.type)), at: 0)
         } else {
-            planet.viewFromSpace.insert(StringContainer(), at: 0)
-            planet.viewFromSpace[0].name = planet.randomViewFromSpace(type: planet.type)
-            planet.viewFromSpace.insert(StringContainer(), at: 0)
-            planet.viewFromSpace[0].name = planet.randomViewFromSpace(type: planet.type)
+            planet.viewFromSpace.insert(StringContainer(name: planet.randomViewFromSpace(type: planet.type)), at: 0)
+            planet.viewFromSpace.insert(StringContainer(name: planet.randomViewFromSpace(type: planet.type)), at: 0)
         }
+        planet.hiddenFeatures = false
         planet.features = []
         let howManyFeatures = Int.random(in: 0...3)
         if howManyFeatures > 0 {
@@ -722,10 +903,14 @@ struct PlanetView: View {
             planet.features.insert(StringContainer(), at: 0)
             planet.features[0].name = planet.randomFeature(type: planet.type)
         }
-        
+        planet.hiddenDescription = false
+        planet.hiddenSettlements = false
+        planet.settlements = []
         planet.settlements.insert(Settlement(homeSector: planet.homeSector), at: 0)
         planet.settlements[0].name = planet.randomSettlement(homeRegion: getHomeRegion(homeSector: planet.homeSector), planetType: planet.type)
+        planet.hiddenAtmosphere = false
         planet.atmosphere = planet.randomPlanetAtmosphere(type: planet.type)
+        planet.hiddenLife = false
         planet.life = planet.randomLife(type: planet.type)
         if planet.type == "Vital World" {
             for _ in 1...randomDivercity() {

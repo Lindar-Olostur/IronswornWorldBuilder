@@ -12,7 +12,9 @@ struct CreatureView: View {
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
     @State private var displayText = ""
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    var buffer = movingBuffer.shared
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -332,6 +334,7 @@ struct CreatureView: View {
                 }
             }.listStyle(.inset)
         }
+        //.navigationTitle(creature.name)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button("Hide") {
@@ -369,63 +372,71 @@ struct CreatureView: View {
                         Text("Mode")
                     }
                     Button {
-                        campaign.writeToFile()
                         generateCreature()
+                        campaign.writeToFile()
                     } label: {
                         Text("Generate Creature")
                     }
                     Menu {
                         if creature.firstLook.count < 2 {
                             Button {
+                                creature.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                creature.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
                                 campaign.writeToFile()
-                                creature.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
-                                creature.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
                             } label: {
                                 Text("First Look")
                             }
                         }
                         if creature.form == "" {
                             Button {
-                                campaign.writeToFile()
                                 creature.form = "Unknown"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Basic Form")
                             }
                         }
                         if creature.behavior == "" {
                             Button {
-                                campaign.writeToFile()
                                 creature.behavior = "Unknown"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Behavior")
                             }
                         }
                         if creature.revealdAspect.count < 2 {
                             Button {
-                                campaign.writeToFile()
                                 creature.revealdAspect.insert(StringContainer(name: "Unknown"), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("Reveald Aspect")
                             }
                         }
                         if creature.description == "" {
                             Button {
-                                campaign.writeToFile()
                                 creature.description = "New Description"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Description")
                             }
                         }
                         if creature.subName == "" {
                             Button {
-                                campaign.writeToFile()
                                 creature.subName = "Any Subtitle"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Subtitle")
                             }
                         }
                     } label: {
                         Text("Add")
+                    }
+                    Button {
+                        buffer.creatureBuffer.insert(Creature(id: creature.id, homeSector: "", hiddenEnvironment: creature.hiddenEnvironment, environment: creature.environment, hiddenScale: creature.hiddenScale, scale: creature.scale, hiddenForm: creature.hiddenForm, form: creature.form, hiddenFirstLook: creature.hiddenFirstLook, firstLook: creature.firstLook, hiddenBehavior: creature.hiddenBehavior, behavior: creature.behavior, hiddenRevealdAspect: creature.hiddenRevealdAspect, revealdAspect: creature.revealdAspect, name: creature.name, subName: creature.subName, hiddenDescription: creature.hiddenDescription, description: creature.description, mode: creature.mode, oracle: Oracle.sharedOracle, combatMode: creature.combatMode, environmentList: creature.environmentList, scaleList: creature.scaleList, formList: creature.formList, firstLookList: creature.firstLookList, behaviorList: creature.behaviorList, aspectList: creature.aspectList), at: 0)
+                        creature.name = "toDelate"
+                        self.mode.wrappedValue.dismiss()
+                        campaign.writeToFile()
+                    } label: {
+                        Text("Move Creature")
                     }
                 } label: {
                     Image(systemName: "plus")
@@ -438,8 +449,10 @@ struct CreatureView: View {
         creature.environment = creature.randomEnvironment()
         creature.scale = creature.randomScale()
         creature.form = creature.randomForm(environment: creature.environment)
+        
+        creature.hiddenFirstLook = false
         creature.firstLook = []
-        creature.firstLook.insert(StringContainer(), at: 0)
+        creature.firstLook.insert(StringContainer(name: creature.randomFirstLook()), at: 0)
         creature.firstLook[0].name = creature.randomFirstLook()
         creature.firstLook.insert(StringContainer(), at: 0)
         creature.firstLook[0].name = creature.randomFirstLook()

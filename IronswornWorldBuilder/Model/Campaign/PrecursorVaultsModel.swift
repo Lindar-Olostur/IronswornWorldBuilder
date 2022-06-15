@@ -42,6 +42,7 @@ struct PrecursorVaults: Codable, Hashable, Identifiable {
     var oracle = Oracle.sharedOracle
     var currentZone = "Exterior"
     var currentZoneList = ["Exterior", "Interior", "Sanctum"]
+    
     var locationList = ["Planetside", "Orbital", "Deep Space"]
     func randomLocation() -> String {
         var newList = locationList.shuffled()

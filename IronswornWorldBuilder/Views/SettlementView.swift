@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct SettlementView: View {
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @Binding var settlement: Settlement
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
     @State private var generatorIsOn = false
     @State private var displayText = ""
+    var buffer = movingBuffer.shared
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -27,7 +29,7 @@ struct SettlementView: View {
                         if settlement.mode == "Generation" {
                             Spacer()
                             Button {
-                                settlement.name = Settlement.randomName()
+                                settlement.name = Settlement.randomName(isLand: campaign.world.sectorIsLand)
                             } label: {
                                 Image(systemName: "dice").font(.system(size: 20))
                             }
@@ -85,67 +87,69 @@ struct SettlementView: View {
                 
                 List {
                     Group {
-                        //LOCATION TYPE
-                        Section(header:
-                                    HStack {
-                            Text("Location Type").font(.title)
-                            Spacer()
-                            Button {
-                                settlement.hiddenLocType.toggle()
-                            } label: {
-                                Image(systemName: settlement.hiddenLocType ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if settlement.hiddenLocType {
-                                if settlement.mode == "Input" {
-                                    TextField("Enter location type", text: $settlement.locationType).focused($fieldIsFocused)
-                                }
-                                if settlement.mode == "Generation" {
-                                    HStack {
-                                        TextField("Enter location type", text: $settlement.locationType).focused($fieldIsFocused)
-                                        Spacer()
-                                        Button {
-                                            settlement.locationType = settlement.randomLocationType()
-                                        } label: {
-                                            Image(systemName: "dice").font(.system(size: 20))
-                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                    }
-                                }
-                                if settlement.mode == "Selection" {
-                                    Picker(selection: $settlement.locationType, label: EmptyView()) {
-                                        Text("Planetside").font(.system(size: 50))
-                                            .tag("Planetside")
-                                        Text("Orbital").font(.system(size: 50))
-                                            .tag("Orbital")
-                                        Text("Deep Space").font(.system(size: 50))
-                                            .tag("Deep Space")
-                                        Text("Unknown").font(.system(size: 50))
-                                            .tag("Unknown")
-                                    }.pickerStyle(.menu)
-                                }
-                            }
-                        }
-                        //DERELICT
-                        if settlement.derilict != [] {
+                        if campaign.world.sectorIsLand == false {
+                            //LOCATION TYPE
                             Section(header:
                                         HStack {
-                                Text("Derelict").font(.title)
+                                Text("Location Type").font(.title)
                                 Spacer()
                                 Button {
-                                    settlement.hiddenDerilict.toggle()
+                                    settlement.hiddenLocType.toggle()
                                 } label: {
-                                    Image(systemName: settlement.hiddenDerilict ? "chevron.down" : "chevron.right")
+                                    Image(systemName: settlement.hiddenLocType ? "chevron.down" : "chevron.right")
                                 }
                             }
                             ) {
-                                if settlement.hiddenDerilict {
-                                    ForEach($settlement.derilict, id: \.id) { $loc in
-                                        NavigationLink(destination: DerelictView(derelict: $loc, campaign: self.campaign)) {
-                                            Text("Derelict \(settlement.name)")
+                                if settlement.hiddenLocType {
+                                    if settlement.mode == "Input" {
+                                        TextField("Enter location type", text: $settlement.locationType).focused($fieldIsFocused)
+                                    }
+                                    if settlement.mode == "Generation" {
+                                        HStack {
+                                            TextField("Enter location type", text: $settlement.locationType).focused($fieldIsFocused)
+                                            Spacer()
+                                            Button {
+                                                settlement.locationType = settlement.randomLocationType()
+                                            } label: {
+                                                Image(systemName: "dice").font(.system(size: 20))
+                                            }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
                                         }
                                     }
-                                    
+                                    if settlement.mode == "Selection" {
+                                        Picker(selection: $settlement.locationType, label: EmptyView()) {
+                                            Text("Planetside").font(.system(size: 50))
+                                                .tag("Planetside")
+                                            Text("Orbital").font(.system(size: 50))
+                                                .tag("Orbital")
+                                            Text("Deep Space").font(.system(size: 50))
+                                                .tag("Deep Space")
+                                            Text("Unknown").font(.system(size: 50))
+                                                .tag("Unknown")
+                                        }.pickerStyle(.menu)
+                                    }
+                                }
+                            }
+                            //DERELICT
+                            if settlement.derilict != [] {
+                                Section(header:
+                                            HStack {
+                                    Text("Derelict").font(.title)
+                                    Spacer()
+                                    Button {
+                                        settlement.hiddenDerilict.toggle()
+                                    } label: {
+                                        Image(systemName: settlement.hiddenDerilict ? "chevron.down" : "chevron.right")
+                                    }
+                                }
+                                ) {
+                                    if settlement.hiddenDerilict {
+                                        ForEach($settlement.derilict, id: \.id) { $loc in
+                                            NavigationLink(destination: DerelictView(derelict: $loc, campaign: self.campaign)) {
+                                                Text("Derelict \(settlement.name)")
+                                            }
+                                        }
+                                        
+                                    }
                                 }
                             }
                         }
@@ -432,9 +436,9 @@ struct SettlementView: View {
                     }
 
                     Group {
-                        
+
                         //TROUBLE
-                        if settlement.trouble != "" && settlement.derilict != [] {
+                        if settlement.trouble != "" && settlement.derilict == [] {
                             Section(header:
                                         HStack {
                                 Text("Trouble").font(.title)
@@ -455,7 +459,11 @@ struct SettlementView: View {
                                             TextField("Enter trouble", text: $settlement.trouble).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                settlement.trouble = settlement.randomTrouble()
+                                                if campaign.world.sectorIsLand {
+                                                    settlement.trouble = settlement.randomTroubleIs()
+                                                } else {
+                                                    settlement.trouble = settlement.randomTroubleSf()
+                                                }
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -463,7 +471,7 @@ struct SettlementView: View {
                                     }
                                     if settlement.mode == "Selection" {
                                         Picker(selection: $settlement.trouble, label: EmptyView()) {
-                                            ForEach(settlement.troubleList, id: \.self) { value in
+                                            ForEach(campaign.world.sectorIsLand ? settlement.troubleListIs : settlement.troubleListSf, id: \.self) { value in
                                                 Text(value).font(.system(size: 50))
                                                     .tag(value)
                                             }
@@ -472,11 +480,12 @@ struct SettlementView: View {
                                 }
                             }
                         }
-                        //PLACES
-                        if settlement.places != [] {
+                        
+                        //LOCATIONS
+                        if settlement.locations != [] {
                             Section(header:
                                         HStack {
-                                Text("Places").font(.title)
+                                Text("Locations").font(.title)
                                 Spacer()
                                 Button {
                                     settlement.hiddenLocations.toggle()
@@ -486,17 +495,17 @@ struct SettlementView: View {
                             }
                             ) {
                                 if settlement.hiddenLocations {
-                                    ForEach($settlement.places, id: \.id) { $place in
-                                        NavigationLink(destination: LocationView()) {
+                                    ForEach($settlement.locations, id: \.id) { $place in
+                                        NavigationLink(destination: LocationView(location: $place, campaign: self.campaign)) {
                                             Text(place.name)
                                         }
                                     }.onDelete { (indexSet) in
-                                        settlement.places.remove(atOffsets: indexSet)
+                                        settlement.locations.remove(atOffsets: indexSet)
                                     }
                                 }
                             }
                         }
-                        
+
                         //FACTIONS
                         if settlement.factions != [] {
                             Section(header:
@@ -521,7 +530,7 @@ struct SettlementView: View {
                                 }
                             }
                         }
-                        
+
                         //PERSONS
                         if settlement.persons != [] {
                             Section(header:
@@ -539,6 +548,7 @@ struct SettlementView: View {
                                     ForEach($settlement.persons, id: \.id) { $person in
                                         NavigationLink(destination: PersonView(person: $person, campaign: self.campaign)) {
                                             Text(person.name)
+                                            //Text(campaign.world.sectorIsLand ? "\(person.name) the \(person.role.lowercased())" : person.name)
                                         }
                                     }.onDelete { (indexSet) in
                                         settlement.persons.remove(atOffsets: indexSet)
@@ -546,7 +556,57 @@ struct SettlementView: View {
                                 }
                             }
                         }
-                        
+
+                        //VEHICLES
+                        if settlement.vehicles != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Starships").font(.title)
+                                Spacer()
+                                Button {
+                                    settlement.hiddenVehicles.toggle()
+                                } label: {
+                                    Image(systemName: settlement.hiddenVehicles ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if settlement.hiddenVehicles {
+                                    ForEach($settlement.vehicles, id: \.id) { $vehicle in
+                                        NavigationLink(destination: StarshipView(starship: $vehicle, campaign: Campaign())) {
+                                            Text(vehicle.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        settlement.vehicles.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
+
+                        //CREATURES
+                        if settlement.creatures != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Creatures").font(.title)
+                                Spacer()
+                                Button {
+                                    settlement.hiddenCreature.toggle()
+                                } label: {
+                                    Image(systemName: settlement.hiddenCreature ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if settlement.hiddenCreature {
+                                    ForEach($settlement.creatures, id: \.id) { $creature in
+                                        NavigationLink(destination: CreatureView(creature: $creature, campaign: Campaign())) {
+                                            Text(creature.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        settlement.creatures.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
+
                         //ROUTES
                         if settlement.routes != [] {
                             Section(header:
@@ -571,7 +631,7 @@ struct SettlementView: View {
                                 }
                             }
                         }
-                        
+
                         //DESCRIPTION
                         if settlement.description != "" {
                             Section(header:
@@ -595,6 +655,8 @@ struct SettlementView: View {
                     
                 }.listStyle(.inset)
             }
+            .navigationTitle(settlement.name)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Button("Hide") {
@@ -603,6 +665,51 @@ struct SettlementView: View {
                 }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        Group {
+                            if settlement.waitingForStarship {
+                                Button {
+                                    settlement.vehicles.insert(buffer.starshipBuffer[0], at: 0)
+                                    settlement.vehicles[0].homeSector = settlement.homeSector
+                                    buffer.starshipBuffer = []
+                                    settlement.waitingForStarship = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the starship")
+                                }
+                            }
+                            if settlement.waitingForPerson {
+                                Button {
+                                    settlement.persons.insert(buffer.personBuffer[0], at: 0)
+                                    //settlement.persons[0].homeSector = settlement.homeSector
+                                    buffer.personBuffer = []
+                                    settlement.waitingForPerson = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert a person")
+                                }
+                            }
+                            if settlement.waitingForFaction {
+                                Button {
+                                    settlement.factions.insert(buffer.factionBuffer[0], at: 0)
+                                    buffer.factionBuffer = []
+                                    settlement.waitingForFaction = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the faction")
+                                }
+                            }
+                            if settlement.waitingForCreature {
+                                Button {
+                                    settlement.creatures.insert(buffer.creatureBuffer[0], at: 0)
+                                    settlement.creatures[0].homeSector = settlement.homeSector
+                                    buffer.creatureBuffer = []
+                                    settlement.waitingForCreature = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the creature")
+                                }
+                            }
+                        }
                         Menu {
                             if settlement.mode != "Input" {
                                 Button {
@@ -628,17 +735,17 @@ struct SettlementView: View {
                         } label: {
                             Text("Mode")
                         }
-                        if settlement.derilict.count < 1 {
+                        if settlement.derilict.count < 1 && campaign.world.sectorIsLand == false {
                             Button {
-                                campaign.writeToFile()
                                 settlement.derilict.insert(Derelict(isChild: true, location: settlement.locationType, type: "Derelict settlement", name: settlement.name), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("Is Derelict")
                             }
                         }
                         Button {
-                            campaign.writeToFile()
                             generateSettlement()
+                            campaign.writeToFile()
                         } label: {
                             Text("Generate Settlement")
                         }
@@ -646,24 +753,24 @@ struct SettlementView: View {
                             Group {
                                 if settlement.firstLook.count < 2 {
                                     Button {
-                                        campaign.writeToFile()
                                         settlement.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("New First Look")
                                     }
                                 }
                                 if settlement.initialContact == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         settlement.initialContact = settlement.randomContact()
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Initial Contact")
                                     }
                                 }
                                 if settlement.population == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         settlement.initialContact = "Unknown"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Population")
                                     }
@@ -671,79 +778,93 @@ struct SettlementView: View {
                             }
                             Group {
                                 Button {
-                                    campaign.writeToFile()
                                     settlement.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Inhabitants")
                                 }
                                 if settlement.authority == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         settlement.authority = "Unknown"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Authority")
                                     }
                                 }
                                 if settlement.projects.count < 2 {
                                     Button {
-                                        campaign.writeToFile()
                                         settlement.projects.insert(StringContainer(name: "Unknown"), at: 0)
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("New Project")
                                     }
                                 }
                                 if settlement.trouble == "" {
                                     Button {
-                                        campaign.writeToFile()
                                         settlement.trouble = "Unknown"
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("Trouble")
                                     }
                                 }
                                 Button {
+                                    settlement.factions.insert(Faction(), at: 0)
                                     campaign.writeToFile()
-                                    settlement.factions.append(Faction())
                                 } label: {
-                                    Text("Add Faction")
+                                    Text("New Faction")
                                 }
                                 Button {
-                                    campaign.writeToFile()
                                     settlement.persons.insert(Person(), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Person")
                                 }
-                                Button {
-                                    campaign.writeToFile()
-                                    settlement.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
-                                } label: {
-                                    Text("Add Precursor Vault")
+                                if campaign.world.sectorIsLand == false {
+                                    Button {
+                                        settlement.vehicles.insert(Starship(name: Starship.randomName(mod: ""), homeSector: settlement.name), at: 0)
+                                        campaign.writeToFile()
+                                    } label: {
+                                        Text("New Starship")
+                                    }
+                                    Button {
+                                        settlement.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                                        campaign.writeToFile()
+                                    } label: {
+                                        Text("Add Precursor Vault")
+                                    }
                                 }
+                                
                                 Button {
+                                    settlement.locations.insert(Location(), at: 0)
                                     campaign.writeToFile()
-                                    settlement.places.insert(Location(), at: 0)
                                 } label: {
                                     Text("New Location")
                                 }
                                 Group {
-                                    
                                     Button {
+                                        settlement.creatures.insert(Creature(homeSector: settlement.homeSector, name: "Unknown creature"), at: 0)
                                         campaign.writeToFile()
+                                    } label: {
+                                        Text("New Creature")
+                                    }
+                                    Button {
                                         settlement.routes.insert(Route(), at: 0)
+                                        campaign.writeToFile()
                                     } label: {
                                         Text("New Route")
                                     }
                                     if settlement.subName == "" {
                                         Button {
-                                            campaign.writeToFile()
                                             settlement.subName = "Any Subtitle"
+                                            campaign.writeToFile()
                                         } label: {
                                             Text("Subtitle")
                                         }
                                     }
                                     if settlement.description == "" {
                                         Button {
-                                            campaign.writeToFile()
                                             settlement.description = "New Description"
+                                            campaign.writeToFile()
                                         } label: {
                                             Text("Description")
                                         }
@@ -753,9 +874,64 @@ struct SettlementView: View {
                         } label: {
                             Text("Add")
                         }
+                        if campaign.world.sectorIsLand == false {
+                            if campaign.world.type == "SF" || campaign.world.type == "stars" {
+                                Button {
+                                    buffer.settlementBuffer.insert(Settlement(id: settlement.id, name: settlement.name, subName: settlement.subName, hiddenDescription: settlement.hiddenDescription, description: settlement.description, hiddenLocType: settlement.hiddenLocType, locationType: settlement.locationType, hiddenInhabitants: settlement.hiddenInhabitants, inhabitants: settlement.inhabitants, hiddenPopulation: settlement.hiddenPopulation, population: settlement.population, hiddenFirstLook: settlement.hiddenFirstLook, firstLook: settlement.firstLook, hiddenContact: settlement.hiddenContact, initialContact: settlement.initialContact, hiddenAuth: settlement.hiddenAuth, authority: settlement.authority, hiddenProjects: settlement.hiddenProjects, projects: settlement.projects, hiddenTrouble: settlement.hiddenTrouble, hiddenFactions: settlement.hiddenFactions, factions: settlement.factions, trouble: settlement.trouble, hiddenRoutes: settlement.hiddenRoutes, routes: [], homeSector: "", mode: settlement.mode, oracle: Oracle.sharedOracle, travelMode: settlement.travelMode, hiddenLocations: settlement.hiddenLocations, locations: settlement.locations, hiddenPersons: settlement.hiddenPersons, persons: settlement.persons, hiddenDerilict: settlement.hiddenDerilict, derilict: settlement.derilict, hiddenVault: settlement.hiddenVault, vaults: settlement.vaults, waitingForStarship: settlement.waitingForStarship, vehicles: settlement.vehicles, hiddenVehicles: settlement.hiddenVehicles, firstLookList: settlement.firstLookList, contactList: settlement.contactList, authorityList: settlement.authorityList, projectList: settlement.projectList, troubleListSf: settlement.troubleListSf, troubleListIs: settlement.troubleListIs), at: 0)
+                                    settlement.name = "toDelate"
+                                    self.mode.wrappedValue.dismiss()
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Move Settlement")
+                                }
+                            }
+                        }
                     } label: {
                         Image(systemName: "plus")
                     }
+                }
+            }
+        }
+        .onAppear {
+            if buffer.starshipBuffer != [] {
+                settlement.waitingForStarship = true
+            } else {
+                settlement.waitingForStarship = false
+            }
+            if buffer.personBuffer != [] {
+                settlement.waitingForPerson = true
+            } else {
+                settlement.waitingForPerson = false
+            }
+            if buffer.creatureBuffer != [] {
+                settlement.waitingForCreature = true
+            } else {
+                settlement.waitingForCreature = false
+            }
+            if buffer.factionBuffer != [] {
+                settlement.waitingForFaction = true
+            } else {
+                settlement.waitingForFaction = false
+            }
+            
+            for _ in settlement.factions {
+                if let index = settlement.factions.firstIndex(where: { $0.name == "toDelate" }) {
+                    settlement.factions.remove(at: index)
+                }
+            }
+            for _ in settlement.creatures {
+                if let index = settlement.creatures.firstIndex(where: { $0.name == "toDelate" }) {
+                    settlement.creatures.remove(at: index)
+                }
+            }
+            for _ in settlement.vehicles {
+                if let index = settlement.vehicles.firstIndex(where: { $0.name == "toDelate" }) {
+                    settlement.vehicles.remove(at: index)
+                }
+            }
+            for _ in settlement.persons {
+                if let index = settlement.persons.firstIndex(where: { $0.name == "toDelate" }) {
+                    settlement.persons.remove(at: index)
                 }
             }
         }
@@ -781,9 +957,7 @@ struct SettlementView: View {
         }
     }
     func generateSettlement() {
-        if settlement.name == "Unknown" {
-            settlement.name = Settlement.randomName()
-        }
+        settlement.name = Settlement.randomName(isLand: campaign.world.sectorIsLand)
         settlement.locationType = settlement.randomLocationType()
         settlement.hiddenPopulation = false
         settlement.population = settlement.randomPopulation(region: getHomeRegion(homeSector: settlement.homeSector))
@@ -821,7 +995,11 @@ struct SettlementView: View {
         }
         
         settlement.hiddenTrouble = false
-        settlement.trouble = settlement.randomTrouble()
+        if campaign.world.sectorIsLand {
+            settlement.trouble = settlement.randomTroubleIs()
+        } else {
+            settlement.trouble = settlement.randomTroubleSf()
+        }
         
         if settlement.initialContact == "Derelict" {
             

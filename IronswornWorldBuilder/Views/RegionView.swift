@@ -11,6 +11,7 @@ struct RegionView: View {
     @Binding var region: Region
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
+    var buffer = movingBuffer.shared
     
     var body: some View {
         VStack {
@@ -26,7 +27,7 @@ struct RegionView: View {
                     if region.sectors != [] {
                         Section(header:
                                     HStack {
-                            Text("Sectors").font(.title)
+                            Text(campaign.world.sectorIsLand ? "Lands" : "Sectors").font(.title)
                             Spacer()
                             Button {
                                 region.hiddenSectors.toggle()
@@ -91,6 +92,7 @@ struct RegionView: View {
                 
             }
             .navigationTitle(region.name)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                         Button("Hide") {
@@ -99,30 +101,56 @@ struct RegionView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        if region.waitingForFaction {
+                            Button {
+                                region.factions.insert(buffer.factionBuffer[0], at: 0)
+                                buffer.factionBuffer = []
+                                region.waitingForFaction = false
+                                region.hiddenFactions = true
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Insert the faction")
+                            }
+                        }
                         Button {
+                            region.factions.insert(Faction(), at: 0)
+                            region.hiddenFactions = true
                             campaign.writeToFile()
-                            region.factions.append(Faction())
                         } label: {
                             Text("Add Faction")
                         }
                         if region.description == "" {
                             Button {
+                                region.description = "Enter your description"
                                 campaign.writeToFile()
-                                region.description = " "
                             } label: {
                                 Text("Add Description")
                             }
                         }
 
                         Button {
+                            region.sectors.insert(Sector(name: campaign.world.sectorIsLand ? "Unknown Land" : "Unknown Sector", homeRegion: region.name), at: 0)
+                            region.hiddenSectors = true
                             campaign.writeToFile()
-                            region.sectors.insert(Sector(name: "Unknown Sector", homeRegion: region.name), at: 0)
                         } label: {
-                            Text("Add Sector")
+                            Text(campaign.world.sectorIsLand ? "Add Land" : "Add Sector")
                         }
                     } label: {
                         Image(systemName: "plus")
                     }
+                }
+            }
+        }
+        .onAppear {
+            if buffer.factionBuffer != [] {
+                region.waitingForFaction = true
+            } else {
+                region.waitingForFaction = false
+            }
+            
+            for _ in region.factions {
+                if let index = region.factions.firstIndex(where: { $0.name == "toDelate" }) {
+                    region.factions.remove(at: index)
                 }
             }
         }

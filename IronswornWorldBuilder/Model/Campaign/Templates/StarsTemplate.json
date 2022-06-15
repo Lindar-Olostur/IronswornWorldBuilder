@@ -5,11 +5,11 @@
   "hiddenRegions" : true,
   "hiddenDescription" : false,
   "hiddenTruth" : false,
-  "hiddenFactions" : false,
-  "factions" : [],
+  "sectorIsLand" : false,
   "name" : "New Campaign",
   "description" : "",
   "regions" : [],
   "truth" : [],
-  "truthMode" : "Input"
+  "truthMode" : "Input",
+
 }

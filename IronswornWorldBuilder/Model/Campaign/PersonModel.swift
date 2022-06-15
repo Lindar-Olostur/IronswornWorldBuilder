@@ -27,10 +27,16 @@ struct Person: Codable, Hashable, Identifiable {
     var combatMode = false
     var oracle = Oracle.sharedOracle
     
-    var firstLookList = ["Accented", "Energetic", "Shifty", "Accompanied", "Flashy", "Sickly", "Adorned", "Graceful", "Slight", "Aged", "Grim", "Swaggering", "Alluring", "Haggard", "Tattooed", "Armed", "Illequipped", "Threatened", "Armored", "Imposing", "Uncanny", "Athletic", "Large", "Visibly disabled", "Attractive", "Mutated", "Weathered", "Augmented", "Plain", "Wellequipped", "Concealed", "Poised", "Wiry", "Distracted", "Scarred", "Wounded", "Eccentric", "Scruffy", "Youthful"]
-    func randomFirstLook() -> String {
+    var firstLookListSF = ["Accented", "Energetic", "Shifty", "Accompanied", "Flashy", "Sickly", "Adorned", "Graceful", "Slight", "Aged", "Grim", "Swaggering", "Alluring", "Haggard", "Tattooed", "Armed", "Illequipped", "Threatened", "Armored", "Imposing", "Uncanny", "Athletic", "Large", "Visibly disabled", "Attractive", "Mutated", "Weathered", "Augmented", "Plain", "Wellequipped", "Concealed", "Poised", "Wiry", "Distracted", "Scarred", "Wounded", "Eccentric", "Scruffy", "Youthful"]
+    var firstLookListIS = ["Stoic", "Attractive", "Passive", "Aloof", "Affectionate", "Generous", "Smug", "Armed", "Clever", "Brave", "Ugly", "Sociable", "Doomed", "Connected", "Bold", "Jealous", "Angry", "Active", "Suspicious", "Hostile", "Hardhearted", "Successful", "Talented", "Experienced", "Deceitful", "Ambitious", "Aggressive", "Conceited", "Proud", "Stern", "Dependent", "Wary", "Strong", "Insightful", "Dangerous", "Quirky", "Cheery", "Disfigured", "Intolerant", "Skilled", "Stingy", "Timid", "Insensitive", "Wild", "Bitter", "Cunning", "Remorseful", "Kind", "Charming", "Oblivious", "Critical", "Cautious", "Resourceful", "Weary", "Wounded", "Anxious", "Powerful", "Athletic", "Driven", "Cruel", "Quiet", "Honest", "Infamous", "Dying", "Reclusive", "Artistic", "Disabled", "Confused", "Manipulative", "Relaxed", "Stealthy", "Confident", "Weak", "Friendly", "Wise", "Influential", "Young", "Adventurous", "Oppressed", "Vengeful", "Cooperative", "Armored", "Apathetic", "Determined", "Loyal", "Sick", "Religious", "Selfish", "Old", "Fervent", "Violent", "Agreeable", "Hottempered", "Stubborn", "Incompetent", "Greedy", "Cowardly", "Obsessed", "Careless", "Ironsworn"]
+    func randomFirstLook(isLand: Bool) -> String {
         
-        var answer = firstLookList.shuffled()
+        var answer: [String] = []
+        if isLand {
+            answer = firstLookListIS.shuffled()
+        } else {
+            answer = firstLookListSF.shuffled()
+        }
         
         return answer.popLast() ?? "error"
     }
@@ -64,125 +70,172 @@ struct Person: Codable, Hashable, Identifiable {
         return answer.popLast() ?? "error"
     }
     
-    var roleList = ["Agent", "Guide", "Pirate", "AI", "Healer", "Preacher", "Artisan", "Historian", "Prophet", "Assassin", "Hunter", "Raider", "Bounty Hunter", "Investigator", "Researcher", "Courier", "Laborer", "Scavenger", "Crew", "Lawkeeper", "Scholar", "Criminal", "Leader", "Scout", "Cultist", "Mercenary", "Shipwright", "Diplomat", "Merchant", "Smuggler", "Engineer", "Miner", "Soldier", "Entertainer", "Mystic", "Spacer", "Explorer", "Navigator", "Technician", "Farmer", "Outcast", "Thief", "Fugitive", "Pilgrim", "ActionTheme", "Guard", "Pilot"]
-    func randomRole() -> String {
+    var roleListSF = ["Agent", "Guide", "Pirate", "AI", "Healer", "Preacher", "Artisan", "Historian", "Prophet", "Assassin", "Hunter", "Raider", "Bounty Hunter", "Investigator", "Researcher", "Courier", "Laborer", "Scavenger", "Crew", "Lawkeeper", "Scholar", "Criminal", "Leader", "Scout", "Cultist", "Mercenary", "Shipwright", "Diplomat", "Merchant", "Smuggler", "Engineer", "Miner", "Soldier", "Entertainer", "Mystic", "Spacer", "Explorer", "Navigator", "Technician", "Farmer", "Outcast", "Thief", "Fugitive", "Pilgrim", "Guard", "Pilot"]
+    var roleListIS = ["Criminal", "Healer", "Bandit", "Guide", "Performer", "Miner", "Mercenary", "Outcast", "Vagrant", "Forester", "Traveler", "Mystic", "Priest", "Sailor", "Pilgrim", "Thief", "Adventurer", "Forager", "Leader", "Guard", "Artisan", "Scout", "Herder", "Fisher", "Warrior", "Hunter", "Raider", "Trader", "Farmer", "Unusual Role"]
+    func randomRole(isLand: Bool) -> String {
+        var answer: [String] = []
         
-        let dictionary = [
-            "Agent" : 2,
-            "Guide" : 2,
-            "Pirate" : 2,
-            "AI" : 2,
-            "Healer" : 2,
-            "Preacher" : 2,
-            "Artisan" : 2,
-            "Historian" : 2,
-            "Prophet" : 2,
-            "Assassin" : 2,
-            "Hunter" : 2,
-            "Raider" : 2,
-            "Bounty Hunter" : 2,
-            "Investigator" : 2,
-            "Researcher" : 2,
-            "Courier" : 2,
-            "Laborer" : 2,
-            "Scavenger" : 2,
-            "Crew" : 2,
-            "Lawkeeper" : 2,
-            "Scholar" : 2,
-            "Criminal" : 2,
-            "Leader" : 2,
-            "Scout" : 2,
-            "Cultist" : 2,
-            "Mercenary" : 2,
-            "Shipwright" : 2,
-            "Diplomat" : 2,
-            "Merchant" : 2,
-            "Smuggler" : 2,
-            "Engineer" : 2,
-            "Miner" : 2,
-            "Soldier" : 2,
-            "Entertainer" : 2,
-            "Mystic" : 2,
-            "Spacer" : 2,
-            "Explorer" : 2,
-            "Navigator" : 2,
-            "Technician" : 2,
-            "Farmer" : 2,
-            "Outcast" : 2,
-            "Thief" : 2,
-            "Fugitive" : 2,
-            "Pilgrim" : 2,
-            "\(oracle.action()) + \(oracle.theme())" : 3,
-            "Guard" : 2,
-            "Pilot" : 2,
-            "Roll twice" : 5,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
+        if isLand == false {
+            let dictionary = [
+                "Agent" : 2,
+                "Guide" : 2,
+                "Pirate" : 2,
+                "AI" : 2,
+                "Healer" : 2,
+                "Preacher" : 2,
+                "Artisan" : 2,
+                "Historian" : 2,
+                "Prophet" : 2,
+                "Assassin" : 2,
+                "Hunter" : 2,
+                "Raider" : 2,
+                "Bounty Hunter" : 2,
+                "Investigator" : 2,
+                "Researcher" : 2,
+                "Courier" : 2,
+                "Laborer" : 2,
+                "Scavenger" : 2,
+                "Crew" : 2,
+                "Lawkeeper" : 2,
+                "Scholar" : 2,
+                "Criminal" : 2,
+                "Leader" : 2,
+                "Scout" : 2,
+                "Cultist" : 2,
+                "Mercenary" : 2,
+                "Shipwright" : 2,
+                "Diplomat" : 2,
+                "Merchant" : 2,
+                "Smuggler" : 2,
+                "Engineer" : 2,
+                "Miner" : 2,
+                "Soldier" : 2,
+                "Entertainer" : 2,
+                "Mystic" : 2,
+                "Spacer" : 2,
+                "Explorer" : 2,
+                "Navigator" : 2,
+                "Technician" : 2,
+                "Farmer" : 2,
+                "Outcast" : 2,
+                "Thief" : 2,
+                "Fugitive" : 2,
+                "Pilgrim" : 2,
+                "\(oracle.action()) + \(oracle.theme())" : 3,
+                "Guard" : 2,
+                "Pilot" : 2,
+                "Roll twice" : 5,
+            ]
+            
+            var pool: [String] = []
+            for (value, ratio) in dictionary {
+                pool.append(contentsOf: repeatElement(value, count: ratio))
+            }
+            answer = pool.shuffled()
         }
         
-        var answer = pool.shuffled()
-        
+        if isLand == true {
+            let dictionary = [
+                "Criminal" : 2,
+                "Healer" : 2,
+                "Bandit" : 2,
+                "Guide" : 3,
+                "Performer" : 3,
+                "Miner" : 3,
+                "Mercenary" : 3,
+                "Outcast" : 3,
+                "Vagrant" : 3,
+                "Forester" : 3,
+                "Traveler" : 3,
+                "Mystic" : 3,
+                "Priest" : 3,
+                "Sailor" : 3,
+                "Pilgrim" : 3,
+                "Thief" : 3,
+                "Adventurer" : 3,
+                "Forager" : 3,
+                "Leader" : 3,
+                "Guard" : 4,
+                "Artisan" : 4,
+                "Scout" : 4,
+                "Herder" : 4,
+                "Fisher" : 4,
+                "Warrior" : 5,
+                "Hunter" : 5,
+                "Raider" : 5,
+                "Trader" : 5,
+                "Farmer" : 5,
+                "Unusual Role" : 1,
+            ]
+            var pool: [String] = []
+            for (value, ratio) in dictionary {
+                pool.append(contentsOf: repeatElement(value, count: ratio))
+            }
+            answer = pool.shuffled()
+        }
+
         return answer.popLast() ?? "error"
     }
     
-    var goalList = ["Avenge a wrong", "Build a home", "Build a relationship", "Claim a resource", "Collect a debt", "Craft an object", "Cure an ill", "Defeat a rival", "Defend a person", "Defend a place", "Discover a truth", "End a conflict", "Escape a captor", "Fight injustice", "Find a person", "Forge an alliance", "Gain knowledge", "Gain riches", "Maintain order", "Make an agreement", "Obtain an object", "Pay a debt", "Protect a lifeform", "Protect a secret", "Prove worthiness", "Rebel against power", "Refute a falsehood", "Repair a technology", "Resolve a dispute", "Restore a relationship", "Sabotage a technology", "Secure a resource", "Seek redemption", "Seize power", "Solve a mystery", "Spread faith", "Travel to a place", "Undermine a relationship"]
-    func randomGoal() -> String {
-        
-        let dictionary = [
-            "Avenge a wrong" : 2,
-            "Build a home" : 2,
-            "Build a relationship" : 2,
-            "Claim a resource" : 2,
-            "Collect a debt" : 2,
-            "Craft an object" : 2,
-            "Cure an ill" : 2,
-            "Defeat a rival" : 2,
-            "Defend a person" : 2,
-            "Defend a place" : 2,
-            "Discover a truth" : 2,
-            "End a conflict" : 2,
-            "Escape a captor" : 2,
-            "Fight injustice" : 2,
-            "Find a person" : 2,
-            "Forge an alliance" : 2,
-            "Gain knowledge" : 2,
-            "Gain riches" : 2,
-            "Maintain order" : 2,
-            "Make an agreement" : 2,
-            "Obtain an object" : 2,
-            "Pay a debt" : 2,
-            "Protect a lifeform" : 2,
-            "Protect a secret" : 2,
-            "Prove worthiness" : 2,
-            "Rebel against power" : 2,
-            "Refute a falsehood" : 2,
-            "Repair a technology" : 2,
-            "Resolve a dispute" : 2,
-            "Restore a relationship" : 2,
-            "Sabotage a technology" : 2,
-            "Secure a resource" : 2,
-            "Seek redemption" : 2,
-            "Seize power" : 2,
-            "Solve a mystery" : 2,
-            "Spread faith" : 2,
-            "Travel to a place" : 2,
-            "Undermine a relationship" : 2,
-            "\(oracle.action()) + \(oracle.theme())" : 10,
-            "Roll twice" : 10,
-        ]
-        
-        var pool: [String] = []
-        
-        for (value, ratio) in dictionary {
-            pool.append(contentsOf: repeatElement(value, count: ratio))
+    var goalListSF = ["Avenge a wrong", "Build a home", "Build a relationship", "Claim a resource", "Collect a debt", "Craft an object", "Cure an ill", "Defeat a rival", "Defend a person", "Defend a place", "Discover a truth", "End a conflict", "Escape a captor", "Fight injustice", "Find a person", "Forge an alliance", "Gain knowledge", "Gain riches", "Maintain order", "Make an agreement", "Obtain an object", "Pay a debt", "Protect a lifeform", "Protect a secret", "Prove worthiness", "Rebel against power", "Refute a falsehood", "Repair a technology", "Resolve a dispute", "Restore a relationship", "Sabotage a technology", "Secure a resource", "Seek redemption", "Seize power", "Solve a mystery", "Spread faith", "Travel to a place", "Undermine a relationship"]
+    var goalListIS = ["Obtain an object", "Make an agreement", "Build a relationship", "Undermine a relationship", "Seek a truth", "Pay a debt", "Refute a falsehood", "Harm a rival", "Cure an ill", "Find a person", "Find a home", "Seize power", "Restore a relationship", "Create an item", "Travel to a place", "Secure provisions", "Rebel against power", "Collect a debt", "Protect a secret", "Spread faith", "Enrich themselves", "Protect a person", "Protect the status quo", "Advance status", "Defend a place", "Avenge a wrong", "Fulfill a duty", "Gain knowledge", "Prove worthiness", "Find redemption", "Escape from something", "Resolve a dispute", "Roll twice"]
+    func randomGoal(isLand: Bool) -> String {
+        var answer: [String] = []
+        if isLand == false {
+            let dictionary = [
+                "Avenge a wrong" : 2,
+                "Build a home" : 2,
+                "Build a relationship" : 2,
+                "Claim a resource" : 2,
+                "Collect a debt" : 2,
+                "Craft an object" : 2,
+                "Cure an ill" : 2,
+                "Defeat a rival" : 2,
+                "Defend a person" : 2,
+                "Defend a place" : 2,
+                "Discover a truth" : 2,
+                "End a conflict" : 2,
+                "Escape a captor" : 2,
+                "Fight injustice" : 2,
+                "Find a person" : 2,
+                "Forge an alliance" : 2,
+                "Gain knowledge" : 2,
+                "Gain riches" : 2,
+                "Maintain order" : 2,
+                "Make an agreement" : 2,
+                "Obtain an object" : 2,
+                "Pay a debt" : 2,
+                "Protect a lifeform" : 2,
+                "Protect a secret" : 2,
+                "Prove worthiness" : 2,
+                "Rebel against power" : 2,
+                "Refute a falsehood" : 2,
+                "Repair a technology" : 2,
+                "Resolve a dispute" : 2,
+                "Restore a relationship" : 2,
+                "Sabotage a technology" : 2,
+                "Secure a resource" : 2,
+                "Seek redemption" : 2,
+                "Seize power" : 2,
+                "Solve a mystery" : 2,
+                "Spread faith" : 2,
+                "Travel to a place" : 2,
+                "Undermine a relationship" : 2,
+                "\(oracle.action()) + \(oracle.theme())" : 10,
+                "Roll twice" : 10,
+            ]
+            
+            var pool: [String] = []
+            
+            for (value, ratio) in dictionary {
+                pool.append(contentsOf: repeatElement(value, count: ratio))
+            }
+            
+            answer = pool.shuffled()
         }
-        
-        var answer = pool.shuffled()
-        
+        if isLand == true {
+            answer = goalListIS.shuffled()
+        }
         return answer.popLast() ?? "error"
     }
     
@@ -211,28 +264,36 @@ struct Person: Codable, Hashable, Identifiable {
         
         return "'\(answer.popLast() ?? "Error")'"
     }
-    func randomName() -> String {
-        let nameFormat = Int.random(in: 0...6)
+    func randomName(isLand: Bool) -> String {
+        
         var name = "Unknown person"
-        switch nameFormat {
-        case 0 :
-            name = randomFirstName()
-        case 1 :
-            name = randomLastName()
-        case 2 :
-            name = randomCallsign()
-        case 3 :
-            name = "\(randomFirstName()) \(randomLastName())"
-        case 4 :
-            name = "\(randomFirstName()) \(randomCallsign())"
-        case 5 :
-            name = "\(randomCallsign()) \(randomLastName())"
-        case 6 :
-            name = "\(randomFirstName()) \(randomCallsign()) \(randomLastName())"
-        default:
-            name = "Unknown person"
+        if isLand == false {
+            let nameFormat = Int.random(in: 0...6)
+            switch nameFormat {
+            case 0 :
+                name = randomFirstName()
+            case 1 :
+                name = randomLastName()
+            case 2 :
+                name = randomCallsign()
+            case 3 :
+                name = "\(randomFirstName()) \(randomLastName())"
+            case 4 :
+                name = "\(randomFirstName()) \(randomCallsign())"
+            case 5 :
+                name = "\(randomCallsign()) \(randomLastName())"
+            case 6 :
+                name = "\(randomFirstName()) \(randomCallsign()) \(randomLastName())"
+            default:
+                name = "Unknown person"
+            }
+        }
+        if isLand == true {
+            let ILname = Oracle.ironlandersName(Oracle())
+            name = "\(ILname())"
         }
         return name
     }
+    
     
 }

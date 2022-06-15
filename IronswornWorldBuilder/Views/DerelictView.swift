@@ -491,6 +491,7 @@ struct DerelictView: View {
                 }
             }.listStyle(.inset)
         }
+        //.navigationTitle(derelict.name)
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Button("Hide") {
@@ -528,83 +529,83 @@ struct DerelictView: View {
                         Text("Mode")
                     }
                     Button {
-                        campaign.writeToFile()
                         generateDerilict()
+                        campaign.writeToFile()
                     } label: {
                         Text("Generate Derilict")
                     }
                     Menu {
                         if derelict.isChild == false && derelict.location == "" {
                             Button {
-                                campaign.writeToFile()
                                 derelict.location = "Unknown"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Location")
                             }
                         }
                         if derelict.isChild == false && derelict.type == "" {
                             Button {
-                                campaign.writeToFile()
                                 derelict.type = "Unknown"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Type")
                             }
                         }
                         if derelict.condition == "" {
                             Button {
-                                campaign.writeToFile()
                                 derelict.condition = "Unknown"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Condition")
                             }
                         }
                         if derelict.outerFirstLook == "" {
                             Button {
-                                campaign.writeToFile()
                                 derelict.outerFirstLook = "Unknown"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Outer First Look")
                             }
                         }
                         if derelict.innerFirstLook.count < 2 {
                             Button {
-                                campaign.writeToFile()
                                 derelict.innerFirstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("Inner First Look")
                             }
                         }
                         Button {
-                            campaign.writeToFile()
                             derelict.waypoints.insert(Derelict(isChild: true, location: derelict.location, type: derelict.type, name: "\(derelict.currentArea) of \(derelict.currentZone) Zone", rank: derelict.rank, themes: derelict.themes, currentZone: derelict.currentZone, currentArea: derelict.currentArea, areaList: derelict.areaList), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("New Waypoint")
                         }
                         Button {
-                            campaign.writeToFile()
                             derelict.themes.insert(StringContainer(name: "None"), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("New Theme")
                         }
                         Button {
-                            campaign.writeToFile()
                             derelict.routes.insert(Route(), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("New Route")
                         }
                         
                         if derelict.description == "" {
                             Button {
-                                campaign.writeToFile()
                                 derelict.description = "New Description"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Description")
                             }
                         }
                         if derelict.subName == "" {
                             Button {
-                                campaign.writeToFile()
                                 derelict.subName = "Any Subtitle"
+                                campaign.writeToFile()
                             } label: {
                                 Text("Subtitle")
                             }

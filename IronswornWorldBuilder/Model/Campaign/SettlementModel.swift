@@ -12,7 +12,9 @@ struct Settlement: Codable, Hashable, Identifiable {
     var id = UUID()
     var name = "Unknown" {
         didSet {
-            derilict[0].name = self.name
+            if derilict != [] {
+                derilict[0].name = self.name
+            }
         }
     }
     var subName = "Settlement"
@@ -43,13 +45,21 @@ struct Settlement: Codable, Hashable, Identifiable {
     var oracle = Oracle.sharedOracle
     var travelMode = false
     var hiddenLocations = true
-    var places: [Location] = []
+    var locations: [Location] = []
     var hiddenPersons = true
     var persons: [Person] = []
     var hiddenDerilict = true
     var derilict: [Derelict] = []
     var hiddenVault = true
     var vaults: [PrecursorVaults] = []
+    var waitingForStarship = false
+    var vehicles: [Starship] = []
+    var hiddenVehicles: Bool = true
+    var waitingForPerson = false
+    var waitingForCreature = false
+    var hiddenCreature = true
+    var creatures: [Creature] = []
+    var waitingForFaction = false
     
     func randomLocationType() -> String {
         let dictionary = [
@@ -140,7 +150,7 @@ struct Settlement: Codable, Hashable, Identifiable {
             "Sprawling or dispersed structures" : 4,
             "Temporary or seasonal location" : 3,
             "Toxic or polluted habitat" : 4,
-            "Within or near >Precursor Vault" : 2,
+            "Within or near Precursor Vault" : 2,
             "\(oracle.description()) + \(oracle.focus())" : 10,
         ]
         
@@ -250,8 +260,9 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         return answer.popLast() ?? "error"
     }
-    var troubleList = ["Battle for leadership", "Mounting debt", "Betrayal from within", "Mysterious deaths", "Caught in the crossfire", "Overdue delivery", "Changing environment", "Plagued by sickness", "Clash of cultures", "Preyed upon by raiders", "Dangerous discovery", "Revolt against leadership", "Depleted supplies", "Sabotaged technology", "Deprived of a resource", "Shunned by others", "Failing technology", "Social strife", "Feuding factions", "Someone is ill or injured", "Ghostly visitations", "Someone is missing", "Hazardous environment", "Stolen technology or object", "Hostile lifeforms", "Strange phenomenon", "Impassable route", "Toxic waste or pollution", "Impending attack", "Volatile energy source", "Impending natural disaster", "Vulnerable lifeforms", "Invasive organisms"]
-    func randomTrouble() -> String {
+    var troubleListSf = ["Battle for leadership", "Mounting debt", "Betrayal from within", "Mysterious deaths", "Caught in the crossfire", "Overdue delivery", "Changing environment", "Plagued by sickness", "Clash of cultures", "Preyed upon by raiders", "Dangerous discovery", "Revolt against leadership", "Depleted supplies", "Sabotaged technology", "Deprived of a resource", "Shunned by others", "Failing technology", "Social strife", "Feuding factions", "Someone is ill or injured", "Ghostly visitations", "Someone is missing", "Hazardous environment", "Stolen technology or object", "Hostile lifeforms", "Strange phenomenon", "Impassable route", "Toxic waste or pollution", "Impending attack", "Volatile energy source", "Impending natural disaster", "Vulnerable lifeforms", "Invasive organisms"]
+    var troubleListIs = ["Outsiders rejected", "Dangerous discovery", "Dreadful omens", "Natural disaster", "Old wounds reopened", "Important object is lost", "Someone is captured", "Mysterious phenomenon", "Revolt against a leader", "Vengeful outcast", "Rival settlement", "Nature strikes back", "Someone is missing", "Production halts", "Mysterious murders", "Debt comes due", "Unjust leadership", "Disastrous accident", "In league with the enemy", "Raiders prey on the weak", "Cursed past", "An innocent is accused", "Corrupted by dark magic", "Isolated by brutal weather", "Provisions are scarce", "Sickness run amok", "Allies become enemies", "Attack is imminent", "Lost caravan", "Dark secret revealed", "Urgent expedition", "A leader falls", "Families in conflict", "Incompetent leadership", "Reckless warmongering", "Beast on the hunt", "Betrayed from within", "Broken truce", "Wrathful haunt", "Conflict with firstborn", "Trade route blocked", "In the crossfire", "Stranger causes discord", "Important event threatened", "Dangerous tradition"]
+    func randomTroubleSf() -> String {
         let dictionary = [
             "Battle for leadership" : 3,
             "Mounting debt" : 2,
@@ -299,32 +310,64 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         return answer.popLast() ?? "error"
     }
-    static func randomName() -> String {
+    func randomTroubleIs() -> String {
+        let pool = ["Outsiders rejected", "Dangerous discovery", "Dreadful omens", "Natural disaster", "Old wounds reopened", "Important object is lost", "Someone is captured", "Mysterious phenomenon", "Revolt against a leader", "Vengeful outcast", "Rival settlement", "Nature strikes back", "Someone is missing", "Production halts", "Mysterious murders", "Debt comes due", "Unjust leadership", "Disastrous accident", "In league with the enemy", "Raiders prey on the weak", "Cursed past", "An innocent is accused", "Corrupted by dark magic", "Isolated by brutal weather", "Provisions are scarce", "Sickness run amok", "Allies become enemies", "Attack is imminent", "Lost caravan", "Dark secret revealed", "Urgent expedition", "A leader falls", "Families in conflict", "Incompetent leadership", "Reckless warmongering", "Beast on the hunt", "Betrayed from within", "Broken truce", "Wrathful haunt", "Conflict with firstborn", "Trade route blocked", "In the crossfire", "Stranger causes discord", "Important event threatened", "Dangerous tradition", "\(oracle.actionIS()) + \(oracle.themeIS())"]
         
-        let nameFormat = Int.random(in: 0...15)
+        var answer = pool.shuffled()
+        
+        return answer.popLast() ?? "error"
+    }
+    static func randomName(isLand: Bool) -> String {
         var name = "Unknown"
-        
-        func getPrefix() -> String {
-            let list = ["Base", "Citadel", "Depot", "Fortress", "Hold", "Landing", "Outpost", "Port", "Station", "Terminal"]
-            return list.shuffled()[0]
-        }
-        
-        func getSuffix() -> String {
-            let list = ["aegis", "kepler", "redemption", "altair", "koshiba", "redhaven", "altura", "lagrange", "relic", "amity", "larissa", "reprise", "apex", "lasthope", "reverie", "apogee", "lastport", "rhiannon", "argosy", "legacy", "rockhome", "astra", "lodestar", "rust", "aurora", "luminus", "sagan", "beowulf", "lyra", "scirocco", "brink", "marrow", "selena", "bulwark", "meridian", "sepulcher", "burnell", "moirai", "sigil", "burrow", "mudd", "silvana", "concord", "neoma", "sirius", "crux", "nerio", "sisyphus", "deadrock", "nova", "solitude", "deception", "nyx", "spire", "elysium", "osseus", "starfall", "enigma", "paradox", "sundown", "erebus", "paragon", "tranquility", "eris", "paxton", "tyson", "evenfall", "perchance", "unity", "eventide", "pinnacle", "utopia", "farpoint", "polaris", "vega", "felicity", "portent", "vesper", "florin", "prism", "wayward", "forlorn", "providence", "welkin", "forsaken", "purgatory", "wellpsring", "freya", "rampart", "weyland", "glimmer", "ramshackle", "wreck", "gloam", "hearth", "helia", "hypatia", "karma", "hyperion", "janus",]
-            return list.shuffled()[0].capitalized
-        }
-        
-        
-        if nameFormat <= 6 {
-            name = getSuffix()
-        }
+        if isLand == false {
+            let nameFormat = Int.random(in: 0...15)
+            
+            
+            func getPrefix() -> String {
+                let list = ["Base", "Citadel", "Depot", "Fortress", "Hold", "Landing", "Outpost", "Port", "Station", "Terminal"]
+                return list.shuffled()[0]
+            }
+            
+            func getSuffix() -> String {
+                let list = ["aegis", "kepler", "redemption", "altair", "koshiba", "redhaven", "altura", "lagrange", "relic", "amity", "larissa", "reprise", "apex", "lasthope", "reverie", "apogee", "lastport", "rhiannon", "argosy", "legacy", "rockhome", "astra", "lodestar", "rust", "aurora", "luminus", "sagan", "beowulf", "lyra", "scirocco", "brink", "marrow", "selena", "bulwark", "meridian", "sepulcher", "burnell", "moirai", "sigil", "burrow", "mudd", "silvana", "concord", "neoma", "sirius", "crux", "nerio", "sisyphus", "deadrock", "nova", "solitude", "deception", "nyx", "spire", "elysium", "osseus", "starfall", "enigma", "paradox", "sundown", "erebus", "paragon", "tranquility", "eris", "paxton", "tyson", "evenfall", "perchance", "unity", "eventide", "pinnacle", "utopia", "farpoint", "polaris", "vega", "felicity", "portent", "vesper", "florin", "prism", "wayward", "forlorn", "providence", "welkin", "forsaken", "purgatory", "wellpsring", "freya", "rampart", "weyland", "glimmer", "ramshackle", "wreck", "gloam", "hearth", "helia", "hypatia", "karma", "hyperion", "janus",]
+                return list.shuffled()[0].capitalized
+            }
+            
+            
+            if nameFormat <= 6 {
+                name = getSuffix()
+            }
 
-        if nameFormat >= 9 {
-            name = "\(getPrefix()) \(getSuffix())"
-        }
+            if nameFormat >= 9 {
+                name = "\(getPrefix()) \(getSuffix())"
+            }
 
+            
+        }
+        if isLand == true {
+            let nameIL = Oracle.ironlandersName(Oracle())
+            let nameFormat = Int.random(in: 0...8)
+            
+            if nameFormat > 0 && nameFormat < 8 {
+                name = "\(getPrefix())\(getSuffix())"
+            }
+            if nameFormat == 0 {
+                name = "\(getPrefix())'s \(getSuffix())"
+            }
+            if nameFormat == 8 {
+                name = "\(nameIL())'s \(getSuffix())"
+            }
+            func getPrefix() -> String {
+                let list = ["Bleak", "Green", "Wolf", "Raven", "Gray", "Red", "Axe", "Great", "Wood", "Low", "White", "Storm", "Black", "Mourn", "New", "Stone", "Grim", "Lost", "High", "Rock", "Shield", "Sword", "Frost", "Thorn", "Long", "Deep", "Dark", "Timber", "Lone", "Cinder", "Fallow", "Raven", "Bear", "Eagle", "Fox", "Elder", "Elk", "Dragon", "First", "Broken", "Last", "Rock", "Old"]
+                return list.shuffled()[0]
+            }
+            func getSuffix() -> String {
+                let list = ["moor", "ford", "crag", "watch", "hope", "wood", "ridge", "stone", "heaven", "fall", "river", "field", "hill", "bridge", "mark", "cairn", "land", "hall", "mount", "rock", "brook", "barrow", "stead", "home", "wick", "water", "crest", "tree", "cliff", "fort", "well", "wall", "tower", "spire", "rest", "hollow", "shadow", "break", "meet", "helm", "haunt", "stand", "lamment", "march", "hold", "burg", "ville"]
+                return list.shuffled()[0]
+            }
+        }
         return name
-    } //куда вставить генератор названий
+    }
 
 }
 

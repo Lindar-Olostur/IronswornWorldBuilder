@@ -85,6 +85,8 @@ struct Faction: Codable, Hashable, Identifiable {
     var quirks: [StringContainer] = []
     var mode = "Selection"
     var oracle = Oracle.sharedOracle
+    var waitingForPerson = false
+    
     
     static func randomName() -> String {
         var result = "Unknown name"

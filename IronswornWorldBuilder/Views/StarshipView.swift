@@ -11,7 +11,9 @@ struct StarshipView: View {
     @Binding var starship: Starship
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
+    @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     
+    var buffer = movingBuffer.shared
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -309,7 +311,56 @@ struct StarshipView: View {
                             }
                         }
                     }
-
+                    //PERSONS
+                    if starship.persons != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Persons").font(.title)
+                            Spacer()
+                            Button {
+                                starship.hiddenPersons.toggle()
+                            } label: {
+                                Image(systemName: starship.hiddenPersons ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if starship.hiddenPersons {
+                                ForEach($starship.persons, id: \.id) { $person in
+                                    NavigationLink(destination: PersonView(person: $person, campaign: self.campaign)) {
+                                        Text(person.name)
+                                    }
+                                }.onDelete { (indexSet) in
+                                    starship.persons.remove(atOffsets: indexSet)
+                                }
+                            }
+                        }
+                    }
+                    
+                    //CREATURES
+                    if starship.creatures != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Creatures").font(.title)
+                            Spacer()
+                            Button {
+                                starship.hiddenCreature.toggle()
+                            } label: {
+                                Image(systemName: starship.hiddenCreature ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if starship.hiddenCreature {
+                                ForEach($starship.creatures, id: \.id) { $creature in
+                                    NavigationLink(destination: CreatureView(creature: $creature, campaign: Campaign())) {
+                                        Text(creature.name)
+                                    }
+                                }.onDelete { (indexSet) in
+                                    starship.creatures.remove(atOffsets: indexSet)
+                                }
+                            }
+                        }
+                    }
+                    
                     //DERELICT
                     if starship.derilict != [] {
                         Section(header:
@@ -336,6 +387,7 @@ struct StarshipView: View {
 
                 }.listStyle(.inset)
             }
+           // .navigationTitle(starship.name)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                         Button("Hide") {
@@ -344,6 +396,40 @@ struct StarshipView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        Group {
+                            if starship.waitingForFaction {
+                                Button {
+                                    starship.factions.insert(buffer.factionBuffer[0], at: 0)
+                                    buffer.factionBuffer = []
+                                    starship.waitingForFaction = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the faction")
+                                }
+                            }
+                            if starship.waitingForPerson{
+                                Button {
+                                    starship.persons.insert(buffer.personBuffer[0], at: 0)
+                                    //starship.persons[0].homeSector = settlement.homeSector
+                                    buffer.personBuffer = []
+                                    starship.waitingForPerson = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert a person")
+                                }
+                            }
+                            if starship.waitingForCreature {
+                                Button {
+                                    starship.creatures.insert(buffer.creatureBuffer[0], at: 0)
+                                    starship.creatures[0].homeSector = starship.homeSector
+                                    buffer.creatureBuffer = []
+                                    starship.waitingForCreature = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the creature")
+                                }
+                            }
+                        }
                         Menu {
                             if starship.mode != "Input" {
                                 Button {
@@ -371,82 +457,135 @@ struct StarshipView: View {
                         }
                         if starship.derilict.count < 1 {
                             Button {
-                                campaign.writeToFile()
                                 starship.derilict.insert(Derelict(isChild: true, type: "Derelict starship", name: starship.name), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("Is Derelict")
                             }
                         }
                         Button {
-                            campaign.writeToFile()
                             generateStarship()
+                            campaign.writeToFile()
                         } label: {
                             Text("Generate Starship")
                         }
                         Menu {
                             if starship.fleet == "" && starship.type == "Fleet" {
                                 Button {
-                                    campaign.writeToFile()
                                     starship.fleet = "Unknown Fleet"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Fleet")
                                 }
                             }
                             if starship.missions.count < 2 {
                                 Button {
-                                    campaign.writeToFile()
                                     starship.missions.insert(StringContainer(), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New Mission")
                                 }
                             }
                             if starship.firstLook.count < 2 {
                                 Button {
-                                    campaign.writeToFile()
                                     starship.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("New First Look")
                                 }
                             }
                             if starship.initialContact == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     starship.initialContact = starship.randomContact()
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Initial Contact")
                                 }
                             }
                             Button {
+                                starship.persons.insert(Person(), at: 0)
                                 campaign.writeToFile()
-                                starship.factions.append(Faction())
+                            } label: {
+                                Text("New Person")
+                            }
+                            Button {
+                                starship.creatures.insert(Creature(homeSector: starship.homeSector, name: "Unknown creature"), at: 0)
+                                campaign.writeToFile()
+                            } label: {
+                                Text("New Creature")
+                            }
+                            Button {
+                                starship.factions.insert(Faction(), at: 0)
+                                campaign.writeToFile()
                             } label: {
                                 Text("Add Faction")
                             }
                             if starship.description == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     starship.description = "New Description"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Description")
                                 }
                             }
                             if starship.subName == "" {
                                 Button {
-                                    campaign.writeToFile()
                                     starship.subName = "Any Subtitle"
+                                    campaign.writeToFile()
                                 } label: {
                                     Text("Subtitle")
                                 }
                             }
                         } label: {
                             Text("Add")
-                        }    
+                        }
+                        Button {
+                            buffer.starshipBuffer.insert(Starship(id: starship.id, name: starship.name, subName: starship.subName, hiddenDescription: starship.hiddenDescription, description: starship.description, hiddenType: starship.hiddenType, type: starship.type, hiddenFleet: starship.hiddenFleet, fleet: starship.fleet, hiddenFirstLook: starship.hiddenFirstLook, firstLook: starship.firstLook, hiddenContact: starship.hiddenContact, initialContact: starship.initialContact, hiddenMission: starship.hiddenMission, missions: starship.missions, hiddenTheme: starship.hiddenTheme, theme: starship.theme, homeSector: "", hiddenFactions: starship.hiddenFactions, factions: starship.factions, mode: starship.mode, oracle: starship.oracle, hiddenDerilict: starship.hiddenDerilict, derilict: starship.derilict, missionList: starship.missionList, contactList: starship.contactList, firstLookList: starship.firstLookList, typeList: starship.typeList, fleetList: starship.fleetList), at: 0)
+                            starship.name = "toDelate"
+                            self.mode.wrappedValue.dismiss()
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Move Starship")
+                        }
                     } label: {
                         Image(systemName: "plus")
                     }
                 }
             }
             Spacer()
+        }
+        .onAppear {
+            if buffer.personBuffer != [] {
+                starship.waitingForPerson = true
+            } else {
+                starship.waitingForPerson = false
+            }
+            if buffer.creatureBuffer != [] {
+                starship.waitingForCreature = true
+            } else {
+                starship.waitingForCreature = false
+            }
+            if buffer.factionBuffer != [] {
+                starship.waitingForFaction = true
+            } else {
+                starship.waitingForFaction = false
+            }
+            
+            for _ in starship.factions {
+                if let index = starship.factions.firstIndex(where: { $0.name == "toDelate" }) {
+                    starship.factions.remove(at: index)
+                }
+            }
+            for _ in starship.persons {
+                if let index = starship.persons.firstIndex(where: { $0.name == "toDelate" }) {
+                    starship.persons.remove(at: index)
+                }
+            }
+            for _ in starship.creatures {
+                if let index = starship.creatures.firstIndex(where: { $0.name == "toDelate" }) {
+                    starship.creatures.remove(at: index)
+                }
+            }
         }
     }
     func getHomeRegion(homeSector: String) -> String {

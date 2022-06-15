@@ -66,6 +66,10 @@ struct StellarObject: Codable, Hashable, Identifiable {
     var factions: [Faction] = []
     var hiddenVault = true
     var vaults: [PrecursorVaults] = []
+    var waitingForStarship = false
+    var waitingForSettlement = false
+    var waitingForCreature = false
+    var waitingForFaction = false
     
     var typeList = ["Red star", "Orange star", "Yellow star", "Blue star", "Molecular cloud", "White dwarf", "Corrupted star", "Neutron star", "Binary star", "Black hole", "Hypergiant star", "Artificial star", "Unstable star", "Unknown Stellar Object"]
     func randomType() -> String {

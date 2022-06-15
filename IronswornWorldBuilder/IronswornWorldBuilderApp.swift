@@ -12,8 +12,7 @@ struct IronswornWorldBuilderApp: App {
     @StateObject var campaign: Campaign = Campaign()
     var body: some Scene {
         WindowGroup {
-            RootView()
-               .environmentObject(campaign)
+            RootView().environmentObject(campaign)
         }
     }
 }

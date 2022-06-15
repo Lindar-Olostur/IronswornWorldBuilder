@@ -19,6 +19,7 @@ struct Planet: Codable, Hashable, Identifiable {
     var hiddenType = true
     var type = "Unknown World" {
         didSet {
+            subName = type
             switch type {
             case "Desert World" :
                 description = "A pitiless planet of searing heat, blowing sand, and sunbaked rock."
@@ -65,10 +66,19 @@ struct Planet: Codable, Hashable, Identifiable {
     var factions: [Faction] = []
     var hiddenVault = true
     var vaults: [PrecursorVaults] = []
-    
     var oracle = Oracle.sharedOracle
     var mode = "Input"
     var travelMode = false
+    var waitingForStarship = false
+    var vehicles: [Starship] = []
+    var hiddenVehicles: Bool = true
+    var waitingForSettlement = false
+    var waitingForCreature = false
+    var creatures: [Creature] = []
+    var hiddenCreature: Bool = true
+    var waitingForFaction = false
+    var locations: [Location] = []
+    var hiddenLocations: Bool = true
     
     var typeList = ["Desert World", "Furnance World", "Grave World", "Ice World", "Jovian World", "Jungle World", "Ocean World", "Rocky World", "Shattered World", "Tainted World", "Vital World", "Unknown World"]
     func randomPlanetType() -> String {

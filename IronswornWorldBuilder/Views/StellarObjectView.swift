@@ -11,6 +11,7 @@ struct StellarObjectView: View {
     @Binding var stellarObject: StellarObject
     @ObservedObject var campaign: Campaign
     @FocusState private var fieldIsFocused: Bool
+    var buffer = movingBuffer.shared
     
     var body: some View {
         VStack {
@@ -176,30 +177,30 @@ struct StellarObjectView: View {
                         }
                     }
 
-                    //LOCATION
-                    if stellarObject.locations != [] {
-                        Section(header:
-                                    HStack {
-                            Text("Locations").font(.title)
-                            Spacer()
-                            Button {
-                                stellarObject.hiddenLocations.toggle()
-                            } label: {
-                                Image(systemName: stellarObject.hiddenLocations ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if stellarObject.hiddenLocations {
-                                ForEach($stellarObject.locations, id: \.id) { $location in
-                                    NavigationLink(destination: LocationView()) {
-                                        Text(location.name)
-                                    }
-                                }.onDelete { (indexSet) in
-                                    stellarObject.locations.remove(atOffsets: indexSet)
-                                }
-                            }
-                        }
-                    }
+//                    //LOCATION
+//                    if stellarObject.locations != [] {
+//                        Section(header:
+//                                    HStack {
+//                            Text("Locations").font(.title)
+//                            Spacer()
+//                            Button {
+//                                stellarObject.hiddenLocations.toggle()
+//                            } label: {
+//                                Image(systemName: stellarObject.hiddenLocations ? "chevron.down" : "chevron.right")
+//                            }
+//                        }
+//                        ) {
+//                            if stellarObject.hiddenLocations {
+//                                ForEach($stellarObject.locations, id: \.id) { $location in
+//                                    NavigationLink(destination: LocationView(location: $location, campaign: self.campaign)) {
+//                                        Text(location.name)
+//                                    }
+//                                }.onDelete { (indexSet) in
+//                                    stellarObject.locations.remove(atOffsets: indexSet)
+//                                }
+//                            }
+//                        }
+//                    }
                     
                     //CREATURE
                     if stellarObject.creatures != [] {
@@ -273,6 +274,8 @@ struct StellarObjectView: View {
                 }.listStyle(.inset)
                 
             }
+            //.navigationTitle(stellarObject.name)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                         Button("Hide") {
@@ -281,96 +284,185 @@ struct StellarObjectView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
-                        Menu {
-                            if stellarObject.mode != "Input" {
+                        Group {
+                            if stellarObject.waitingForStarship {
                                 Button {
-                                    stellarObject.mode = "Input"
+                                    stellarObject.vehicles.insert(buffer.starshipBuffer[0], at: 0)
+                                    stellarObject.vehicles[0].homeSector = stellarObject.homeSector
+                                    buffer.starshipBuffer = []
+                                    stellarObject.waitingForStarship = false
+                                    campaign.writeToFile()
                                 } label: {
-                                    Text("Input")
+                                    Text("Insert the starship")
                                 }
                             }
-                            if stellarObject.mode != "Selection" {
+                            if stellarObject.waitingForFaction {
                                 Button {
-                                    stellarObject.mode = "Selection"
+                                    stellarObject.factions.insert(buffer.factionBuffer[0], at: 0)
+                                    buffer.factionBuffer = []
+                                    stellarObject.waitingForFaction = false
+                                    campaign.writeToFile()
                                 } label: {
-                                    Text("Selection")
+                                    Text("Insert the faction")
                                 }
                             }
-                            if stellarObject.mode != "Generation" {
+                            if stellarObject.waitingForCreature {
                                 Button {
-                                    stellarObject.mode = "Generation"
+                                    stellarObject.creatures.insert(buffer.creatureBuffer[0], at: 0)
+                                    stellarObject.creatures[0].homeSector = stellarObject.homeSector
+                                    buffer.creatureBuffer = []
+                                    stellarObject.waitingForCreature = false
+                                    campaign.writeToFile()
                                 } label: {
-                                    Text("Generation")
+                                    Text("Insert the creature")
                                 }
                             }
-                        } label: {
-                            Text("Mode")
+                            if stellarObject.waitingForSettlement {
+                                Button {
+                                    stellarObject.settlements.insert(buffer.settlementBuffer[0], at: 0)
+                                    stellarObject.settlements[0].homeSector = stellarObject.homeSector
+                                    buffer.settlementBuffer = []
+                                    stellarObject.waitingForSettlement = false
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Insert the settlement")
+                                }
+                            }
+                            Menu {
+                                if stellarObject.mode != "Input" {
+                                    Button {
+                                        stellarObject.mode = "Input"
+                                    } label: {
+                                        Text("Input")
+                                    }
+                                }
+                                if stellarObject.mode != "Selection" {
+                                    Button {
+                                        stellarObject.mode = "Selection"
+                                    } label: {
+                                        Text("Selection")
+                                    }
+                                }
+                                if stellarObject.mode != "Generation" {
+                                    Button {
+                                        stellarObject.mode = "Generation"
+                                    } label: {
+                                        Text("Generation")
+                                    }
+                                }
+                            } label: {
+                                Text("Mode")
+                            }
+
                         }
                         Button {
-                            campaign.writeToFile()
                             stellarObject.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("Add Precursor Vault")
                         }
                         
                         if stellarObject.description == "" {
                             Button {
-                                campaign.writeToFile()
                                 stellarObject.description = " "
+                                campaign.writeToFile()
                             } label: {
                                 Text("Description")
                             }
                         }
                         Button {
+                            stellarObject.factions.insert(Faction(), at: 0)
                             campaign.writeToFile()
-                            stellarObject.factions.append(Faction())
                         } label: {
                             Text("Add Faction")
                         }
                         Button {
-                            campaign.writeToFile()
                             stellarObject.planets.insert(Planet(homeSector: stellarObject.homeSector, homeStar: stellarObject.name, name: stellarObject.randomPlanetName()), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("Add Planet")
                         }
                         
                         Button {
-                            campaign.writeToFile()
                             stellarObject.settlements.insert(Settlement(homeSector: stellarObject.homeSector), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("Add Settlement")
                         }
                         
-                        Button {
-                            campaign.writeToFile()
-                            stellarObject.locations.insert(Location(name: "Unknown Location"), at: 0)
-                        } label: {
-                            Text("Add Location")
-                        }
+//                        Button {
+//                            campaign.writeToFile()
+//                            stellarObject.locations.insert(Location(name: "Unknown Location"), at: 0)
+//                        } label: {
+//                            Text("Add Location")
+//                        }
                         
                         Button {
-                            campaign.writeToFile()
                             stellarObject.creatures.insert(Creature(homeSector: stellarObject.homeSector, name: "Unknown Creature"), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("Add Creature")
                         }
                         
                         Button {
-                            campaign.writeToFile()
                             stellarObject.vehicles.insert(Starship(name: "Unknown Starship", homeSector: stellarObject.homeSector), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("Add Starship")
                         }
                         
                         Button {
-                            campaign.writeToFile()
                             stellarObject.routes.insert(Route(), at: 0)
+                            campaign.writeToFile()
                         } label: {
                             Text("Add Route")
                         }
                     } label: {
                         Image(systemName: "plus")
                     }
+                }
+            }
+        }
+        .onAppear {
+            if buffer.starshipBuffer != [] {
+                stellarObject.waitingForStarship = true
+            } else {
+                stellarObject.waitingForStarship = false
+            }
+            if buffer.settlementBuffer != [] {
+                stellarObject.waitingForSettlement = true
+            } else {
+                stellarObject.waitingForSettlement = false
+            }
+            if buffer.creatureBuffer != [] {
+                stellarObject.waitingForCreature = true
+            } else {
+                stellarObject.waitingForCreature = false
+            }
+            if buffer.factionBuffer != [] {
+                stellarObject.waitingForFaction = true
+            } else {
+                stellarObject.waitingForFaction = false
+            }
+            
+            for _ in stellarObject.factions {
+                if let index = stellarObject.factions.firstIndex(where: { $0.name == "toDelate" }) {
+                    stellarObject.factions.remove(at: index)
+                }
+            }
+            for _ in stellarObject.creatures {
+                if let index = stellarObject.creatures.firstIndex(where: { $0.name == "toDelate" }) {
+                    stellarObject.creatures.remove(at: index)
+                }
+            }
+            for _ in stellarObject.vehicles {
+                if let index = stellarObject.vehicles.firstIndex(where: { $0.name == "toDelate" }) {
+                    stellarObject.vehicles.remove(at: index)
+                }
+            }
+            for _ in stellarObject.settlements {
+                if let index = stellarObject.settlements.firstIndex(where: { $0.name == "toDelate" }) {
+                    stellarObject.settlements.remove(at: index)
                 }
             }
         }

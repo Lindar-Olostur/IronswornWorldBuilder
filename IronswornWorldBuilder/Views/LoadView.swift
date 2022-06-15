@@ -53,9 +53,9 @@ struct LoadView: View {
     }
     
     func loadFile(id: String) {
-        campaign.writeToFile()
         campaign.getData(file: id)
         self.presentationMode.wrappedValue.dismiss()
+        campaign.writeToFile()
     }
 }
 
