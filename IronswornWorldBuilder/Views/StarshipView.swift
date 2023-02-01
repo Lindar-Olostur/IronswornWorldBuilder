@@ -44,343 +44,372 @@ struct StarshipView: View {
                 }
                 
                 List {
-                    //TYPE
-                    Section(header:
-                                HStack {
-                        Text("Class").font(.title)
-                        Spacer()
-                        Button {
-                            starship.hiddenType.toggle()
-                        } label: {
-                            Image(systemName: starship.hiddenType ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if starship.hiddenType {
-                            if starship.mode == "Input" {
-                                TextField("Enter starship class", text: $starship.type).focused($fieldIsFocused)
+                    Group {
+                        //TYPE
+                        Section(header:
+                                    HStack {
+                            Text("Class").font(.title)
+                            Spacer()
+                            Button {
+                                starship.hiddenType.toggle()
+                            } label: {
+                                Image(systemName: starship.hiddenType ? "chevron.down" : "chevron.right")
                             }
-                            if starship.mode == "Generation" {
-                                HStack {
+                        }
+                        ) {
+                            if starship.hiddenType {
+                                if starship.mode == "Input" {
                                     TextField("Enter starship class", text: $starship.type).focused($fieldIsFocused)
-                                    Spacer()
-                                    Button {
-                                        starship.type = starship.randomType()
-                                    } label: {
-                                        Image(systemName: "dice").font(.system(size: 20))
-                                    }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                }
-                            }
-                            if starship.mode == "Selection" {
-                                Picker(selection: $starship.type, label: EmptyView()) {
-                                    ForEach(starship.typeList, id: \.self) { value in
-                                        Text(value).font(.system(size: 50))
-                                            .tag(value)
-                                    }
-                                }.pickerStyle(.menu)
-                            }
-                        }
-                    }
-                    
-                    //FLEET
-                    if starship.fleet != "" {
-                        Section(header:
-                                    HStack {
-                                    Text("Fleet").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenFleet.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenFleet ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if starship.hiddenFleet {
-                                if starship.mode == "Input" {
-                                    TextField("Enter fleet", text: $starship.fleet).focused($fieldIsFocused)
                                 }
                                 if starship.mode == "Generation" {
                                     HStack {
+                                        TextField("Enter starship class", text: $starship.type).focused($fieldIsFocused)
+                                        Spacer()
+                                        Button {
+                                            starship.type = starship.randomType()
+                                        } label: {
+                                            Image(systemName: "dice").font(.system(size: 20))
+                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                    }
+                                }
+                                if starship.mode == "Selection" {
+                                    Picker(selection: $starship.type, label: EmptyView()) {
+                                        ForEach(starship.typeList, id: \.self) { value in
+                                            Text(value).font(.system(size: 50))
+                                                .tag(value)
+                                        }
+                                    }.pickerStyle(.menu)
+                                }
+                            }
+                        }
+                        
+                        //FLEET
+                        if starship.fleet != "" {
+                            Section(header:
+                                        HStack {
+                                        Text("Fleet").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenFleet.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenFleet ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenFleet {
+                                    if starship.mode == "Input" {
                                         TextField("Enter fleet", text: $starship.fleet).focused($fieldIsFocused)
-                                        Spacer()
-                                        Button {
-                                            starship.fleet = starship.randomFleet()
-                                        } label: {
-                                            Image(systemName: "dice").font(.system(size: 20))
-                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
                                     }
-                                }
-                                if starship.mode == "Selection" {
-                                    Picker(selection: $starship.fleet
-                                           , label: EmptyView()) {
-                                        ForEach(starship.fleetList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
-                                        }
-                                    }.pickerStyle(.menu)
-                                }
-                            }
-                        }
-                    }
-                    
-                    //MISSION
-                    if starship.missions != [] {
-                        Section(header:
-                                    HStack {
-                            Text("Missions").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenMission.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenMission ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if starship.hiddenMission {
-                                if starship.mode == "Input" {
-                                    ForEach($starship.missions) { $mission in
-                                        TextField("Enter mission", text: $mission.name).focused($fieldIsFocused)
-                                    }.onDelete { (indexSet) in
-                                        starship.missions.remove(atOffsets: indexSet)
-                                    }
-                                }
-                                if starship.mode == "Generation" {
-                                    ForEach($starship.missions) { $mission in
+                                    if starship.mode == "Generation" {
                                         HStack {
+                                            TextField("Enter fleet", text: $starship.fleet).focused($fieldIsFocused)
+                                            Spacer()
+                                            Button {
+                                                starship.fleet = starship.randomFleet()
+                                            } label: {
+                                                Image(systemName: "dice").font(.system(size: 20))
+                                            }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                        }
+                                    }
+                                    if starship.mode == "Selection" {
+                                        Picker(selection: $starship.fleet
+                                               , label: EmptyView()) {
+                                            ForEach(starship.fleetList, id: \.self) { value in
+                                                Text(value).font(.system(size: 50))
+                                                    .tag(value)
+                                            }
+                                        }.pickerStyle(.menu)
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //MISSION
+                        if starship.missions != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Missions").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenMission.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenMission ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenMission {
+                                    if starship.mode == "Input" {
+                                        ForEach($starship.missions) { $mission in
                                             TextField("Enter mission", text: $mission.name).focused($fieldIsFocused)
-                                            Spacer()
-                                            Button {
-                                                mission.name = starship.randomMission(region: getHomeRegion(homeSector: starship.homeSector))
-                                            } label: {
-                                                Image(systemName: "dice").font(.system(size: 20))
-                                            }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                        }.onDelete { (indexSet) in
+                                            starship.missions.remove(atOffsets: indexSet)
                                         }
-                                    }.onDelete { (indexSet) in
-                                        starship.missions.remove(atOffsets: indexSet)
                                     }
-                                }
-                                if starship.mode == "Selection" {
-                                    ForEach($starship.missions) { $mission in
-                                        Picker(selection: $mission.name, label: EmptyView()) {
-                                            ForEach(starship.missionList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                    if starship.mode == "Generation" {
+                                        ForEach($starship.missions) { $mission in
+                                            HStack {
+                                                TextField("Enter mission", text: $mission.name).focused($fieldIsFocused)
+                                                Spacer()
+                                                Button {
+                                                    mission.name = starship.randomMission(region: getHomeRegion(homeSector: starship.homeSector))
+                                                } label: {
+                                                    Image(systemName: "dice").font(.system(size: 20))
+                                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
                                             }
-                                        }.pickerStyle(.menu)
-                                    }.onDelete { (indexSet) in
-                                        starship.missions.remove(atOffsets: indexSet)
+                                        }.onDelete { (indexSet) in
+                                            starship.missions.remove(atOffsets: indexSet)
+                                        }
+                                    }
+                                    if starship.mode == "Selection" {
+                                        ForEach($starship.missions) { $mission in
+                                            Picker(selection: $mission.name, label: EmptyView()) {
+                                                ForEach(starship.missionList, id: \.self) { value in
+                                                    Text(value).font(.system(size: 50))
+                                                        .tag(value)
+                                                }
+                                            }.pickerStyle(.menu)
+                                        }.onDelete { (indexSet) in
+                                            starship.missions.remove(atOffsets: indexSet)
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
-                    
-                    //DESCRIPTION
-                    if starship.description != "" {
-                        Section(header:
-                                    HStack {
-                            Text("Description").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenDescription.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenDescription ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if starship.hiddenDescription {
-                                TextEditor(text: $starship.description)
-                                    .focused($fieldIsFocused)
-                            }
-                        }
-                    }
-
-                    //FIRST LOOK
-                    if starship.firstLook != [] {
-                        Section(header:
-                                    HStack {
-                            Text("First Look").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenFirstLook.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenFirstLook ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if starship.hiddenFirstLook {
-                                if starship.mode == "Input" {
-                                    ForEach($starship.firstLook) { $look in
-                                        TextField("Enter first look", text: $look.name).focused($fieldIsFocused)
-                                    }.onDelete { (indexSet) in
-                                        starship.firstLook.remove(atOffsets: indexSet)
-                                    }
-                                }
-                                if starship.mode == "Generation" {
-                                    ForEach($starship.firstLook) { $look in
+                        
+                        //DESCRIPTION
+                        if starship.description != "" {
+                            Section(header:
                                         HStack {
+                                Text("Description").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenDescription.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenDescription ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenDescription {
+                                    TextEditor(text: $starship.description)
+                                        .focused($fieldIsFocused)
+                                }
+                            }
+                        }
+
+                        //FIRST LOOK
+                        if starship.firstLook != [] {
+                            Section(header:
+                                        HStack {
+                                Text("First Look").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenFirstLook.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenFirstLook ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenFirstLook {
+                                    if starship.mode == "Input" {
+                                        ForEach($starship.firstLook) { $look in
                                             TextField("Enter first look", text: $look.name).focused($fieldIsFocused)
+                                        }.onDelete { (indexSet) in
+                                            starship.firstLook.remove(atOffsets: indexSet)
+                                        }
+                                    }
+                                    if starship.mode == "Generation" {
+                                        ForEach($starship.firstLook) { $look in
+                                            HStack {
+                                                TextField("Enter first look", text: $look.name).focused($fieldIsFocused)
+                                                Spacer()
+                                                Button {
+                                                    look.name = starship.randomFirstLook()
+                                                } label: {
+                                                    Image(systemName: "dice").font(.system(size: 20))
+                                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                            }
+                                        }.onDelete { (indexSet) in
+                                            starship.firstLook.remove(atOffsets: indexSet)
+                                        }
+                                    }
+                                    if starship.mode == "Selection" {
+                                        ForEach($starship.firstLook) { $look in
+                                            Picker(selection: $look.name, label: EmptyView()) {
+                                                ForEach(starship.firstLookList, id: \.self) { value in
+                                                    Text(value).font(.system(size: 50))
+                                                        .tag(value)
+                                                }
+                                            }.pickerStyle(.menu)
+                                        }.onDelete { (indexSet) in
+                                            starship.firstLook.remove(atOffsets: indexSet)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        //INITIAL CONTACT
+                        if starship.initialContact != "" {
+                            Section(header:
+                                        HStack {
+                                Text("Initial Contact").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenContact.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenContact ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenContact {
+                                    if starship.mode == "Input" {
+                                        TextField("Enter initial contact", text: $starship.initialContact).focused($fieldIsFocused)
+                                    }
+                                    if starship.mode == "Generation" {
+                                        HStack {
+                                            TextField("Enter initial contact", text: $starship.initialContact).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                look.name = starship.randomFirstLook()
+                                                starship.initialContact = starship.randomContact()
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
                                         }
-                                    }.onDelete { (indexSet) in
-                                        starship.firstLook.remove(atOffsets: indexSet)
                                     }
-                                }
-                                if starship.mode == "Selection" {
-                                    ForEach($starship.firstLook) { $look in
-                                        Picker(selection: $look.name, label: EmptyView()) {
-                                            ForEach(starship.firstLookList, id: \.self) { value in
+                                    if starship.mode == "Selection" {
+                                        Picker(selection: $starship.initialContact, label: EmptyView()) {
+                                            ForEach(starship.contactList, id: \.self) { value in
                                                 Text(value).font(.system(size: 50))
                                                     .tag(value)
                                             }
                                         }.pickerStyle(.menu)
-                                    }.onDelete { (indexSet) in
-                                        starship.firstLook.remove(atOffsets: indexSet)
                                     }
                                 }
                             }
                         }
-                    }
-                    
-                    //INITIAL CONTACT
-                    if starship.initialContact != "" {
-                        Section(header:
-                                    HStack {
-                            Text("Initial Contact").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenContact.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenContact ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if starship.hiddenContact {
-                                if starship.mode == "Input" {
-                                    TextField("Enter initial contact", text: $starship.initialContact).focused($fieldIsFocused)
-                                }
-                                if starship.mode == "Generation" {
-                                    HStack {
-                                        TextField("Enter initial contact", text: $starship.initialContact).focused($fieldIsFocused)
-                                        Spacer()
-                                        Button {
-                                            starship.initialContact = starship.randomContact()
-                                        } label: {
-                                            Image(systemName: "dice").font(.system(size: 20))
-                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                    }
-                                }
-                                if starship.mode == "Selection" {
-                                    Picker(selection: $starship.initialContact, label: EmptyView()) {
-                                        ForEach(starship.contactList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
-                                        }
-                                    }.pickerStyle(.menu)
-                                }
-                            }
-                        }
-                    }
 
-                    //FACTIONS
-                    if starship.factions != [] {
-                        Section(header:
-                                    HStack {
-                            Text("Factions").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenFactions.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenFactions ? "chevron.down" : "chevron.right")
+                        //FACTIONS
+                        if starship.factions != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Factions").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenFactions.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenFactions ? "chevron.down" : "chevron.right")
+                                }
                             }
-                        }
-                        ) {
-                            if starship.hiddenFactions {
-                                ForEach($starship.factions, id: \.id) { $faction in
-                                   NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
-                                       Text(faction.name)
+                            ) {
+                                if starship.hiddenFactions {
+                                    ForEach($starship.factions, id: \.id) { $faction in
+                                       NavigationLink(destination: FactionView(faction: $faction, campaign: self.campaign)) {
+                                           Text(faction.name)
+                                       }
+                                   }.onDelete { (indexSet) in
+                                       starship.factions.remove(atOffsets: indexSet)
                                    }
-                               }.onDelete { (indexSet) in
-                                   starship.factions.remove(atOffsets: indexSet)
-                               }
+                                }
                             }
                         }
-                    }
-                    //PERSONS
-                    if starship.persons != [] {
-                        Section(header:
-                                    HStack {
-                            Text("Persons").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenPersons.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenPersons ? "chevron.down" : "chevron.right")
+                        //PERSONS
+                        if starship.persons != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Persons").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenPersons.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenPersons ? "chevron.down" : "chevron.right")
+                                }
                             }
-                        }
-                        ) {
-                            if starship.hiddenPersons {
-                                ForEach($starship.persons, id: \.id) { $person in
-                                    NavigationLink(destination: PersonView(person: $person, campaign: self.campaign)) {
-                                        Text(person.name)
+                            ) {
+                                if starship.hiddenPersons {
+                                    ForEach($starship.persons, id: \.id) { $person in
+                                        NavigationLink(destination: PersonView(person: $person, campaign: self.campaign)) {
+                                            Text(person.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        starship.persons.remove(atOffsets: indexSet)
                                     }
-                                }.onDelete { (indexSet) in
-                                    starship.persons.remove(atOffsets: indexSet)
                                 }
                             }
                         }
                     }
                     
-                    //CREATURES
-                    if starship.creatures != [] {
-                        Section(header:
-                                    HStack {
-                            Text("Creatures").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenCreature.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenCreature ? "chevron.down" : "chevron.right")
+                    Group {
+                        //CREATURES
+                        if starship.creatures != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Creatures").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenCreature.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenCreature ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenCreature {
+                                    ForEach($starship.creatures, id: \.id) { $creature in
+                                        NavigationLink(destination: CreatureView(creature: $creature, campaign: Campaign())) {
+                                            Text(creature.name)
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        starship.creatures.remove(atOffsets: indexSet)
+                                    }
+                                }
                             }
                         }
-                        ) {
-                            if starship.hiddenCreature {
-                                ForEach($starship.creatures, id: \.id) { $creature in
-                                    NavigationLink(destination: CreatureView(creature: $creature, campaign: Campaign())) {
-                                        Text(creature.name)
+                        
+                        //DERELICT
+                        if starship.derilict != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Derelict").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenDerilict.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenDerilict ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if starship.hiddenDerilict {
+                                    ForEach($starship.derilict, id: \.id) { $loc in
+                                        NavigationLink(destination: DerelictView(derelict: $loc, campaign: self.campaign)) {
+                                            Text("Derelict \(starship.name)")
+                                        }
                                     }
-                                }.onDelete { (indexSet) in
-                                    starship.creatures.remove(atOffsets: indexSet)
+                                    
                                 }
                             }
                         }
-                    }
-                    
-                    //DERELICT
-                    if starship.derilict != [] {
-                        Section(header:
-                                    HStack {
-                            Text("Derelict").font(.title)
-                            Spacer()
-                            Button {
-                                starship.hiddenDerilict.toggle()
-                            } label: {
-                                Image(systemName: starship.hiddenDerilict ? "chevron.down" : "chevron.right")
-                            }
-                        }
-                        ) {
-                            if starship.hiddenDerilict {
-                                ForEach($starship.derilict, id: \.id) { $loc in
-                                    NavigationLink(destination: DerelictView(derelict: $loc, campaign: self.campaign)) {
-                                        Text("Derelict \(starship.name)")
-                                    }
+                        // CLOCK
+                        if starship.clocks != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Clocks").font(.title)
+                                Spacer()
+                                Button {
+                                    starship.hiddenClock.toggle()
+                                } label: {
+                                    Image(systemName: starship.hiddenClock ? "chevron.down" : "chevron.right")
                                 }
-                                
+                            }
+                            ) {
+                                if starship.hiddenClock {
+                                    ForEach($starship.clocks, id: \.id) { $clock in
+                                        NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                            Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                       }
+                                   }.onDelete { (indexSet) in
+                                       starship.clocks.remove(atOffsets: indexSet)
+                                   }
+
+                                }
                             }
                         }
                     }
@@ -535,6 +564,13 @@ struct StarshipView: View {
                                 } label: {
                                     Text("Subtitle")
                                 }
+                            }
+                            Button {
+                                starship.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                starship.hiddenClock = true
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Add Clock")
                             }
                         } label: {
                             Text("Add")

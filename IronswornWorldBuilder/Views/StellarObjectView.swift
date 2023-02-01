@@ -271,6 +271,31 @@ struct StellarObjectView: View {
                             }
                         }
                     }
+                    // CLOCK
+                    if stellarObject.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                stellarObject.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: stellarObject.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if stellarObject.hiddenClock {
+                                ForEach($stellarObject.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   stellarObject.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
+                        }
+                    }
                 }.listStyle(.inset)
                 
             }
@@ -389,14 +414,13 @@ struct StellarObjectView: View {
                         } label: {
                             Text("Add Settlement")
                         }
-                        
-//                        Button {
-//                            campaign.writeToFile()
-//                            stellarObject.locations.insert(Location(name: "Unknown Location"), at: 0)
-//                        } label: {
-//                            Text("Add Location")
-//                        }
-                        
+                        Button {
+                            stellarObject.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                            stellarObject.hiddenClock = true
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Add Clock")
+                        }
                         Button {
                             stellarObject.creatures.insert(Creature(homeSector: stellarObject.homeSector, name: "Unknown Creature"), at: 0)
                             campaign.writeToFile()

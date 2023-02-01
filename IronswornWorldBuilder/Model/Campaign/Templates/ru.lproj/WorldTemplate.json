@@ -1,0 +1,18 @@
+
+{
+  "subName" : "Новый мир",
+  "type" : "world",
+  "storyGenerator" : false,
+  "hiddenRegions" : true,
+  "hiddenDescription" : false,
+  "hiddenTruth" : false,
+  "sectorIsLand" : true,
+  "clocks" : [],
+  "hiddenClock" : true,
+  "name" : "Новая кампания",
+  "description" : "",
+  "regions" : [],
+  "truth" : [],
+  "truthMode" : "Input",
+
+}

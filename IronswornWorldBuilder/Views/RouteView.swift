@@ -16,7 +16,7 @@ struct RouteView: View {
         VStack(alignment: .leading) {
             
             VStack {
-                Text("\(route.rank.rawValue.capitalized) route to \(route.destination)").font(.largeTitle.weight(.bold))
+                Text("\(NSLocalizedString(route.rank.rawValue.capitalized, comment: "")) route to \(route.destination)").font(.largeTitle.weight(.bold))
                     .multilineTextAlignment(.center)
                 
                 List {
@@ -27,7 +27,7 @@ struct RouteView: View {
                     Section(header: Text("Rank").font(.title)) {
                         Picker(selection: $route.rank, label: EmptyView()) {
                             ForEach(Rank.allCases, id: \.self) { value in
-                                Text(value.rawValue.capitalized)
+                                Text(NSLocalizedString(value.rawValue.capitalized, comment: ""))
                                     .tag(value)
                             }
                         }.pickerStyle(.inline)

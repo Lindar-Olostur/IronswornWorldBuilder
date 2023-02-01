@@ -21,7 +21,9 @@ struct FactionView: View {
                 //TITLE
                 VStack {
                     HStack {
-                        TextField("Enter faction name", text: $faction.name).font(.largeTitle.weight(.bold))
+                        TextField("Enter faction name", text: $faction.name)
+                            .minimumScaleFactor(0.5)
+                            .font(.largeTitle.weight(.bold))
                             .multilineTextAlignment(.center)
                             .focused($fieldIsFocused)
                         if faction.mode == "Generation" {
@@ -65,7 +67,7 @@ struct FactionView: View {
                                     TextField("Enter faction type", text: $faction.type).focused($fieldIsFocused)
                                     Spacer()
                                     Button {
-                                        faction.type = faction.randomType()
+                                        faction.type = NSLocalizedString(faction.randomType(), comment: "")
                                     } label: {
                                         Image(systemName: "dice").font(.system(size: 20))
                                     }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -74,8 +76,8 @@ struct FactionView: View {
                             if faction.mode == "Selection" {
                                 Picker(selection: $faction.type, label: EmptyView()) {
                                     ForEach(faction.typeList, id: \.self) { value in
-                                        Text(value).font(.system(size: 50))
-                                            .tag(value)
+                                        Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                            .tag(NSLocalizedString(value, comment: "")).font(.system(size: 50))
                                     }
                                 }.pickerStyle(.menu)
                             }
@@ -101,7 +103,7 @@ struct FactionView: View {
                                         TextField("Enter influence", text: $faction.influence).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            faction.influence = faction.randomInfluence()
+                                            faction.influence = NSLocalizedString(faction.randomInfluence(), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -113,8 +115,8 @@ struct FactionView: View {
                                 if faction.mode == "Selection" {
                                     Picker(selection: $faction.influence, label: EmptyView()) {
                                         ForEach(faction.influenceList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: "")).font(.system(size: 50))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -148,7 +150,7 @@ struct FactionView: View {
                                             TextField("Enter dominion type", text: $type.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                type.name = faction.randomDominion()
+                                                type.name = NSLocalizedString(faction.randomDominion(), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -161,8 +163,8 @@ struct FactionView: View {
                                     ForEach($faction.dominion) { $type in
                                         Picker(selection: $type.name, label: EmptyView()) {
                                             ForEach(faction.dominionList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: "")).font(.system(size: 50))
                                             }
                                         }.pickerStyle(.menu)
                                     }.onDelete { (indexSet) in
@@ -192,7 +194,7 @@ struct FactionView: View {
                                         TextField("Enter type leadership", text: $faction.dominionLeadership).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            faction.dominionLeadership = faction.randomDominionLeadership()
+                                            faction.dominionLeadership = NSLocalizedString(faction.randomDominionLeadership(), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -204,8 +206,8 @@ struct FactionView: View {
                                 if faction.mode == "Selection" {
                                     Picker(selection: $faction.dominionLeadership, label: EmptyView()) {
                                         ForEach(faction.dominionLeadershipList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: ""))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -232,7 +234,7 @@ struct FactionView: View {
                                         TextField("Enter guild type", text: $faction.guild).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            faction.guild = faction.randomGuild()
+                                            faction.guild = NSLocalizedString(faction.randomGuild(), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -244,8 +246,8 @@ struct FactionView: View {
                                 if faction.mode == "Selection" {
                                     Picker(selection: $faction.guild, label: EmptyView()) {
                                         ForEach(faction.guildList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: ""))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -272,7 +274,7 @@ struct FactionView: View {
                                         TextField("Enter group type", text: $faction.fringeGroup).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            faction.fringeGroup = faction.randomFringeGroup()
+                                            faction.fringeGroup = NSLocalizedString(faction.randomFringeGroup(), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -284,8 +286,8 @@ struct FactionView: View {
                                 if faction.mode == "Selection" {
                                     Picker(selection: $faction.fringeGroup, label: EmptyView()) {
                                         ForEach(faction.fringeGroupList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: ""))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -319,7 +321,7 @@ struct FactionView: View {
                                             TextField("Enter project", text: $type.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                type.name = faction.randomProject()
+                                                type.name = NSLocalizedString(faction.randomProject(), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -332,8 +334,8 @@ struct FactionView: View {
                                     ForEach($faction.projects) { $type in
                                         Picker(selection: $type.name, label: EmptyView()) {
                                             ForEach(faction.projectList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }.onDelete { (indexSet) in
@@ -370,7 +372,7 @@ struct FactionView: View {
                                             TextField("Enter relationship", text: $type.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                type.name = faction.randomRelationship()
+                                                type.name = NSLocalizedString(faction.randomRelationship(), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -383,8 +385,8 @@ struct FactionView: View {
                                     ForEach($faction.relationships) { $type in
                                         Picker(selection: $type.name, label: EmptyView()) {
                                             ForEach(faction.relationshipList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }.onDelete { (indexSet) in
@@ -423,7 +425,7 @@ struct FactionView: View {
                                             TextField("Enter quirk", text: $type.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                type.name = faction.randomQuirk()
+                                                type.name = NSLocalizedString(faction.randomQuirk(), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -436,8 +438,8 @@ struct FactionView: View {
                                     ForEach($faction.quirks) { $type in
                                         Picker(selection: $type.name, label: EmptyView()) {
                                             ForEach(faction.quirksList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }.onDelete { (indexSet) in
@@ -474,7 +476,7 @@ struct FactionView: View {
                                             TextField("Enter rumor", text: $type.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                type.name = faction.randomRumor()
+                                                type.name = NSLocalizedString(faction.randomRumor(), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -487,8 +489,8 @@ struct FactionView: View {
                                     ForEach($faction.rumors) { $type in
                                         Picker(selection: $type.name, label: EmptyView()) {
                                             ForEach(faction.rumorsList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }.onDelete { (indexSet) in
@@ -541,6 +543,31 @@ struct FactionView: View {
                             }
                         }
                     }
+                    // CLOCK
+                    if faction.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                faction.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: faction.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if faction.hiddenClock {
+                                ForEach($faction.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   faction.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
+                        }
+                    }
                 }
             }.listStyle(.inset)
         }
@@ -563,6 +590,14 @@ struct FactionView: View {
                             } label: {
                                 Text("Insert a person")
                             }
+                        }
+                    }
+                    if faction.type == "" {
+                        Button {
+                            generateFaction()
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Generate Faction")
                         }
                     }
                     Menu {
@@ -590,12 +625,7 @@ struct FactionView: View {
                     } label: {
                         Text("Mode")
                     }
-                    Button {
-                        generateFaction()
-                        campaign.writeToFile()
-                    } label: {
-                        Text("Generate Faction")
-                    }
+                    
                     Menu {
                         Group {
                             if faction.influence == "" {
@@ -644,21 +674,23 @@ struct FactionView: View {
                         Group {
                             if faction.projects.count < 2 {
                                 Button {
-                                    faction.projects.insert(StringContainer(name: "Unknown"), at: 0)
+                                    faction.hiddenProjects = true
+                                    faction.projects.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Project")
                                 }
                             }
                             Button {
-                                faction.relationships.insert(StringContainer(name: "Unknown"), at: 0)
+                                faction.relationships.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                 campaign.writeToFile()
                             } label: {
                                 Text("New Relationships")
                             }
                             if faction.quirks.count < 2 {
                                 Button {
-                                    faction.quirks.insert(StringContainer(name: "Unknown"), at: 0)
+                                    faction.hiddenQuirks = true
+                                    faction.quirks.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Quirk")
@@ -666,14 +698,16 @@ struct FactionView: View {
                             }
                             if faction.rumors.count < 2 {
                                 Button {
-                                    faction.rumors.insert(StringContainer(name: "Unknown"), at: 0)
+                                    faction.hiddenRumors = true
+                                    faction.rumors.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Rumor")
                                 }
                             }
                             Button {
-                                faction.persons.insert(Person(), at: 0)
+                                faction.hiddenPersons = true
+                                faction.persons.insert(Person(name: NSLocalizedString("Unknown Person", comment: "")), at: 0)
                                 campaign.writeToFile()
                             } label: {
                                 Text("New Person")
@@ -696,6 +730,13 @@ struct FactionView: View {
                                     } label: {
                                         Text("Description")
                                     }
+                                }
+                                Button {
+                                    faction.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                    faction.hiddenClock = true
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Add Clock")
                                 }
                             }
                         }
@@ -728,80 +769,90 @@ struct FactionView: View {
         }
     }
     func generateFaction() {
+        faction.dominion = []
+        faction.projects = []
+        faction.quirks = []
+        faction.rumors = []
+        faction.guild = ""
+        faction.dominionLeadership = ""
+        faction.fringeGroup = ""
+        
         faction.name = Faction.randomName()
-        faction.hiddenType = true
-        faction.type = faction.randomType()
-        faction.hiddenInfluence = true
-        faction.influence = faction.randomInfluence()
-        if faction.type == "Dominion" {
-            faction.dominion = []
+        faction.hiddenType = false
+        faction.type = NSLocalizedString(faction.randomType(), comment: "")
+        faction.hiddenInfluence = false
+        faction.influence = NSLocalizedString(faction.randomInfluence(), comment: "")
+        if faction.type == "Dominion" || faction.type == "Страна" {
+            faction.hiddenDominion = false
             let howManyDominions = Int.random(in: 0...5)
             if howManyDominions == 0 {
                 faction.dominion.insert(StringContainer(), at: 0)
-                faction.dominion[0].name = faction.randomDominion()
+                faction.dominion[0].name = NSLocalizedString(faction.randomDominion(), comment: "")
                 faction.dominion.insert(StringContainer(), at: 0)
-                faction.dominion[0].name = faction.randomDominion()
+                faction.dominion[0].name = NSLocalizedString(faction.randomDominion(), comment: "")
                 faction.dominion.insert(StringContainer(), at: 0)
-                faction.dominion[0].name = faction.randomDominion()
+                faction.dominion[0].name = NSLocalizedString(faction.randomDominion(), comment: "")
             }
             if howManyDominions == 1 || howManyDominions == 2 {
                 faction.dominion.insert(StringContainer(), at: 0)
-                faction.dominion[0].name = faction.randomDominion()
+                faction.dominion[0].name = NSLocalizedString(faction.randomDominion(), comment: "")
                 faction.dominion.insert(StringContainer(), at: 0)
-                faction.dominion[0].name = faction.randomDominion()
+                faction.dominion[0].name = NSLocalizedString(faction.randomDominion(), comment: "")
             }
             if howManyDominions > 2 {
                 faction.dominion.insert(StringContainer(), at: 0)
-                faction.dominion[0].name = faction.randomDominion()
+                faction.dominion[0].name = NSLocalizedString(faction.randomDominion(), comment: "")
             }
-            faction.dominionLeadership = faction.randomDominionLeadership()
+            faction.hiddenDominionLeadership = false
+            faction.dominionLeadership = NSLocalizedString(faction.randomDominionLeadership(), comment: "")
         }
-        if faction.type == "Guild" {
-            faction.dominion = []
-            faction.dominionLeadership = ""
-            faction.guild = faction.randomGuild()
+        faction.hiddenDescription = false
+        if faction.type == "Guild" || faction.type == "Гильдия" {
+            faction.hiddenGuild = false
+            faction.guild = NSLocalizedString(faction.randomGuild(), comment: "")
         }
-        if faction.type == "Fringe Group" {
-            faction.dominion = []
-            faction.dominionLeadership = ""
-            faction.fringeGroup = faction.randomFringeGroup()
+        if faction.type == "Fringe Group" || faction.type == "Банда" {
+            faction.hiddenFringeGroup = false
+            faction.fringeGroup = NSLocalizedString(faction.randomFringeGroup(), comment: "")
         }
         faction.hiddenProjects = false
-        faction.projects = []
-        let howManyProjects = Int.random(in: 0...3)
-        if howManyProjects > 0 {
-            faction.projects.insert(StringContainer(), at: 0)
-            faction.projects[0].name = faction.randomProject()
+
+        let howManyProjects = Int.random(in: 0...1)
+        if howManyProjects != 0 {
+            faction.projects = [StringContainer(name: NSLocalizedString(faction.randomProject(), comment: ""))]
         } else {
-            faction.projects.insert(StringContainer(), at: 0)
-            faction.projects[0].name = faction.randomProject()
-            faction.projects.insert(StringContainer(), at: 0)
-            faction.projects[0].name = faction.randomProject()
+            faction.projects = [StringContainer(name: NSLocalizedString(faction.randomProject(), comment: "")), StringContainer(name: NSLocalizedString(faction.randomProject(), comment: ""))]
         }
         faction.hiddenQuirks = false
-        faction.quirks = []
+        
         let howManyQuirks = Int.random(in: 0...3)
         if howManyQuirks > 0 {
             faction.quirks.insert(StringContainer(), at: 0)
-            faction.quirks[0].name = faction.randomQuirk()
+            faction.quirks[0].name = NSLocalizedString(faction.randomQuirk(), comment: "")
         } else {
             faction.quirks.insert(StringContainer(), at: 0)
-            faction.quirks[0].name = faction.randomQuirk()
+            faction.quirks[0].name = NSLocalizedString(faction.randomQuirk(), comment: "")
             faction.quirks.insert(StringContainer(), at: 0)
-            faction.quirks[0].name = faction.randomQuirk()
+            faction.quirks[0].name = NSLocalizedString(faction.randomQuirk(), comment: "")
         }
         faction.hiddenRumors = false
-        faction.rumors = []
+
         let howManyRumors = Int.random(in: 0...3)
         if howManyRumors > 0 {
             faction.rumors.insert(StringContainer(), at: 0)
-            faction.rumors[0].name = faction.randomRumor()
+            faction.rumors[0].name = NSLocalizedString(faction.randomRumor(), comment: "")
         } else {
             faction.rumors.insert(StringContainer(), at: 0)
-            faction.rumors[0].name = faction.randomRumor()
+            faction.rumors[0].name = NSLocalizedString(faction.randomRumor(), comment: "")
             faction.rumors.insert(StringContainer(), at: 0)
-            faction.rumors[0].name = faction.randomRumor()
+            faction.rumors[0].name = NSLocalizedString(faction.randomRumor(), comment: "")
         }
+        if faction.dominion == [] {
+            faction.subName = "\(faction.influence) \(faction.type) \(faction.guild)\(faction.fringeGroup)"
+        } else {
+            faction.subName = "\(faction.influence) \(faction.dominion[0].name) \(faction.type)"
+        }
+        faction.mode = "Generation"
     }
 }
 

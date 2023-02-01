@@ -29,6 +29,8 @@ struct Creature: Codable, Hashable, Identifiable {
     var mode = "Selection"
     var oracle = Oracle.sharedOracle
     var combatMode = false
+    var clocks: [Clock] = []
+    var hiddenClock = true
     
     var environmentList = ["Space", "Interior", "Land", "Liquid", "Air", "Unknown"]
     func randomEnvironment() -> String {

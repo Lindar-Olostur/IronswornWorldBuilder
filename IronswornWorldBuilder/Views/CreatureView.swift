@@ -34,7 +34,7 @@ struct CreatureView: View {
                 VStack {
                     HStack(spacing: 15) {
                         Button {
-                            displayText = "Action: \(creature.oracle.randomAction())"
+                            displayText = creature.oracle.randomAction() //"Action: \(creature.oracle.randomAction())"
                         } label: {
                             Text("Combat Action")
                                 .foregroundColor(.black)
@@ -332,6 +332,31 @@ struct CreatureView: View {
                         }
                     }
                 }
+                // CLOCK
+                if creature.clocks != [] {
+                    Section(header:
+                                HStack {
+                        Text("Clocks").font(.title)
+                        Spacer()
+                        Button {
+                            creature.hiddenClock.toggle()
+                        } label: {
+                            Image(systemName: creature.hiddenClock ? "chevron.down" : "chevron.right")
+                        }
+                    }
+                    ) {
+                        if creature.hiddenClock {
+                            ForEach($creature.clocks, id: \.id) { $clock in
+                                NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                    Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                               }
+                           }.onDelete { (indexSet) in
+                               creature.clocks.remove(atOffsets: indexSet)
+                           }
+
+                        }
+                    }
+                }
             }.listStyle(.inset)
         }
         //.navigationTitle(creature.name)
@@ -426,6 +451,13 @@ struct CreatureView: View {
                             } label: {
                                 Text("Subtitle")
                             }
+                        }
+                        Button {
+                            creature.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                            creature.hiddenClock = true
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Add Clock")
                         }
                     } label: {
                         Text("Add")

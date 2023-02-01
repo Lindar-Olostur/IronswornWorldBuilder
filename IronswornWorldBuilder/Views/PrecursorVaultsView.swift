@@ -298,11 +298,11 @@ struct PrecursorVaultsView: View {
                         ) {
                             if vault.hiddenMaterial {
                                 if vault.mode == "Input" {
-                                    TextField("Enter form", text: $vault.material).focused($fieldIsFocused)
+                                    TextField("Enter material", text: $vault.material).focused($fieldIsFocused)
                                 }
                                 if vault.mode == "Generation" {
                                     HStack {
-                                        TextField("Enter form", text: $vault.material).focused($fieldIsFocused)
+                                        TextField("Enter material", text: $vault.material).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
                                             vault.material = vault.randomMaterial()
@@ -578,6 +578,31 @@ struct PrecursorVaultsView: View {
                             }
                         }
                     }
+                    // CLOCK
+                    if vault.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                vault.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: vault.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if vault.hiddenClock {
+                                ForEach($vault.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   vault.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
+                        }
+                    }
                 }
             }.listStyle(.inset)
         }
@@ -720,6 +745,13 @@ struct PrecursorVaultsView: View {
                                 } label: {
                                     Text("Subtitle")
                                 }
+                            }
+                            Button {
+                                vault.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                vault.hiddenClock = true
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Add Clock")
                             }
                         }
                     } label: {

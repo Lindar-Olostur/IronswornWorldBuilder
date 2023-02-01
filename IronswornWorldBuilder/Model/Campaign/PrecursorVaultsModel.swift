@@ -42,6 +42,8 @@ struct PrecursorVaults: Codable, Hashable, Identifiable {
     var oracle = Oracle.sharedOracle
     var currentZone = "Exterior"
     var currentZoneList = ["Exterior", "Interior", "Sanctum"]
+    var clocks: [Clock] = []
+    var hiddenClock = true
     
     var locationList = ["Planetside", "Orbital", "Deep Space"]
     func randomLocation() -> String {

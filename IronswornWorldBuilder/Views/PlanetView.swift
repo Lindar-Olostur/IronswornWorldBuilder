@@ -359,9 +359,9 @@ struct PlanetView: View {
                                 Text("Life").font(.title)
                                 Spacer()
                                 Button {
-                                    planet.hiddenAtmosphere.toggle()
+                                    planet.hiddenLife.toggle()
                                 } label: {
-                                    Image(systemName: planet.hiddenAtmosphere ? "chevron.down" : "chevron.right")
+                                    Image(systemName: planet.hiddenLife ? "chevron.down" : "chevron.right")
                                 }
                             }
                             ) {
@@ -535,7 +535,7 @@ struct PlanetView: View {
                                 if planet.hiddenRoutes {
                                     ForEach($planet.routes, id: \.id) { $route in
                                         NavigationLink(destination: RouteView(route: $route, campaign: Campaign())) {
-                                            Text("\(route.rank.rawValue.capitalized) route to \(route.destination)")
+                                            Text("\(NSLocalizedString(route.rank.rawValue.capitalized, comment: "")) route to \(route.destination)")
                                         }
                                     }.onDelete { (indexSet) in
                                         planet.routes.remove(atOffsets: indexSet)
@@ -560,6 +560,31 @@ struct PlanetView: View {
                                 if planet.hiddenDescription {
                                     TextEditor(text: $planet.description)
                                         .focused($fieldIsFocused)
+                                }
+                            }
+                        }
+                        // CLOCK
+                        if planet.clocks != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Clocks").font(.title)
+                                Spacer()
+                                Button {
+                                    planet.hiddenClock.toggle()
+                                } label: {
+                                    Image(systemName: planet.hiddenClock ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if planet.hiddenClock {
+                                    ForEach($planet.clocks, id: \.id) { $clock in
+                                        NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                            Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                       }
+                                   }.onDelete { (indexSet) in
+                                       planet.clocks.remove(atOffsets: indexSet)
+                                   }
+
                                 }
                             }
                         }
@@ -768,6 +793,13 @@ struct PlanetView: View {
                                     } label: {
                                         Text("Description")
                                     }
+                                }
+                                Button {
+                                    planet.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                    planet.hiddenClock = true
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Add Clock")
                                 }
                             }
                         } label: {

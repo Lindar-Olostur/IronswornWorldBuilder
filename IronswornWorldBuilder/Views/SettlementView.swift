@@ -109,7 +109,7 @@ struct SettlementView: View {
                                             TextField("Enter location type", text: $settlement.locationType).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                settlement.locationType = settlement.randomLocationType()
+                                                settlement.locationType = NSLocalizedString(settlement.randomLocationType(), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -117,14 +117,12 @@ struct SettlementView: View {
                                     }
                                     if settlement.mode == "Selection" {
                                         Picker(selection: $settlement.locationType, label: EmptyView()) {
-                                            Text("Planetside").font(.system(size: 50))
-                                                .tag("Planetside")
-                                            Text("Orbital").font(.system(size: 50))
-                                                .tag("Orbital")
-                                            Text("Deep Space").font(.system(size: 50))
-                                                .tag("Deep Space")
-                                            Text("Unknown").font(.system(size: 50))
-                                                .tag("Unknown")
+                                            Text(NSLocalizedString("Planetside", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Planetside", comment: ""))
+                                            Text(NSLocalizedString("Orbital", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Orbital", comment: ""))
+                                            Text(NSLocalizedString("Deep Space", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Deep Space", comment: ""))
                                         }.pickerStyle(.menu)
                                     }
                                 }
@@ -194,8 +192,8 @@ struct SettlementView: View {
                                         ForEach($settlement.firstLook) { $look in
                                             Picker(selection: $look.name, label: EmptyView()) {
                                                 ForEach(settlement.firstLookList, id: \.self) { value in
-                                                    Text(value).font(.system(size: 50))
-                                                        .tag(value)
+                                                    Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                        .tag(NSLocalizedString(value, comment: ""))
                                                 }
                                             }.pickerStyle(.menu)
                                         }.onDelete { (indexSet) in
@@ -237,8 +235,8 @@ struct SettlementView: View {
                                     if settlement.mode == "Selection" {
                                         Picker(selection: $settlement.initialContact, label: EmptyView()) {
                                             ForEach(settlement.contactList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }
@@ -247,7 +245,7 @@ struct SettlementView: View {
                         }
                         
                         //POPULATION
-                        if settlement.population != "" && settlement.derilict != [] {
+                        if settlement.population != "" && settlement.derilict == [] {
                             Section(header:
                                         HStack {
                                 Text("Population").font(.title)
@@ -276,16 +274,16 @@ struct SettlementView: View {
                                     }
                                     if settlement.mode == "Selection" {
                                         Picker(selection: $settlement.population, label: EmptyView()) {
-                                            Text("Few").font(.system(size: 50))
-                                                .tag("Few")
-                                            Text("Dozens").font(.system(size: 50))
-                                                .tag("Dozens")
-                                            Text("Hundreds").font(.system(size: 50))
-                                                .tag("Hundreds")
-                                            Text("Thousands").font(.system(size: 50))
-                                                .tag("Thousands")
-                                            Text("Tens of thousands").font(.system(size: 50))
-                                                .tag("Tens of thousands")
+                                            Text(NSLocalizedString("Few", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Few", comment: ""))
+                                            Text(NSLocalizedString("Dozens", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Dozens", comment: ""))
+                                            Text(NSLocalizedString("Hundreds", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Hundreds", comment: ""))
+                                            Text(NSLocalizedString("Thousands", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Thousands", comment: ""))
+                                            Text(NSLocalizedString("Tens of thousands", comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString("Tens of thousands", comment: ""))
                                         }.pickerStyle(.menu)
                                     }
                                 }
@@ -347,8 +345,8 @@ struct SettlementView: View {
                                     if settlement.mode == "Selection" {
                                         Picker(selection: $settlement.authority, label: EmptyView()) {
                                             ForEach(settlement.authorityList, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }
@@ -383,7 +381,7 @@ struct SettlementView: View {
                                                 TextField("Enter project", text: $project.name).focused($fieldIsFocused)
                                                 Spacer()
                                                 Button {
-                                                    project.name = settlement.randomProject()
+                                                    project.name = NSLocalizedString(settlement.randomProject(), comment: "")
                                                 } label: {
                                                     Image(systemName: "dice").font(.system(size: 20))
                                                 }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -396,8 +394,8 @@ struct SettlementView: View {
                                         ForEach($settlement.projects) { $project in
                                             Picker(selection: $project.name, label: EmptyView()) {
                                                 ForEach(settlement.projectList, id: \.self) { value in
-                                                    Text(value).font(.system(size: 50))
-                                                        .tag(value)
+                                                    Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                        .tag(NSLocalizedString(value, comment: ""))
                                                 }
                                             }.pickerStyle(.menu)
                                         }.onDelete { (indexSet) in
@@ -472,8 +470,8 @@ struct SettlementView: View {
                                     if settlement.mode == "Selection" {
                                         Picker(selection: $settlement.trouble, label: EmptyView()) {
                                             ForEach(campaign.world.sectorIsLand ? settlement.troubleListIs : settlement.troubleListSf, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }
@@ -623,7 +621,7 @@ struct SettlementView: View {
                                 if settlement.hiddenRoutes {
                                     ForEach($settlement.routes, id: \.id) { $route in
                                         NavigationLink(destination: RouteView(route: $route, campaign: Campaign())) {
-                                            Text("\(route.rank.rawValue.capitalized) route to \(route.destination)")
+                                            Text("\(NSLocalizedString(route.rank.rawValue.capitalized, comment: "")) route to \(route.destination)")
                                         }
                                     }.onDelete { (indexSet) in
                                         settlement.routes.remove(atOffsets: indexSet)
@@ -651,6 +649,31 @@ struct SettlementView: View {
                                 }
                             }
                         }
+                        // CLOCK
+                        if settlement.clocks != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Clocks").font(.title)
+                                Spacer()
+                                Button {
+                                    settlement.hiddenClock.toggle()
+                                } label: {
+                                    Image(systemName: settlement.hiddenClock ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if settlement.hiddenClock {
+                                    ForEach($settlement.clocks, id: \.id) { $clock in
+                                        NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                            Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                       }
+                                   }.onDelete { (indexSet) in
+                                       settlement.clocks.remove(atOffsets: indexSet)
+                                   }
+
+                                }
+                            }
+                        }
                     }
                     
                 }.listStyle(.inset)
@@ -665,6 +688,14 @@ struct SettlementView: View {
                 }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        if settlement.locationType == "" {
+                            Button {
+                                generateSettlement()
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Generate Settlement")
+                            }
+                        }
                         Group {
                             if settlement.waitingForStarship {
                                 Button {
@@ -737,23 +768,20 @@ struct SettlementView: View {
                         }
                         if settlement.derilict.count < 1 && campaign.world.sectorIsLand == false {
                             Button {
+                                settlement.hiddenDerilict = true
                                 settlement.derilict.insert(Derelict(isChild: true, location: settlement.locationType, type: "Derelict settlement", name: settlement.name), at: 0)
                                 campaign.writeToFile()
                             } label: {
                                 Text("Is Derelict")
                             }
                         }
-                        Button {
-                            generateSettlement()
-                            campaign.writeToFile()
-                        } label: {
-                            Text("Generate Settlement")
-                        }
+                        
                         Menu {
                             Group {
                                 if settlement.firstLook.count < 2 {
                                     Button {
-                                        settlement.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                        settlement.hiddenFirstLook = true
+                                        settlement.firstLook.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                         campaign.writeToFile()
                                     } label: {
                                         Text("New First Look")
@@ -761,7 +789,8 @@ struct SettlementView: View {
                                 }
                                 if settlement.initialContact == "" {
                                     Button {
-                                        settlement.initialContact = settlement.randomContact()
+                                        settlement.hiddenContact = true
+                                        settlement.initialContact = NSLocalizedString("Unknown", comment: "")
                                         campaign.writeToFile()
                                     } label: {
                                         Text("Initial Contact")
@@ -769,7 +798,8 @@ struct SettlementView: View {
                                 }
                                 if settlement.population == "" {
                                     Button {
-                                        settlement.initialContact = "Unknown"
+                                        settlement.hiddenPopulation = true
+                                        settlement.population = NSLocalizedString("Unknown", comment: "")
                                         campaign.writeToFile()
                                     } label: {
                                         Text("Population")
@@ -778,14 +808,16 @@ struct SettlementView: View {
                             }
                             Group {
                                 Button {
-                                    settlement.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    settlement.hiddenInhabitants = true
+                                    settlement.inhabitants.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Inhabitants")
                                 }
                                 if settlement.authority == "" {
                                     Button {
-                                        settlement.authority = "Unknown"
+                                        settlement.hiddenAuth = true
+                                        settlement.authority = NSLocalizedString("Unknown", comment: "")
                                         campaign.writeToFile()
                                     } label: {
                                         Text("Authority")
@@ -793,7 +825,8 @@ struct SettlementView: View {
                                 }
                                 if settlement.projects.count < 2 {
                                     Button {
-                                        settlement.projects.insert(StringContainer(name: "Unknown"), at: 0)
+                                        settlement.hiddenProjects = true
+                                        settlement.projects.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                         campaign.writeToFile()
                                     } label: {
                                         Text("New Project")
@@ -801,33 +834,38 @@ struct SettlementView: View {
                                 }
                                 if settlement.trouble == "" {
                                     Button {
-                                        settlement.trouble = "Unknown"
+                                        settlement.hiddenTrouble = true
+                                        settlement.trouble = NSLocalizedString("Unknown", comment: "")
                                         campaign.writeToFile()
                                     } label: {
                                         Text("Trouble")
                                     }
                                 }
                                 Button {
-                                    settlement.factions.insert(Faction(), at: 0)
+                                    settlement.hiddenFactions = true
+                                    settlement.factions.insert(Faction(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Faction")
                                 }
                                 Button {
-                                    settlement.persons.insert(Person(), at: 0)
+                                    settlement.hiddenPersons = true
+                                    settlement.persons.insert(Person(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Person")
                                 }
                                 if campaign.world.sectorIsLand == false {
                                     Button {
-                                        settlement.vehicles.insert(Starship(name: Starship.randomName(mod: ""), homeSector: settlement.name), at: 0)
+                                        settlement.hiddenVehicles = true
+                                        settlement.vehicles.insert(Starship(name: NSLocalizedString(Starship.randomName(mod: ""), comment: ""), homeSector: settlement.name), at: 0)
                                         campaign.writeToFile()
                                     } label: {
                                         Text("New Starship")
                                     }
                                     Button {
-                                        settlement.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                                        settlement.hiddenVault = true
+                                        settlement.vaults.insert(PrecursorVaults(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                         campaign.writeToFile()
                                     } label: {
                                         Text("Add Precursor Vault")
@@ -835,19 +873,22 @@ struct SettlementView: View {
                                 }
                                 
                                 Button {
-                                    settlement.locations.insert(Location(), at: 0)
+                                    settlement.hiddenLocations = true
+                                    settlement.locations.insert(Location(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New Location")
                                 }
                                 Group {
                                     Button {
-                                        settlement.creatures.insert(Creature(homeSector: settlement.homeSector, name: "Unknown creature"), at: 0)
+                                        settlement.hiddenCreature = true
+                                        settlement.creatures.insert(Creature(homeSector: settlement.homeSector, name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                         campaign.writeToFile()
                                     } label: {
                                         Text("New Creature")
                                     }
                                     Button {
+                                        settlement.hiddenRoutes = true
                                         settlement.routes.insert(Route(), at: 0)
                                         campaign.writeToFile()
                                     } label: {
@@ -855,7 +896,7 @@ struct SettlementView: View {
                                     }
                                     if settlement.subName == "" {
                                         Button {
-                                            settlement.subName = "Any Subtitle"
+                                            settlement.subName = NSLocalizedString("Any Subtitle", comment: "")
                                             campaign.writeToFile()
                                         } label: {
                                             Text("Subtitle")
@@ -863,11 +904,18 @@ struct SettlementView: View {
                                     }
                                     if settlement.description == "" {
                                         Button {
-                                            settlement.description = "New Description"
+                                            settlement.description = " "
                                             campaign.writeToFile()
                                         } label: {
                                             Text("Description")
                                         }
+                                    }
+                                    Button {
+                                        settlement.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                        settlement.hiddenClock = true
+                                        campaign.writeToFile()
+                                    } label: {
+                                        Text("Add Clock")
                                     }
                                 }
                             }
@@ -964,16 +1012,18 @@ struct SettlementView: View {
         
         settlement.hiddenFirstLook = false
         settlement.firstLook = []
-        let howManyFirstLook = Int.random(in: 0...3)
-        if howManyFirstLook > 0 {
-            settlement.firstLook.insert(StringContainer(), at: 0)
-            settlement.firstLook[0].name = settlement.randomFirstLook()
-        } else {
-            settlement.firstLook.insert(StringContainer(), at: 0)
-            settlement.firstLook[0].name = settlement.randomFirstLook()
-            settlement.firstLook.insert(StringContainer(), at: 0)
-            settlement.firstLook[0].name = settlement.randomFirstLook()
-        }
+        settlement.firstLook.insert(StringContainer(), at: 0)
+        settlement.firstLook[0].name = settlement.randomFirstLook()
+//        let howManyFirstLook = Int.random(in: 0...3)
+//        if howManyFirstLook > 0 {
+//            settlement.firstLook.insert(StringContainer(), at: 0)
+//            settlement.firstLook[0].name = settlement.randomFirstLook()
+//        } else {
+//            settlement.firstLook.insert(StringContainer(), at: 0)
+//            settlement.firstLook[0].name = settlement.randomFirstLook()
+//            settlement.firstLook.insert(StringContainer(), at: 0)
+//            settlement.firstLook[0].name = settlement.randomFirstLook()
+//        }
         
         settlement.hiddenContact = false
         settlement.initialContact = settlement.randomContact()
@@ -983,16 +1033,18 @@ struct SettlementView: View {
         
         settlement.hiddenProjects = false
         settlement.projects = []
-        let howManyProjects = Int.random(in: 0...3)
-        if howManyProjects > 0 {
-            settlement.projects.insert(StringContainer(), at: 0)
-            settlement.projects[0].name = settlement.randomProject()
-        } else {
-            settlement.projects.insert(StringContainer(), at: 0)
-            settlement.projects[0].name = settlement.randomProject()
-            settlement.projects.insert(StringContainer(), at: 0)
-            settlement.projects[0].name = settlement.randomProject()
-        }
+        settlement.projects.insert(StringContainer(), at: 0)
+        settlement.projects[0].name = settlement.randomProject()
+//        let howManyProjects = Int.random(in: 0...3)
+//        if howManyProjects > 0 {
+//            settlement.projects.insert(StringContainer(), at: 0)
+//            settlement.projects[0].name = settlement.randomProject()
+//        } else {
+//            settlement.projects.insert(StringContainer(), at: 0)
+//            settlement.projects[0].name = settlement.randomProject()
+//            settlement.projects.insert(StringContainer(), at: 0)
+//            settlement.projects[0].name = settlement.randomProject()
+//        }
         
         settlement.hiddenTrouble = false
         if campaign.world.sectorIsLand {
@@ -1000,7 +1052,7 @@ struct SettlementView: View {
         } else {
             settlement.trouble = settlement.randomTroubleSf()
         }
-        
+        settlement.mode = "Generation"
         if settlement.initialContact == "Derelict" {
             
         }

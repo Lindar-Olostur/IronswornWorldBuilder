@@ -69,6 +69,8 @@ struct StellarObject: Codable, Hashable, Identifiable {
     var waitingForStarship = false
     var waitingForSettlement = false
     var waitingForCreature = false
+    var clocks: [Clock] = []
+    var hiddenClock = true
     var waitingForFaction = false
     
     var typeList = ["Red star", "Orange star", "Yellow star", "Blue star", "Molecular cloud", "White dwarf", "Corrupted star", "Neutron star", "Binary star", "Black hole", "Hypergiant star", "Artificial star", "Unstable star", "Unknown Stellar Object"]

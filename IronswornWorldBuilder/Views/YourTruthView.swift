@@ -20,6 +20,7 @@ struct YourTruthView: View {
                     HStack {
                         TextField("Enter truth title", text: $truth.title).font(.largeTitle.weight(.bold))
                             .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.5)
                             .focused($fieldIsFocused)
                         if truth.mode == "Generation" {
                             Spacer()
@@ -59,7 +60,7 @@ struct YourTruthView: View {
                         }
                     }
                 ToolbarItem(placement: .destructiveAction) {
-                    if campaign.world.type == "IS" || campaign.world.type == "SF" {
+                    if truth.custom == false {
                         Menu {
                             if truth.mode != "Input" {
                                 Button {

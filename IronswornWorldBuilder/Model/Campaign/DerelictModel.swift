@@ -32,6 +32,8 @@ struct Derelict: Codable, Hashable, Identifiable {
     var hiddenRoutes = true
     var routes: [Route] = []
     var subName = "Derelict"
+    var clocks: [Clock] = []
+    var hiddenClock = true
     var mode = "Generation"
     var travelMode = true
     var oracle = Oracle.sharedOracle

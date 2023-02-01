@@ -62,6 +62,8 @@ struct Starship: Codable, Hashable, Identifiable {
     }
     var hiddenFleet = true
     var fleet = ""
+    var clocks: [Clock] = []
+    var hiddenClock = true
     var hiddenFirstLook = true
     var firstLook: [StringContainer] = []
     var hiddenContact = true
@@ -92,7 +94,7 @@ struct Starship: Codable, Hashable, Identifiable {
         } else {
             nameFormat = Int.random(in: 0...4)
         }
-        var name = "Unknown starship"
+        var name = "Unknown"
         
         func getName() -> String {
             let list = ["Arclight", " Invictus", " Rubicon", " Argent", "Arrow", " Iron Cairn", " Sareea's Tribute", " Artemis", " Karena's Reverie", " Second Chance", " Astral Explorer", " Kraken", " Shard of the Sun", " Atlas", " Kuno's Hammer", " Shattered Siege", " Aurora", " Lightline", " Shattered Star", " Avari's Wake", " Lodestar", " Silver Talon", " Banshee's Cry", " Long Haul", " Smoldering Flame", " Beowulf", " Lost Fortune", " Sovereign Skies", " Bloody Jaw", " Luminous Sorrow", " Sparrowhawk", " Broken Sword", " Manta", " Stardust", " Buccaneer", " Mercy", " Starfall", " Cerelis Nine", " Mutara", " Stellar Hawk", " Clarion Call", " Nebula Prowler", " Stormswept", " Dawn's Herald", " Newton's Folly", " Sundered Aegis", " Dead Reckoning", " Nightfall", " Sundown", " Drift Runner", " Nomad", " Sureshot", " Eclipse", " Obsidian Trident", " Terminus Clipper", " Elara Five", " Onslaught", " Terrapin", " Enchantress", " Orca", " Timber Wolf", " Endurance", " Outward Bound", " Tip of the Spear", " Excalibur", " Phantom", " Titan", " Eye of the Void", " Photon", " Tormentor", " Fall of Icarus", " Poltergeist", " Trithia Six", " Fallen Light", " Profit Margin", " Ultraviolet", " False Hope", " Raven's Call", " Valora's Comet", " Firebreak", " Raya's Promise", " Vengeance", " First Light", " Reaper", " Venture", " Forge Flier", " Reforged Hope", " Vigilant", " Fortune's Favor", " Relentless", " Voidtreader", " Freya’s Wrath", " Royal Signet", " Vulture", "Ghost", " Guiding Star", " Hand of Fate", "Herald of Doom", "Implacable", "Implicit", "Inferno"]

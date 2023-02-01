@@ -24,7 +24,7 @@ struct SectorView: View {
                     TextField(campaign.world.sectorIsLand ? "Enter Land name" : "Enter Sector name", text: $sector.name).font(.largeTitle.weight(.bold))
                         .multilineTextAlignment(.center)
                         .focused($fieldIsFocused)
-                    if sector.mode == "Generation" {
+                    if sector.mode == "Generation" && campaign.world.sectorIsLand == false {
                         Spacer()
                         Button {
                             sector.name = sector.randomSectorName()
@@ -297,6 +297,31 @@ struct SectorView: View {
                             }
                         }
                     }
+                    // CLOCK
+                    if sector.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                sector.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: sector.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if sector.hiddenClock {
+                                ForEach($sector.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   sector.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
+                        }
+                    }
                 }.listStyle(.inset)
             }
             .navigationTitle(sector.name)
@@ -387,6 +412,8 @@ struct SectorView: View {
                                     Text("Mode")
                                 }
                             }
+                        }
+                        Menu {
                             if sector.description == "" {
                                 Button {
                                     sector.description = " "
@@ -415,17 +442,14 @@ struct SectorView: View {
                             }
                             
                             Button {
-                                sector.settlements.insert(Settlement(homeSector: sector.name), at: 0)
+                                sector.settlements.insert(Settlement(name: NSLocalizedString("Unknown", comment: ""), subName: NSLocalizedString("Settlement", comment: ""), homeSector: sector.name), at: 0)
                                 campaign.writeToFile()
                             } label: {
                                 Text("Add Settlement")
                             }
-                            
-                        }
-                        Group {
                             if campaign.world.sectorIsLand == false {
                                 Button {
-                                    sector.vaults.insert(PrecursorVaults(name: "Unknown Vault"), at: 0)
+                                    sector.vaults.insert(PrecursorVaults(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("Add Precursor Vault")
@@ -433,7 +457,7 @@ struct SectorView: View {
                             }
                             
                             Button {
-                                sector.locations.insert(Location(name: "Unknown Location"), at: 0)
+                                sector.locations.insert(Location(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                 campaign.writeToFile()
                             } label: {
                                 Text("Add Location")
@@ -445,7 +469,7 @@ struct SectorView: View {
                                 Text("Add Faction")
                             }
                             Button {
-                                sector.creatures.insert(Creature(homeSector: sector.name, name: "Unknown Creature"), at: 0)
+                                sector.creatures.insert(Creature(homeSector: sector.name, name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                 campaign.writeToFile()
                             } label: {
                                 Text("Add Creature")
@@ -459,6 +483,15 @@ struct SectorView: View {
                                     Text("Add Starship")
                                 }
                             }
+                            Button {
+                                sector.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                sector.hiddenClock = true
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Add Clock")
+                            }
+                        } label: {
+                            Text("Add")
                         }
                     } label: {
                         Image(systemName: "plus")

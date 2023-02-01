@@ -54,6 +54,8 @@ struct Location: Codable, Hashable, Identifiable {
     var factions: [Faction] = []
     var hiddenPersons = true
     var persons: [Person] = []
+    var clocks: [Clock] = []
+    var hiddenClock = true
     
     func locationName(domains: [String]) -> String {
         var result = ""

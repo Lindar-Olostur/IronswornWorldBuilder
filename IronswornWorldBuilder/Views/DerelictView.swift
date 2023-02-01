@@ -137,355 +137,384 @@ struct DerelictView: View {
             }
             
             List {
-                //RANK
-                Section(header:
-                            HStack {
-                            Text("Rank").font(.title)
-                    Spacer()
-                    Button {
-                        derelict.hiddenRank.toggle()
-                    } label: {
-                        Image(systemName: derelict.hiddenRank ? "chevron.down" : "chevron.right")
-                    }
-                }
-                ) {
-                    if derelict.hiddenRank {
-                        if derelict.mode == "Generation" {
-                            HStack {
-                                Text(derelict.rank).focused($fieldIsFocused)
-                                Spacer()
-                                Button {
-                                    derelict.rank = Rank.allCases.randomElement()!.rawValue
-                                } label: {
-                                    Image(systemName: "dice").font(.system(size: 20))
-                                }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                            }
-                        }
-                        if derelict.mode == "Selection" || derelict.mode == "Input" {
-                            Picker(selection: $derelict.rank, label: EmptyView()) {
-                                ForEach(Rank.allCases, id: \.self) { value in
-                                    Text(value.rawValue).font(.system(size: 50))
-                                        .tag(value)
-                                }
-                            }.pickerStyle(.menu)
-                        }
-                    }
-                }
-                //LOCATION
-                if derelict.location != "" {
+                Group {
+                    //RANK
                     Section(header:
                                 HStack {
-                                Text("Location").font(.title)
+                                Text("Rank").font(.title)
                         Spacer()
                         Button {
-                            derelict.hiddenLocation.toggle()
+                            derelict.hiddenRank.toggle()
                         } label: {
-                            Image(systemName: derelict.hiddenLocation ? "chevron.down" : "chevron.right")
+                            Image(systemName: derelict.hiddenRank ? "chevron.down" : "chevron.right")
                         }
                     }
                     ) {
-                        if derelict.hiddenLocation {
-                            if derelict.mode == "Input" {
-                                TextField("Enter location", text: $derelict.location).focused($fieldIsFocused)
-                            }
+                        if derelict.hiddenRank {
                             if derelict.mode == "Generation" {
                                 HStack {
-                                    TextField("Enter location", text: $derelict.location).focused($fieldIsFocused)
+                                    Text(derelict.rank).focused($fieldIsFocused)
                                     Spacer()
                                     Button {
-                                        derelict.location = derelict.randomLocation()
+                                        derelict.rank = Rank.allCases.randomElement()!.rawValue
                                     } label: {
                                         Image(systemName: "dice").font(.system(size: 20))
                                     }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                }
-                            }
-                            if derelict.mode == "Selection" {
-                                Picker(selection: $derelict.location, label: EmptyView()) {
-                                    ForEach(derelict.locationList, id: \.self) { value in
-                                        Text(value).font(.system(size: 50))
-                                            .tag(value)
-                                    }
-                                }.pickerStyle(.menu)
-                            }
-                        }
-                    }
-                }
-                //TYPE
-                if derelict.type != "" {
-                    Section(header:
-                                HStack {
-                                Text("Type").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenType.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenType ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if derelict.hiddenType {
-                            if derelict.mode == "Input" {
-                                TextField("Enter type", text: $derelict.type).focused($fieldIsFocused)
-                            }
-                            if derelict.mode == "Generation" {
-                                HStack {
-                                    TextField("Enter type", text: $derelict.type).focused($fieldIsFocused)
-                                    Spacer()
-                                    Button {
-                                        derelict.type = derelict.randomType(location: derelict.location)
-                                    } label: {
-                                        Image(systemName: "dice").font(.system(size: 20))
-                                    }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                }
-                            }
-                            if derelict.mode == "Selection" {
-                                Picker(selection: $derelict.type, label: EmptyView()) {
-                                    ForEach(derelict.typeList, id: \.self) { value in
-                                        Text(value).font(.system(size: 50))
-                                            .tag(value)
-                                    }
-                                }.pickerStyle(.menu)
-                            }
-                        }
-                    }
-                }
-                //CONDITION
-                if derelict.condition != "" {
-                    Section(header:
-                                HStack {
-                                Text("Condition").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenCondition.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenCondition ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if derelict.hiddenCondition {
-                            if derelict.mode == "Input" {
-                                TextField("Enter condition", text: $derelict.condition).focused($fieldIsFocused)
-                            }
-                            if derelict.mode == "Generation" {
-                                HStack {
-                                    TextField("Enter condition", text: $derelict.condition).focused($fieldIsFocused)
-                                    Spacer()
-                                    Button {
-                                        derelict.condition = derelict.randomCondition()
-                                    } label: {
-                                        Image(systemName: "dice").font(.system(size: 20))
-                                    }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                }
-                            }
-                            if derelict.mode == "Selection" {
-                                Picker(selection: $derelict.condition, label: EmptyView()) {
-                                    ForEach(derelict.conditionList, id: \.self) { value in
-                                        Text(value).font(.system(size: 50))
-                                            .tag(value)
-                                    }
-                                }.pickerStyle(.menu)
-                            }
-                        }
-                    }
-                }
-                //OUTER FIRST LOOK
-                if derelict.outerFirstLook != "" {
-                    Section(header:
-                                HStack {
-                                Text("Outer First Look").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenOuterFirstLook.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenOuterFirstLook ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if derelict.hiddenOuterFirstLook {
-                            if derelict.mode == "Input" {
-                                TextField("Enter outer first look", text: $derelict.outerFirstLook).focused($fieldIsFocused)
-                            }
-                            if derelict.mode == "Generation" {
-                                HStack {
-                                    TextField("Enter outer first look", text: $derelict.outerFirstLook).focused($fieldIsFocused)
-                                    Spacer()
-                                    Button {
-                                        derelict.outerFirstLook = derelict.randomOuterFirstLook()
-                                    } label: {
-                                        Image(systemName: "dice").font(.system(size: 20))
-                                    }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                }
-                            }
-                            if derelict.mode == "Selection" {
-                                Picker(selection: $derelict.outerFirstLook, label: EmptyView()) {
-                                    ForEach(derelict.outerFirstLookList, id: \.self) { value in
-                                        Text(value).font(.system(size: 50))
-                                            .tag(value)
-                                    }
-                                }.pickerStyle(.menu)
-                            }
-                        }
-                    }
-                }
-                //INNER FIRST LOOK
-                if derelict.innerFirstLook != [] {
-                    Section(header:
-                                HStack {
-                        Text("Inner First Look").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenInnerFirstLook.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenInnerFirstLook ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if derelict.hiddenInnerFirstLook {
-                            if derelict.mode == "Input" {
-                                ForEach($derelict.innerFirstLook) { $look in
-                                    TextField("Enter inner first look", text: $look.name).focused($fieldIsFocused)
-                                }.onDelete { (indexSet) in
-                                    derelict.innerFirstLook.remove(atOffsets: indexSet)
-                                }
-                            }
-                            if derelict.mode == "Generation" {
-                                ForEach($derelict.innerFirstLook) { $look in
-                                    HStack {
-                                        TextField("Enter inner first look", text: $look.name).focused($fieldIsFocused)
-                                        Spacer()
-                                        Button {
-                                            look.name = derelict.randomInnerFirstLook()
-                                        } label: {
-                                            Image(systemName: "dice").font(.system(size: 20))
-                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                    }
-                                }.onDelete { (indexSet) in
-                                    derelict.innerFirstLook.remove(atOffsets: indexSet)
-                                }
-                            }
-                            if derelict.mode == "Selection" {
-                                ForEach($derelict.innerFirstLook) { $look in
-                                    Picker(selection: $look.name, label: EmptyView()) {
-                                        ForEach(derelict.innerFirstLookList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
-                                        }
-                                    }.pickerStyle(.menu)
-                                }.onDelete { (indexSet) in
-                                    derelict.innerFirstLook.remove(atOffsets: indexSet)
-                                }
-                            }
-                        }
-                    }
-                }
-                //WAYPOINTS
-                if derelict.waypoints != [] {
-                    Section(header:
-                                HStack {
-                        Text("Waypoints").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenWaypoints.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenWaypoints ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if derelict.hiddenWaypoints {
-                            ForEach($derelict.waypoints, id: \.id) { $point in
-                                NavigationLink(destination: DerelictView(derelict: $point, campaign: Campaign())) {
-                                    Text("\(point.name)")
-                                }
-                            }.onDelete { (indexSet) in
-                                derelict.waypoints.remove(atOffsets: indexSet)
-                            }
-                        }
-                    }
-                }
-                //THEMES
-                if derelict.themes != [] {
-                    Section(header:
-                                HStack {
-                        Text("Themes").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenThemes.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenThemes ? "chevron.down" : "chevron.right")
-                        }
-                    }
-                    ) {
-                        if derelict.hiddenThemes {
-                            if derelict.mode == "Generation" {
-                                ForEach($derelict.themes) { $theme in
-                                    HStack {
-                                        Text(theme.name).focused($fieldIsFocused)
-                                        Spacer()
-                                        Button {
-                                            theme.name = derelict.oracle.randomTheme()
-                                        } label: {
-                                            Image(systemName: "dice").font(.system(size: 20))
-                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
-                                    }
-                                }.onDelete { (indexSet) in
-                                    derelict.themes.remove(atOffsets: indexSet)
                                 }
                             }
                             if derelict.mode == "Selection" || derelict.mode == "Input" {
-                                ForEach($derelict.themes) { $theme in
-                                    Picker(selection: $theme.name, label: EmptyView()) {
-                                        ForEach(derelict.oracle.themeList, id: \.self) { value in
+                                Picker(selection: $derelict.rank, label: EmptyView()) {
+                                    ForEach(Rank.allCases, id: \.self) { value in
+                                        Text(value.rawValue).font(.system(size: 50))
+                                            .tag(value)
+                                    }
+                                }.pickerStyle(.menu)
+                            }
+                        }
+                    }
+                    //LOCATION
+                    if derelict.location != "" {
+                        Section(header:
+                                    HStack {
+                                    Text("Location").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenLocation.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenLocation ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenLocation {
+                                if derelict.mode == "Input" {
+                                    TextField("Enter location", text: $derelict.location).focused($fieldIsFocused)
+                                }
+                                if derelict.mode == "Generation" {
+                                    HStack {
+                                        TextField("Enter location", text: $derelict.location).focused($fieldIsFocused)
+                                        Spacer()
+                                        Button {
+                                            derelict.location = derelict.randomLocation()
+                                        } label: {
+                                            Image(systemName: "dice").font(.system(size: 20))
+                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                    }
+                                }
+                                if derelict.mode == "Selection" {
+                                    Picker(selection: $derelict.location, label: EmptyView()) {
+                                        ForEach(derelict.locationList, id: \.self) { value in
                                             Text(value).font(.system(size: 50))
                                                 .tag(value)
                                         }
                                     }.pickerStyle(.menu)
+                                }
+                            }
+                        }
+                    }
+                    //TYPE
+                    if derelict.type != "" {
+                        Section(header:
+                                    HStack {
+                                    Text("Type").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenType.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenType ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenType {
+                                if derelict.mode == "Input" {
+                                    TextField("Enter type", text: $derelict.type).focused($fieldIsFocused)
+                                }
+                                if derelict.mode == "Generation" {
+                                    HStack {
+                                        TextField("Enter type", text: $derelict.type).focused($fieldIsFocused)
+                                        Spacer()
+                                        Button {
+                                            derelict.type = derelict.randomType(location: derelict.location)
+                                        } label: {
+                                            Image(systemName: "dice").font(.system(size: 20))
+                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                    }
+                                }
+                                if derelict.mode == "Selection" {
+                                    Picker(selection: $derelict.type, label: EmptyView()) {
+                                        ForEach(derelict.typeList, id: \.self) { value in
+                                            Text(value).font(.system(size: 50))
+                                                .tag(value)
+                                        }
+                                    }.pickerStyle(.menu)
+                                }
+                            }
+                        }
+                    }
+                    //CONDITION
+                    if derelict.condition != "" {
+                        Section(header:
+                                    HStack {
+                                    Text("Condition").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenCondition.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenCondition ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenCondition {
+                                if derelict.mode == "Input" {
+                                    TextField("Enter condition", text: $derelict.condition).focused($fieldIsFocused)
+                                }
+                                if derelict.mode == "Generation" {
+                                    HStack {
+                                        TextField("Enter condition", text: $derelict.condition).focused($fieldIsFocused)
+                                        Spacer()
+                                        Button {
+                                            derelict.condition = derelict.randomCondition()
+                                        } label: {
+                                            Image(systemName: "dice").font(.system(size: 20))
+                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                    }
+                                }
+                                if derelict.mode == "Selection" {
+                                    Picker(selection: $derelict.condition, label: EmptyView()) {
+                                        ForEach(derelict.conditionList, id: \.self) { value in
+                                            Text(value).font(.system(size: 50))
+                                                .tag(value)
+                                        }
+                                    }.pickerStyle(.menu)
+                                }
+                            }
+                        }
+                    }
+                    //OUTER FIRST LOOK
+                    if derelict.outerFirstLook != "" {
+                        Section(header:
+                                    HStack {
+                                    Text("Outer First Look").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenOuterFirstLook.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenOuterFirstLook ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenOuterFirstLook {
+                                if derelict.mode == "Input" {
+                                    TextField("Enter outer first look", text: $derelict.outerFirstLook).focused($fieldIsFocused)
+                                }
+                                if derelict.mode == "Generation" {
+                                    HStack {
+                                        TextField("Enter outer first look", text: $derelict.outerFirstLook).focused($fieldIsFocused)
+                                        Spacer()
+                                        Button {
+                                            derelict.outerFirstLook = derelict.randomOuterFirstLook()
+                                        } label: {
+                                            Image(systemName: "dice").font(.system(size: 20))
+                                        }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                    }
+                                }
+                                if derelict.mode == "Selection" {
+                                    Picker(selection: $derelict.outerFirstLook, label: EmptyView()) {
+                                        ForEach(derelict.outerFirstLookList, id: \.self) { value in
+                                            Text(value).font(.system(size: 50))
+                                                .tag(value)
+                                        }
+                                    }.pickerStyle(.menu)
+                                }
+                            }
+                        }
+                    }
+                    //INNER FIRST LOOK
+                    if derelict.innerFirstLook != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Inner First Look").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenInnerFirstLook.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenInnerFirstLook ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenInnerFirstLook {
+                                if derelict.mode == "Input" {
+                                    ForEach($derelict.innerFirstLook) { $look in
+                                        TextField("Enter inner first look", text: $look.name).focused($fieldIsFocused)
+                                    }.onDelete { (indexSet) in
+                                        derelict.innerFirstLook.remove(atOffsets: indexSet)
+                                    }
+                                }
+                                if derelict.mode == "Generation" {
+                                    ForEach($derelict.innerFirstLook) { $look in
+                                        HStack {
+                                            TextField("Enter inner first look", text: $look.name).focused($fieldIsFocused)
+                                            Spacer()
+                                            Button {
+                                                look.name = derelict.randomInnerFirstLook()
+                                            } label: {
+                                                Image(systemName: "dice").font(.system(size: 20))
+                                            }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        derelict.innerFirstLook.remove(atOffsets: indexSet)
+                                    }
+                                }
+                                if derelict.mode == "Selection" {
+                                    ForEach($derelict.innerFirstLook) { $look in
+                                        Picker(selection: $look.name, label: EmptyView()) {
+                                            ForEach(derelict.innerFirstLookList, id: \.self) { value in
+                                                Text(value).font(.system(size: 50))
+                                                    .tag(value)
+                                            }
+                                        }.pickerStyle(.menu)
+                                    }.onDelete { (indexSet) in
+                                        derelict.innerFirstLook.remove(atOffsets: indexSet)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //WAYPOINTS
+                    if derelict.waypoints != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Waypoints").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenWaypoints.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenWaypoints ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenWaypoints {
+                                ForEach($derelict.waypoints, id: \.id) { $point in
+                                    NavigationLink(destination: DerelictView(derelict: $point, campaign: Campaign())) {
+                                        Text("\(point.name)")
+                                    }
                                 }.onDelete { (indexSet) in
-                                    derelict.themes.remove(atOffsets: indexSet)
+                                    derelict.waypoints.remove(atOffsets: indexSet)
+                                }
+                            }
+                        }
+                    }
+                    //THEMES
+                    if derelict.themes != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Themes").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenThemes.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenThemes ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenThemes {
+                                if derelict.mode == "Generation" {
+                                    ForEach($derelict.themes) { $theme in
+                                        HStack {
+                                            Text(theme.name).focused($fieldIsFocused)
+                                            Spacer()
+                                            Button {
+                                                theme.name = derelict.oracle.randomTheme()
+                                            } label: {
+                                                Image(systemName: "dice").font(.system(size: 20))
+                                            }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
+                                        }
+                                    }.onDelete { (indexSet) in
+                                        derelict.themes.remove(atOffsets: indexSet)
+                                    }
+                                }
+                                if derelict.mode == "Selection" || derelict.mode == "Input" {
+                                    ForEach($derelict.themes) { $theme in
+                                        Picker(selection: $theme.name, label: EmptyView()) {
+                                            ForEach(derelict.oracle.themeList, id: \.self) { value in
+                                                Text(value).font(.system(size: 50))
+                                                    .tag(value)
+                                            }
+                                        }.pickerStyle(.menu)
+                                    }.onDelete { (indexSet) in
+                                        derelict.themes.remove(atOffsets: indexSet)
+                                    }
                                 }
                             }
                         }
                     }
                 }
-                //ROUTES
-                if derelict.routes != [] {
-                    Section(header:
-                                HStack {
-                        Text("Routes").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenRoutes.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenRoutes ? "chevron.down" : "chevron.right")
+                Group {
+                    //ROUTES
+                    if derelict.routes != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Routes").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenRoutes.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenRoutes ? "chevron.down" : "chevron.right")
+                            }
                         }
-                    }
-                    ) {
-                        if derelict.hiddenRoutes {
-                            ForEach($derelict.routes, id: \.id) { $route in
-                                NavigationLink(destination: RouteView(route: $route, campaign: Campaign())) {
-                                    Text("\(route.rank.rawValue.capitalized) route to \(route.destination)")
+                        ) {
+                            if derelict.hiddenRoutes {
+                                ForEach($derelict.routes, id: \.id) { $route in
+                                    NavigationLink(destination: RouteView(route: $route, campaign: Campaign())) {
+                                        Text("\(route.rank.rawValue.capitalized) route to \(route.destination)")
+                                    }
+                                }.onDelete { (indexSet) in
+                                    derelict.routes.remove(atOffsets: indexSet)
                                 }
-                            }.onDelete { (indexSet) in
-                                derelict.routes.remove(atOffsets: indexSet)
                             }
                         }
                     }
-                }
-                //DESCRIPTION
-                if derelict.description != "" {
-                    Section(header:
-                                HStack {
-                        Text("Description").font(.title)
-                        Spacer()
-                        Button {
-                            derelict.hiddenDescription.toggle()
-                        } label: {
-                            Image(systemName: derelict.hiddenDescription ? "chevron.down" : "chevron.right")
+                    //DESCRIPTION
+                    if derelict.description != "" {
+                        Section(header:
+                                    HStack {
+                            Text("Description").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenDescription.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenDescription ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenDescription {
+                                TextEditor(text: $derelict.description)
+                                    .focused($fieldIsFocused)
+                            }
                         }
                     }
-                    ) {
-                        if derelict.hiddenDescription {
-                            TextEditor(text: $derelict.description)
-                                .focused($fieldIsFocused)
+                    // CLOCK
+                    if derelict.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                derelict.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: derelict.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if derelict.hiddenClock {
+                                ForEach($derelict.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   derelict.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
                         }
                     }
                 }
@@ -535,79 +564,90 @@ struct DerelictView: View {
                         Text("Generate Derilict")
                     }
                     Menu {
-                        if derelict.isChild == false && derelict.location == "" {
+                        Group {
+                            if derelict.isChild == false && derelict.location == "" {
+                                Button {
+                                    derelict.location = "Unknown"
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Location")
+                                }
+                            }
+                            if derelict.isChild == false && derelict.type == "" {
+                                Button {
+                                    derelict.type = "Unknown"
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Type")
+                                }
+                            }
+                            if derelict.condition == "" {
+                                Button {
+                                    derelict.condition = "Unknown"
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Condition")
+                                }
+                            }
+                            if derelict.outerFirstLook == "" {
+                                Button {
+                                    derelict.outerFirstLook = "Unknown"
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Outer First Look")
+                                }
+                            }
+                            if derelict.innerFirstLook.count < 2 {
+                                Button {
+                                    derelict.innerFirstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Inner First Look")
+                                }
+                            }
                             Button {
-                                derelict.location = "Unknown"
+                                derelict.waypoints.insert(Derelict(isChild: true, location: derelict.location, type: derelict.type, name: "\(derelict.currentArea) of \(derelict.currentZone) Zone", rank: derelict.rank, themes: derelict.themes, currentZone: derelict.currentZone, currentArea: derelict.currentArea, areaList: derelict.areaList), at: 0)
                                 campaign.writeToFile()
                             } label: {
-                                Text("Location")
+                                Text("New Waypoint")
+                            }
+                            Button {
+                                derelict.themes.insert(StringContainer(name: "None"), at: 0)
+                                campaign.writeToFile()
+                            } label: {
+                                Text("New Theme")
+                            }
+                            Button {
+                                derelict.routes.insert(Route(), at: 0)
+                                campaign.writeToFile()
+                            } label: {
+                                Text("New Route")
+                            }
+                            
+                            if derelict.description == "" {
+                                Button {
+                                    derelict.description = "New Description"
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Description")
+                                }
                             }
                         }
-                        if derelict.isChild == false && derelict.type == "" {
-                            Button {
-                                derelict.type = "Unknown"
-                                campaign.writeToFile()
-                            } label: {
-                                Text("Type")
+                        Group {
+                            if derelict.subName == "" {
+                                Button {
+                                    derelict.subName = "Any Subtitle"
+                                    campaign.writeToFile()
+                                } label: {
+                                    Text("Subtitle")
+                                }
                             }
-                        }
-                        if derelict.condition == "" {
                             Button {
-                                derelict.condition = "Unknown"
+                                derelict.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                derelict.hiddenClock = true
                                 campaign.writeToFile()
                             } label: {
-                                Text("Condition")
-                            }
-                        }
-                        if derelict.outerFirstLook == "" {
-                            Button {
-                                derelict.outerFirstLook = "Unknown"
-                                campaign.writeToFile()
-                            } label: {
-                                Text("Outer First Look")
-                            }
-                        }
-                        if derelict.innerFirstLook.count < 2 {
-                            Button {
-                                derelict.innerFirstLook.insert(StringContainer(name: "Unknown"), at: 0)
-                                campaign.writeToFile()
-                            } label: {
-                                Text("Inner First Look")
-                            }
-                        }
-                        Button {
-                            derelict.waypoints.insert(Derelict(isChild: true, location: derelict.location, type: derelict.type, name: "\(derelict.currentArea) of \(derelict.currentZone) Zone", rank: derelict.rank, themes: derelict.themes, currentZone: derelict.currentZone, currentArea: derelict.currentArea, areaList: derelict.areaList), at: 0)
-                            campaign.writeToFile()
-                        } label: {
-                            Text("New Waypoint")
-                        }
-                        Button {
-                            derelict.themes.insert(StringContainer(name: "None"), at: 0)
-                            campaign.writeToFile()
-                        } label: {
-                            Text("New Theme")
-                        }
-                        Button {
-                            derelict.routes.insert(Route(), at: 0)
-                            campaign.writeToFile()
-                        } label: {
-                            Text("New Route")
-                        }
-                        
-                        if derelict.description == "" {
-                            Button {
-                                derelict.description = "New Description"
-                                campaign.writeToFile()
-                            } label: {
-                                Text("Description")
-                            }
-                        }
-                        if derelict.subName == "" {
-                            Button {
-                                derelict.subName = "Any Subtitle"
-                                campaign.writeToFile()
-                            } label: {
-                                Text("Subtitle")
+                                Text("Add Clock")
                             }
                         }
                     } label: {

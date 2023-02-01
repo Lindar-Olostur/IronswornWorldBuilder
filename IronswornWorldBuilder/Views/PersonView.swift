@@ -23,7 +23,9 @@ struct PersonView: View {
                 VStack {
                     
                     HStack {
-                        TextField("Enter person name", text: $person.name).font(.largeTitle.weight(.bold))
+                        TextField("Enter person name", text: $person.name)
+                            .minimumScaleFactor(0.5)
+                            .font(.largeTitle.weight(.bold))
                             .multilineTextAlignment(.center)
                             .focused($fieldIsFocused)
                         if person.mode == "Generation" {
@@ -49,10 +51,17 @@ struct PersonView: View {
                     VStack {
                         HStack(spacing: 15) {
                             Button {
-                                displayText = "Action: \(person.oracle.randomAction())"
+                                displayText = NSLocalizedString(person.oracle.randomAction(), comment: "")
                             } label: {
                                 Text("Combat Action")
                                     .foregroundColor(.black)
+                            }
+                            .buttonStyle(BorderedButtonStyle())
+                            Button {
+                                displayText = person.oracle.randomEmotion()
+                            } label: {
+                                Text("Текущие эмоции")
+                                    .foregroundColor(.orange)
                             }
                             .buttonStyle(BorderedButtonStyle())
                             
@@ -101,7 +110,7 @@ struct PersonView: View {
                                             TextField("Enter first look", text: $look.name).focused($fieldIsFocused)
                                             Spacer()
                                             Button {
-                                                look.name = person.randomFirstLook(isLand: campaign.world.sectorIsLand)
+                                                look.name = NSLocalizedString(person.randomFirstLook(isLand: campaign.world.sectorIsLand), comment: "")
                                             } label: {
                                                 Image(systemName: "dice").font(.system(size: 20))
                                             }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -114,8 +123,8 @@ struct PersonView: View {
                                     ForEach($person.firstLook) { $look in
                                         Picker(selection: $look.name, label: EmptyView()) {
                                             ForEach(campaign.world.sectorIsLand ? person.firstLookListIS : person.firstLookListSF, id: \.self) { value in
-                                                Text(value).font(.system(size: 50))
-                                                    .tag(value)
+                                                Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                    .tag(NSLocalizedString(value, comment: ""))
                                             }
                                         }.pickerStyle(.menu)
                                     }.onDelete { (indexSet) in
@@ -148,7 +157,7 @@ struct PersonView: View {
                                         TextField("Enter disposition", text: $person.disposition).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            person.disposition = person.randomDisposition()
+                                            person.disposition = NSLocalizedString(person.randomDisposition(), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -157,8 +166,8 @@ struct PersonView: View {
                                 if person.mode == "Selection" {
                                     Picker(selection: $person.disposition, label: EmptyView()) {
                                         ForEach(person.dispositionList, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: ""))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -188,7 +197,7 @@ struct PersonView: View {
                                         TextField("Enter role", text: $person.role).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            person.role = person.randomRole(isLand: campaign.world.sectorIsLand)
+                                            person.role = NSLocalizedString(person.randomRole(isLand: campaign.world.sectorIsLand), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -197,8 +206,8 @@ struct PersonView: View {
                                 if person.mode == "Selection" {
                                     Picker(selection: $person.role, label: EmptyView()) {
                                         ForEach(campaign.world.sectorIsLand ? person.roleListIS : person.roleListSF, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: ""))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -228,7 +237,7 @@ struct PersonView: View {
                                         TextField("Enter goal", text: $person.goal).focused($fieldIsFocused)
                                         Spacer()
                                         Button {
-                                            person.goal = person.randomGoal(isLand: campaign.world.sectorIsLand)
+                                            person.goal = NSLocalizedString(person.randomGoal(isLand: campaign.world.sectorIsLand), comment: "")
                                         } label: {
                                             Image(systemName: "dice").font(.system(size: 20))
                                         }.transition(AnyTransition.opacity.animation(.easeInOut(duration:0.6)))
@@ -237,8 +246,8 @@ struct PersonView: View {
                                 if person.mode == "Selection" {
                                     Picker(selection: $person.goal, label: EmptyView()) {
                                         ForEach(campaign.world.sectorIsLand ? person.goalListIS : person.goalListSF, id: \.self) { value in
-                                            Text(value).font(.system(size: 50))
-                                                .tag(value)
+                                            Text(NSLocalizedString(value, comment: "")).font(.system(size: 50))
+                                                .tag(NSLocalizedString(value, comment: ""))
                                         }
                                     }.pickerStyle(.menu)
                                 }
@@ -265,6 +274,31 @@ struct PersonView: View {
                             }
                         }
                     }
+                    // CLOCK
+                    if person.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                person.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: person.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if person.hiddenClock {
+                                ForEach($person.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   person.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
+                        }
+                    }
                     
                 }.listStyle(.inset)
             }
@@ -277,8 +311,16 @@ struct PersonView: View {
                     }
                 ToolbarItem(placement: .destructiveAction) {
                     Menu {
+                        if person.role == "" {
+                            Button {
+                                generatePerson(isLand: campaign.world.sectorIsLand)
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Generate Person")
+                            }
+                        }
                         Toggle(isOn: $person.combatMode) {
-                            Text("Combat Mode")
+                            Text("Encounter Mode")
                         }
                         Menu {
                             if person.mode != "Input" {
@@ -305,16 +347,11 @@ struct PersonView: View {
                         } label: {
                             Text("Mode")
                         }
-                        Button {
-                            generatePerson(isLand: campaign.world.sectorIsLand)
-                            campaign.writeToFile()
-                        } label: {
-                            Text("Generate Person")
-                        }
+                        
                         Menu {
                             if person.firstLook.count < 2 {
                                 Button {
-                                    person.firstLook.insert(StringContainer(name: "Unknown"), at: 0)
+                                    person.firstLook.insert(StringContainer(name: NSLocalizedString("Unknown", comment: "")), at: 0)
                                     campaign.writeToFile()
                                 } label: {
                                     Text("New First Look")
@@ -322,7 +359,7 @@ struct PersonView: View {
                             }
                             if person.disposition == "" {
                                 Button {
-                                    person.disposition = person.randomDisposition()
+                                    person.disposition = NSLocalizedString("Unknown", comment: "")
                                     campaign.writeToFile()
                                 } label: {
                                     Text("Disposition")
@@ -330,7 +367,7 @@ struct PersonView: View {
                             }
                             if person.role == "" {
                                 Button {
-                                    person.role = person.randomRole(isLand: campaign.world.sectorIsLand)
+                                    person.role = NSLocalizedString("Unknown", comment: "")
                                     campaign.writeToFile()
                                 } label: {
                                     Text("Role")
@@ -338,7 +375,7 @@ struct PersonView: View {
                             }
                             if person.goal == "" {
                                 Button {
-                                    person.goal = person.randomGoal(isLand: campaign.world.sectorIsLand)
+                                    person.goal = NSLocalizedString("Unknown", comment: "")
                                     campaign.writeToFile()
                                 } label: {
                                     Text("Goal")
@@ -347,7 +384,7 @@ struct PersonView: View {
                             
                             if person.description == "" {
                                 Button {
-                                    person.description = "New Description"
+                                    person.description = " "
                                     campaign.writeToFile()
                                 } label: {
                                     Text("Description")
@@ -360,6 +397,13 @@ struct PersonView: View {
                                 } label: {
                                     Text("Subtitle")
                                 }
+                            }
+                            Button {
+                                person.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                person.hiddenClock = true
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Add Clock")
                             }
                         } label: {
                             Text("Add")
@@ -381,26 +425,27 @@ struct PersonView: View {
         }
     }
     func generatePerson(isLand: Bool) {
+        person.mode = "Generation"
         person.name = person.randomName(isLand: campaign.world.sectorIsLand)
         person.hiddenGoal = false
-        person.goal = person.randomGoal(isLand: campaign.world.sectorIsLand)
+        person.goal = NSLocalizedString(person.randomGoal(isLand: campaign.world.sectorIsLand), comment: "")
         person.hiddenRole = false
-        person.role = person.randomRole(isLand: campaign.world.sectorIsLand)
+        person.role = NSLocalizedString(person.randomRole(isLand: campaign.world.sectorIsLand), comment: "")
         person.hiddenDisposition = false
-        person.disposition = person.randomDisposition()
+        person.disposition = NSLocalizedString(person.randomDisposition(), comment: "")
         
         person.hiddenFirstLook = false
         person.firstLook = []
         person.firstLook.insert(StringContainer(), at: 0)
-        person.firstLook[0].name = person.randomFirstLook(isLand: campaign.world.sectorIsLand)
+        person.firstLook[0].name = NSLocalizedString(person.randomFirstLook(isLand: campaign.world.sectorIsLand), comment: "")
         person.firstLook.insert(StringContainer(), at: 0)
-        person.firstLook[0].name = person.randomFirstLook(isLand: campaign.world.sectorIsLand)
+        person.firstLook[0].name = NSLocalizedString(person.randomFirstLook(isLand: campaign.world.sectorIsLand), comment: "")
     }
 }
 
 struct PersonView_Previews: PreviewProvider {
     static var previews: some View {
-        PersonView(person: .constant(Person()), campaign: Campaign())
+        PersonView(person: .constant(Person(combatMode: true)), campaign: Campaign())
             .environmentObject(Campaign())
     }
 }

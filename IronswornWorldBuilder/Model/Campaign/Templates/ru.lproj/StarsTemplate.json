@@ -1,12 +1,15 @@
+
 {
-  "subName" : "Custom star system",
+  "subName" : "Новая звездная система",
   "type" : "stars",
   "storyGenerator" : false,
   "hiddenRegions" : true,
   "hiddenDescription" : false,
   "hiddenTruth" : false,
+  "clocks" : [],
+  "hiddenClock" : true,
   "sectorIsLand" : false,
-  "name" : "New Campaign",
+  "name" : "Новая кампания",
   "description" : "",
   "regions" : [],
   "truth" : [],

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum Rank: String, Codable, Hashable, Equatable, CaseIterable {
     case troublesome
@@ -28,7 +29,7 @@ struct Oracle: Codable, Hashable {
     static let sharedOracle = Oracle()
     func ironlandersName() -> String {
         
-        let list = ["Solana", "Keelan", "Cadigan", "Sola", "Kodroth", "Kione", "Katja", "Tio", "Artiga", "Eos", "Bastien", "Elli", "Maura", "Haleema", "Abella", "Morter", "Wulan", "Mai", "Farina", "Pearce", "Wynne", "Haf", "Aeddon", "Khinara", "Milla", "Nakata", "Kynan", "Kiah", "Jaggar", "Beca", "Ikram", "Melia", "Sidan", "Deshi", "Tessa", "Sibila", "Morien", "Mona", "Padma", "Avella", "Naila", "Lio", "Cera", "Ithela", "Zhan", "Kaivan", "Valeri", "Hirsham", "Pemba", "Edda", "Lestara", "Lago", "Elstan", "Saskia", "Kabeera", "Caldas", "Nisus", "Serene", "Chenda", "Themon", "Erin", "Alban", "Parcell", "Jelma", "Willa", "Nadira", "Gwen", "Amara", "Masias", "Kanno", "Razeena", "Mira", "Perella", "Myrick", "Qamar", "Kormak", "Zura", "Zanita", "Brynn", "Tegan", "Pendry", "Quinn", "Fanir", "Glain", "Emelyn", "Kendi", "Althus", "Leela", "Ishana", "Flint", "Delkash", "Nia", "Nan", "Keeara", "Katania", "Morell", "Temir", "Bas", "Sabine", "Tallus", "Segura", "Gethin", "Bataar", "Basira", "Joa", "Glynn", "Toran", "Arasen", "Kuron", "Griff", "Owena", "Adda", "Euros", "Kova", "Kara", "Morgan", "Nanda", "Tamara", "Asha", "Delos", "Torgan", "Makari", "Selva", "Kimura", "Rhian", "Tristan", "Siorra", "Sayer", "Cortina", "Vesna", "Kataka", "Keyshia", "Mila", "Lili", "Vigo", "Sadia", "Malik", "Dag", "Kuno", "Reva", "Kai", "Kalina", "Jihan", "Hennion", "Abram", "Aida", "Myrtle", "Nekun", "Menna", "Tahir", "Sarria", "Nakura", "Akiya", "Talan", "Mattick", "Okoth", "Khulan", "Verena", "Beltran", "Del", "Ranna", "Alina", "Muna", "Mura", "Torrens", "Yuda", "Nazmi", "Ghalen", "Sarda", "Shona", "Kalidas", "Wena", "Sendra", "Kori", "Setara", "Lucia", "Maya", "Reema", "Yorath", "Rhoddri", "Shekhar", "Servan", "Reese", "Kenrick", "Indirra", "Giliana", "Jebran", "Kotama", "Fara", "Katrin", "Namba", "Lona", "Taylah", "Kato", "Esra", "Eleri", "Irsia", "Kayu", "Bevan", "Chandra", "Solana", "Keelan", "Cadigan", "Sola", "Kodroth", "Kione", "Katja", "Tio", "Artiga", "Eos", "Bastien", "Elli", "Maura", "Haleema", "Abella", "Morter", "Wulan", "Mai", "Farina", "Pearce", "Wynne", "Haf", "Aeddon", "Khinara", "Milla", "Nakata", "Kynan", "Kiah", "Jaggar", "Beca", "Ikram", "Melia", "Sidan", "Deshi", "Tessa", "Sibila", "Morien", "Mona", "Padma", "Avella", "Naila", "Lio", "Cera", "Ithela", "Zhan", "Kaivan", "Valeri", "Hirsham", "Pemba", "Edda", "Lestara", "Lago", "Elstan", "Saskia", "Kabeera", "Caldas", "Nisus", "Serene", "Chenda", "Themon", "Erin", "Alban", "Parcell", "Jelma", "Willa", "Nadira", "Gwen", "Amara", "Masias", "Kanno", "Razeena", "Mira", "Perella", "Myrick", "Qamar", "Kormak", "Zura", "Zanita", "Brynn", "Tegan", "Pendry", "Quinn", "Fanir", "Glain", "Emelyn", "Kendi", "Althus", "Leela", "Ishana", "Flint", "Delkash", "Nia", "Nan", "Keeara", "Katania", "Morell", "Temir", "Bas", "Sabine", "Tallus", "Segura", "Gethin", "Bataar", "Basira", "Joa", "Glynn", "Toran", "Arasen", "Kuron", "Griff", "Owena", "Adda", "Euros", "Kova", "Kara", "Morgan", "Nanda", "Tamara", "Asha", "Delos", "Torgan", "Makari", "Selva", "Kimura", "Rhian", "Tristan", "Siorra", "Sayer", "Cortina", "Vesna", "Kataka", "Keyshia", "Mila", "Lili", "Vigo", "Sadia", "Malik", "Dag", "Kuno", "Reva", "Kai", "Kalina", "Jihan", "Hennion", "Abram", "Aida", "Myrtle", "Nekun", "Menna", "Tahir", "Sarria", "Nakura", "Akiya", "Talan", "Mattick", "Okoth", "Khulan", "Verena", "Beltran", "Del", "Ranna", "Alina", "Muna", "Mura", "Torrens", "Yuda", "Nazmi", "Ghalen", "Sarda", "Shona", "Kalidas", "Wena", "Sendra", "Kori", "Setara", "Lucia", "Maya", "Reema", "Yorath", "Rhoddri", "Shekhar", "Servan", "Reese", "Kenrick", "Indirra", "Giliana", "Jebran", "Kotama", "Fara", "Katrin", "Namba", "Lona", "Taylah", "Kato", "Esra", "Eleri", "Irsia", "Kayu", "Bevan", "Chandra"]
+        let list = ["Abella", "Abram", "Adda", "Aeddon", "Aida", "Akiya", "Alban", "Alina", "Althus", "Amara", "Arasen", "Artiga", "Asha", "Avella", "Bas", "Basira", "Bastien", "Bataar", "Beca", "Beltran", "Bevan", "Brynn", "Cadigan", "Caldas", "Cera", "Chandra", "Chenda", "Cortina", "Dag", "Del", "Delkash", "Delos", "Deshi", "Edda", "Eleri", "Elli", "Elstan", "Emelyn", "Eos", "Erin", "Esra", "Euros", "Fanir", "Fara", "Farina", "Flint", "Gethin", "Ghalen", "Giliana", "Glain", "Glynn", "Griff", "Gwen", "Haf", "Haleema", "Hennion", "Hirsham", "Ikram", "Indirra", "Irsia", "Ishana", "Ithela", "Jaggar", "Jebran", "Jelma", "Jihan", "Joa", "Kabeera", "Kai", "Kaivan", "Kalidas", "Kalina", "Kanno", "Kara", "Kataka", "Katania", "Katja", "Kato", "Katrin", "Kayu", "Keeara", "Keelan", "Kendi", "Kenrick", "Keyshia", "Khinara", "Khulan", "Kiah", "Kimura", "Kione", "Kodroth", "Kori", "Kormak", "Kotama", "Kova", "Kuno", "Kuron", "Kynan", "Lago", "Leela", "Lestara", "Lili", "Lio", "Lona", "Lucia", "Mai", "Makari", "Malik", "Masias", "Mattick", "Maura", "Maya", "Melia", "Menna", "Mila", "Milla", "Mira", "Mona", "Morell", "Morgan", "Morien", "Morter", "Muna", "Mura", "Myrick", "Myrtle", "Nadira", "Naila", "Nakata", "Nakura", "Namba", "Nan", "Nanda", "Nazmi", "Nekun", "Nia", "Nisus", "Okoth", "Owena", "Padma", "Parcell", "Pearce", "Pemba", "Pendry", "Perella", "Qamar", "Quinn", "Ranna", "Razeena", "Reema", "Reese", "Reva", "Rhian", "Rhoddri", "Sabine", "Sadia", "Sarda", "Sarria", "Saskia", "Sayer", "Segura", "Selva", "Sendra", "Serene", "Servan", "Setara", "Shekhar", "Shona", "Sibila", "Sidan", "Siorra", "Sola", "Solana", "Tahir", "Talan", "Tallus", "Tamara", "Taylah", "Tegan", "Temir", "Tessa", "Themon", "Tio", "Toran", "Torgan", "Torrens", "Tristan", "Valeri", "Verena", "Vesna", "Vigo", "Wena", "Willa", "Wulan", "Wynne", "Yorath", "Yuda", "Zanita", "Zhan", "Zura"]
         
         var pool: [String] = []
         
@@ -37,14 +38,17 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        return "\(answer.popLast() ?? "Error")"
+//        let x = "\(answer.popLast() ?? "error")"
+//        return NSLocalizedString(x, comment: "")
     }
     func randomAction() -> String {
 
         let list = ["Block a path or cut off an objective", "Cause reckless damage", "Change weapons or tactics", "Compel a surrender or concession", "Coordinate with allies", "Corner trap or entangle", "Counter or reflect an attack", "Create a distraction", "Destroy something or render it useless", "Fall back or stand off", "Hide or sneak", "Intimidate taunt or frighten", "Leverage the advantage of a weapon or ability", "Leverage the terrain or surroundings", "Lure into a vulnerable position", "Make a cautious or probing attack", "Make a ferocious or powerful attack", "Make a precise or careful attack", "Make a sacrificial attack", "Make an indirect attack", "Move in close or grapple", "Nullify a system device or weapon", "Overrun a position", "Perform a feint or trick", "Press an advantage", "Provoke a careless response", "Ready a decisive action", "Shift the fight to a new area", "Summon aid or reinforcements", "Take cover or bolster defenses", "Use an unexpected weapon or ability", "Weaken defenses", "Roll twice"]
 
         var answer = list.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
     func payThePrice() -> String {
@@ -94,7 +98,8 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func theme() -> String {
         
@@ -108,7 +113,8 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func description() -> String {
         
@@ -121,7 +127,8 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func focus() -> String {
         
@@ -134,7 +141,8 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
     func actionIS() -> String {
@@ -148,7 +156,8 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func themeIS() -> String {
         
@@ -162,7 +171,8 @@ struct Oracle: Codable, Hashable {
         }
         
         var answer = pool.shuffled()
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
 // E X P L O R A T I O N
@@ -193,7 +203,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func chaoticThemePerilSF() -> String {
         let dictionary = [
@@ -219,7 +230,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func chaoticThemeOpportunitySF() -> String {
         let dictionary = [
@@ -238,7 +250,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
         //FORTIFIED
@@ -267,7 +280,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func fortifiedThemePerilSF() -> String {
         let dictionary = [
@@ -293,7 +307,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func fortifiedThemeOpportunitySF() -> String {
         let dictionary = [
@@ -312,7 +327,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
 
         //HAUNTED
@@ -341,7 +357,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func hauntedThemePerilSF() -> String {
         let dictionary = [
@@ -367,7 +384,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func hauntedThemeOpportunitySF() -> String {
         let dictionary = [
@@ -386,7 +404,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
         //INFESTED
@@ -415,7 +434,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func infestedThemePerilSF() -> String {
         let dictionary = [
@@ -441,7 +461,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func infestedThemeOpportunitySF() -> String {
         let dictionary = [
@@ -460,7 +481,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
         //INHABITED
@@ -489,7 +511,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func inhabitedThemePerilSF() -> String {
         let dictionary = [
@@ -515,7 +538,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func inhabitedThemeOpportunitySF() -> String {
         let dictionary = [
@@ -534,7 +558,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
         //MECHANICAL
@@ -563,7 +588,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func mechanicalThemePerilSF() -> String {
         let dictionary = [
@@ -589,7 +615,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func mechanicalThemeOpportunitySF() -> String {
         let dictionary = [
@@ -608,7 +635,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
         //RUINED
@@ -637,7 +665,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func ruinedThemePerilSF() -> String {
         let dictionary = [
@@ -663,7 +692,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func ruinedThemeOpportunitySF() -> String {
         let dictionary = [
@@ -682,7 +712,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
         //SACRED
@@ -711,7 +742,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func sacredThemePerilSF() -> String {
         let dictionary = [
@@ -737,7 +769,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func sacredThemeOpportunitySF() -> String {
         let dictionary = [
@@ -756,7 +789,8 @@ struct Oracle: Codable, Hashable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
     // D E L V E
@@ -1252,7 +1286,8 @@ struct Oracle: Codable, Hashable {
     var themeList = ["Chaotic", "Fortified", "Haunted", "Infested", "Inhabited", "Mechanical", "Ruined", "Sacred"]
     func randomTheme() -> String {
         var newList = themeList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
     var themeDelveList = ["Ancient", "Corrupted", "Fortified", "Hallowed", "Haunted", "Infested", "Ravaged", "Wild"]
@@ -1260,12 +1295,216 @@ struct Oracle: Codable, Hashable {
     
     func randomDelveTheme() -> String {
         var newList = themeDelveList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     
     func randomDelveDomain() -> String {
         var newList = domainDelveList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
+    }
+    
+    func randomEmotion() -> String {
+        func getAction() -> String {
+            let dictionary = [
+                "Дрожит" : 2,
+                "Жмурится" : 2,
+                "Хмурится" : 4,
+                "Бросает в жар" : 1,
+                "Знобит" : 1,
+                "Мороз по коже" : 1,
+                "Волосы дыбом" : 1,
+                "Взмок" : 1,
+                "Срывается голос" : 1,
+                "Шепчет" : 1,
+                "Часто дышит" : 1,
+                "Скрипит зубами" : 1,
+                "Сжимает зубы" : 1,
+                "Оскаливается" : 1,
+                "Повышает голос" : 1,
+                "Кричит" : 1,
+                "Громко смеется" : 1,
+                "Хихикает" : 1,
+                "Покраснел" : 2,
+                "Побледнел" : 2,
+                "Позеленел" : 1,
+                "Побелел" : 1,
+                "Вздулись вены" : 1,
+                "Сжал губы" : 1,
+                "Напрягся" : 2,
+                "Морщится" : 1,
+                "Колотится сердце" : 1,
+                "Замедлился пульс" : 1,
+                "Тошнит" : 1,
+                "Ком в горле" : 1,
+                "Отворачивается" : 1,
+                "Опускает глаза" : 1,
+                "Текут слезы" : 1,
+                "Плачет" : 1,
+                "Ломит мышцы" : 1,
+                "Ломит кости" : 1,
+                "Чешется" : 2,
+                "Покрылся мурашками" : 1,
+                "Притупил взгляд" : 1,
+                "Стоит" : 1,
+                "Бежит" : 1,
+                "Прыгает" : 1,
+                "Жестикулирует" : 1,
+                "Пропал аппетит" : 1,
+                "Ёжится" : 2,
+                "Не находит себе места" : 2,
+                "Еле двигается" : 1,
+                "Сгорбился" : 1,
+                "Бабочки в животе" : 1,
+                "Чувствует легкость" : 1,
+                "Чувствует тяжесть" : 1,
+                "Чувствует холод" : 1,
+                "Чувствует тепло" : 1,
+                "Улыбается" : 3,
+                "Расслаблен" : 1,
+                "Выпрямился" : 1,
+                "Поднял брови" : 1,
+                "Открыл рот" : 2,
+                "Быстро дышит" : 1,
+                "Медленно дышит" : 1,
+                "Молчит" : 1,
+                "Не чувствует рук" : 1,
+                "Не чувствует ног" : 1,
+                "Теряет рассудок" : 1,
+                "Теряет самоконтроль" : 1,
+                "Сосредоточен" : 1,
+                "Мутит сознание" : 1,
+                "Выпучил глаза" : 1,
+                "Ходит взад-вперед" : 1,
+                "Тараторит" : 1,
+                "Бубнит" : 1,
+                "Ругается" : 1,
+                "Дергает рукой" : 1,
+                "Дергает ногой" : 1,
+                "Дергается глаз" : 1,
+                "Принюхивается" : 1,
+                "Суетится" : 1,
+                "Замер" : 1,
+                "Рычит" : 1,
+                "Вздыхает" : 2,
+                "Холодеют руки" : 1,
+                "Краснеют глаза" : 1,
+                "Закрываются глаза" : 1,
+                "Закатывает глаза" : 1,
+            ]
+            
+            var pool: [String] = []
+            
+            for (value, ratio) in dictionary {
+                pool.append(contentsOf: repeatElement(value, count: ratio))
+            }
+            
+            var answer = pool.shuffled()
+            
+            let x = "\(answer.popLast() ?? "error")"
+            return NSLocalizedString(x, comment: "")
+        }
+        func getFeeling() -> String {
+            let dictionary = [
+                "Отвращения" : 3,
+                "Брезгливости" : 3,
+                "Скуки" : 3,
+                "Неодобрения" : 2,
+                "Разочарования" : 3,
+                "Антипатии" : 2,
+                "Ярости" : 2,
+                "Гнева" : 3,
+                "Досады" : 3,
+                "Боли" : 3,
+                "Опасности" : 1,
+                "Ненависти" : 3,
+                "Злости" : 3,
+                "Раздражения" : 3,
+                "Сосредоточенности" : 2,
+                "Ожидания" : 1,
+                "Любопытства" : 3,
+                "Настороженности" : 3,
+                "Экстаза" : 2,
+                "Радости" : 2,
+                "Спокойствия" : 3,
+                "Восторга" : 3,
+                "Счастья" : 1,
+                "Умиротворения" : 1,
+                "Гордости" : 2,
+                "Удовлетворения" : 3,
+                "Храбрости" : 2,
+                "Восхищения" : 2,
+                "Доверия" : 1,
+                "Признания" : 1,
+                "Раскаяния" : 2,
+                "Ужаса" : 2,
+                "Страха" : 3,
+                "Опасения" : 3,
+                "Испуга" : 3,
+                "Тревоги" : 4,
+                "Беспокойства" : 4,
+                "Оцепенения" : 2,
+                "Паники" : 2,
+                "Смущения" : 3,
+                "Изумления" : 3,
+                "Удивления" : 4,
+                "Отвлечения" : 1,
+                "Потрясения" : 2,
+                "Горя" : 1,
+                "Печали" : 3,
+                "Задумчивости" : 3,
+                "Грусти" : 3,
+                "Потерянности" : 2,
+                "Отчаяния" : 3,
+                "Одиночества" : 3,
+                "Апатии" : 2,
+                "Презрения" : 3,
+                "Возбуждения" : 3,
+                "Воодушевления" : 3,
+                "Любви" : 2,
+                "Веселья" : 3,
+                "Покорности" : 2,
+                "Растерянности" : 3,
+                "Трепета" : 3,
+                "Сожаления" : 4,
+                "Жалости" : 3,
+                "Стыда" : 3,
+                "Безнадежности" : 3,
+                "Беспомощности" : 3,
+                "Бессилия" : 3,
+                "Благодарности" : 2,
+                "Взволнованности" : 4,
+                "Чувства вины" : 4,
+                "Зависти" : 4,
+                "Наслаждения" : 4,
+                "Нежности" : 2,
+                "Обиды" : 4,
+                "Опустошенности" : 2,
+                "Отрешенности" : 2,
+                "Очарования" : 1,
+                "Расслабления" : 2,
+                "Ревности" : 3,
+                "Решительности" : 3,
+                "Уважения" : 2,
+                "Удовольствия" : 4,
+                "Унижения" : 3,
+                "Усталости" : 4,
+            ]
+            
+            var pool: [String] = []
+            
+            for (value, ratio) in dictionary {
+                pool.append(contentsOf: repeatElement(value, count: ratio))
+            }
+            
+            var answer = pool.shuffled()
+            
+            let x = "\(answer.popLast() ?? "error")"
+            return NSLocalizedString(x, comment: "")
+        }
+        
+        return "\(getAction()) от \(getFeeling().lowercased())"
     }
     
     

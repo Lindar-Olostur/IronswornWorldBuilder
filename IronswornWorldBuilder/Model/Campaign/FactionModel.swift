@@ -9,24 +9,35 @@ import Foundation
 
 struct Faction: Codable, Hashable, Identifiable {
     var id = UUID()
-    var name = Faction.randomName()
+    var name = ""//Faction.randomName()
     var subName = ""
     var hiddenDescription = true
     var description = ""
-    var hiddenType = true
+    var hiddenType = false
     var type = "" {
         didSet {
-            subName = "\(influence) \(type)"
-            
-            switch type {
-            case "Dominion" :
+            if dominion == [] {
+                subName = "\(influence) \(type) \(guild)\(fringeGroup)"
+            } else {
+                subName = "\(influence) \(dominion[0].name) \(type)"
+            }
+            if type == "Страна" {
+                typeSummary = "правящая власть"
+            }
+            if type == "Гильдия" {
+                typeSummary = "организация специалистов"
+            }
+            if type == "Банда" {
+                typeSummary = "маргинальная группа изгоев и мошенников"
+            }
+            if type == "Dominion" {
                 typeSummary = "Governing power"
-            case " Guild" :
+            }
+            if type == "Guild" {
                 typeSummary = "Organization of specialists"
-            case "Fringe Group" :
+            }
+            if type == "Fringe Group" {
                 typeSummary = "Band of outlaws, outcasts, or rogues"
-            default:
-                typeSummary = ""
             }
         }
     }
@@ -38,25 +49,53 @@ struct Faction: Codable, Hashable, Identifiable {
     var hiddenInfluence = true
     var influence = "" {
         didSet {
-            subName = "\(influence) \(type)"
+            if dominion == [] {
+                subName = "\(influence) \(type) \(guild)\(fringeGroup)"
+            } else {
+                subName = "\(influence) \(dominion[0].name) \(type)"
+            }
             
-            switch influence {
-            case "Forsaken" :
+            if influence == "Забытая" {
+                influenceSummary = "Изгнанная или забытая"
+            }
+            if influence == "Обособленная" {
+                influenceSummary = "Имеющая ограниченное влияние в удаленном месте"
+            }
+            if influence == "Локальная" {
+                influenceSummary = "Имеющая незначительное влияние в одной области"
+            }
+            if influence == "Признанная" {
+                influenceSummary = "Имеющая сильное влияние в одной области"
+            }
+            if influence == "Знаменитая" {
+                influenceSummary = "Имеющая влияние в нескольких областях"
+            }
+            if influence == "Влиятельная" {
+                influenceSummary = "Имеющая шировое влияние во многих областях"
+            }
+            if influence == "Могущественная" {
+                influenceSummary = "Имеющая повсеместное влияние во всех населенных областях"
+            }
+            if influence == "Forsaken" {
                 influenceSummary = "Banished or forgotten"
-            case " Isolated" :
+            }
+            if influence == "Isolated" {
                 influenceSummary = "Limited influence in a remote location"
-            case "Localized" :
+            }
+            if influence == "Localized" {
                 influenceSummary = "Marginal influence in a single sector"
-            case "Established" :
+            }
+            if influence == "Established" {
                 influenceSummary = "Strong influence in a single sector"
-            case "Notable" :
+            }
+            if influence == "Notable" {
                 influenceSummary = "Dispersed influence across a few sectors"
-            case "Dominant" :
+            }
+            if influence == "Dominant" {
                 influenceSummary = "Far-reaching influence across many sectors"
-            case "Inescapable" :
+            }
+            if influence == "Inescapable" {
                 influenceSummary = "Pervasive influence across inhabited space"
-            default:
-                influenceSummary = ""
             }
         }
     }
@@ -83,13 +122,14 @@ struct Faction: Codable, Hashable, Identifiable {
     var rumors: [StringContainer] = []
     var hiddenQuirks = true
     var quirks: [StringContainer] = []
-    var mode = "Selection"
+    var mode = "Input"
     var oracle = Oracle.sharedOracle
     var waitingForPerson = false
-    
+    var clocks: [Clock] = []
+    var hiddenClock = true
     
     static func randomName() -> String {
-        var result = "Unknown name"
+        var result = "Unknown faction"
         
         func getNameTemplate() -> String {
             let dictionary = [
@@ -146,44 +186,52 @@ struct Faction: Codable, Hashable, Identifiable {
     func randomRumor() -> String {
         let list = ["Caught in the crossfire of feuding factions", "Colluding with a criminal enterprise", "Corrupted by a dangerous power", "Critical resource is in short supply", "Defenses are overextended", "Developing revolutionary technology", "Digital systems are corrupted or infiltrated", "Heavily in debt", "Hit hard by a recent attack or calamity", "Holds a powerful artifact", "Holds incriminating information against a leader or faction", "Hoarding a valuable commodity", "Infiltrated by a rival faction", "Knows the location of a fabled treasure or lost technology", "Leaders are haunted by a dark prophecy", "Leaders are incompetent", "Leaders are puppets of another power or faction", "Lesser members of the leadership are plotting a coup", "New belief or religion is creating a schism among members", "Operations are a false front for their true purpose", "Overdependence on a failing or vulnerable technology", "Plagued by infighting and low morale", "Plotting to betray an allied faction", "Preparing a major offensive or operation", "Pulling the strings of a leader or faction", "Recently acquired an unexpected fortune", "Secretly supporting a reviled faction", "Sheltering an infamous or dangerous fugitive", "Suffered destructive sabotage from within", "Suffering a shortage of key workers or personnel", "Uprising or revolt is brewing from within", "Vulnerable to attack or aggression", "\(oracle.action()) + \(oracle.theme())"]
         var newList = list.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var quirksList = ["Ancient or coded language", "Animal or creature motif used as a faction symbol", "Banishes the disloyal", "Body augmentations are respected and valued", "Body ornamentations signify castes or roles", "Conceals individual identity", "Dependent on an addictive substance", "Distinctive or elaborate clothing", "Elite soldiers provide defense or serve as bodyguards", "Favors a signature weapon", "Guided by superstition or prophecy", "Heavily stratified social structure", "Hoards precursor artifacts", "Honors the fallen through unusual death rites", "Idolizes a longdead founder or martyr", "Keeps exhaustive records or archives", "Lives offplanet in spaceborne fleets", "Members take a new name when joining the faction", "Nomadic people and mobile operations", "Operates under strict codes or laws", "Recognizes others through a distinctive greeting or gesture", "Reliant on machine intelligence", "Resolves disputes through formal duels", "Rites of adulthood or ascension", "Shuns or distrusts machine intelligence", "Starships share a distinctive and recognizable profile", "Suspicious of outsiders", "Symbiotic relationship with a specific type of creature", "Trades in a unique currency or commodity", "Trains in a demanding physical discipline or martial art", "Wields unnatural abilities or strange technologies", "Work or environment causes mutations"]
     func randomQuirk() -> String {
         let list = ["Ancient or coded language", "Animal or creature motif used as a faction symbol", "Banishes the disloyal", "Body augmentations are respected and valued", "Body ornamentations signify castes or roles", "Conceals individual identity", "Dependent on an addictive substance", "Distinctive or elaborate clothing", "Elite soldiers provide defense or serve as bodyguards", "Favors a signature weapon", "Guided by superstition or prophecy", "Heavily stratified social structure", "Hoards precursor artifacts", "Honors the fallen through unusual death rites", "Idolizes a longdead founder or martyr", "Keeps exhaustive records or archives", "Lives offplanet in spaceborne fleets", "Members take a new name when joining the faction", "Nomadic people and mobile operations", "Operates under strict codes or laws", "Recognizes others through a distinctive greeting or gesture", "Reliant on machine intelligence", "Resolves disputes through formal duels", "Rites of adulthood or ascension", "Shuns or distrusts machine intelligence", "Starships share a distinctive and recognizable profile", "Suspicious of outsiders", "Symbiotic relationship with a specific type of creature", "Trades in a unique currency or commodity", "Trains in a demanding physical discipline or martial art", "Wields unnatural abilities or strange technologies", "Work or environment causes mutations", "\(oracle.action()) + \(oracle.theme())", ]
         var newList = list.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var relationshipList = ["Antagonistic towards", "Owes a debt to", "Apathetic or unaware of", "Shares a rivalry with", "Betrayed by", "Shares power with", "Broke faith with", "Shows respect for", "Distrustful of", "Splintered from", "Does business with", "Subordinate to", "Extorted by", "Supplied with resources by", "Holds contempt for", "Supplies resources to", "Holds leverage over", "Temporary alliance with", "In control of", "Tolerates", "Maneuvering against", "Trades favors with", "Needs aid from", "Unjustly accused by", "Negotiating with", "Warring with", "Open alliance with"]
     func randomRelationship() -> String {
         var newList = relationshipList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var projectList = ["Broaden scope of the faction to include a new focus", "Build or secure a powerful device", "Consolidate control of a valuable commodity", "Destroy or defeat a rival", "Disrupt the operations of a rival", "Escape the control of another faction or power", "Establish a monument or memorial", "Establish a safe refuge or headquarters", "Expand operations to a new location or sector", "Form an alliance", "Fulfill a prophecy", "Give aid to a faction", "Harness unnatural or forbidden power", "Hunt down a rogue asset", "Incite conflict among rivals", "Negotiate an agreement", "Obtain a needed commodity", "Obtain an important cultural artifact", "Obtain crucial data or information", "Obtain incriminating information about a rival", "Prevent a prophecy", "Put down an internal revolt or rebellion", "Repay a debt", "Rescue or recover a group or asset", "Research an innovation", "Resolve a conflict with another faction", "Reunite splintered elements of the faction", "Seize a powerful artifact or valuable treasure", "Seize rival territory or operations", "Subsume another faction", "Transport a valued asset", "Usurp leadership within a rival faction"]
     func randomProject() -> String {
         let list = ["Broaden scope of the faction to include a new focus", "Build or secure a powerful device", "Consolidate control of a valuable commodity", "Destroy or defeat a rival", "Disrupt the operations of a rival", "Escape the control of another faction or power", "Establish a monument or memorial", "Establish a safe refuge or headquarters", "Expand operations to a new location or sector", "Form an alliance", "Fulfill a prophecy", "Give aid to a faction", "Harness unnatural or forbidden power", "Hunt down a rogue asset", "Incite conflict among rivals", "Negotiate an agreement", "Obtain a needed commodity", "Obtain an important cultural artifact", "Obtain crucial data or information", "Obtain incriminating information about a rival", "Prevent a prophecy", "Put down an internal revolt or rebellion", "Repay a debt", "Rescue or recover a group or asset", "Research an innovation", "Resolve a conflict with another faction", "Reunite splintered elements of the faction", "Seize a powerful artifact or valuable treasure", "Seize rival territory or operations", "Subsume another faction", "Transport a valued asset", "Usurp leadership within a rival faction", "\(oracle.action()) + \(oracle.theme())", ]
         var newList = list.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
-    var fringeGroupList = ["Cultists", "Monster hunters", "Rogue AI", "Exiles", "Pirates", "Scavengers", "Gangsters", "Raiders", "Smugglers", "Hackers", "Rebels", "Roll twice"]
+    var fringeGroupList = ["Cultists", "Monster hunters", "Rogue AI", "Exiles", "Pirates", "Scavengers", "Gangsters", "Raiders", "Smugglers", "Hackers", "Rebels"]
     func randomFringeGroup() -> String {
         var newList = fringeGroupList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
-    var guildList = ["Assassins", "Healers", "Navigators", "Bounty hunters", "Industrialists", "Peacekeepers", "Couriers", "Mercenaries", "Researchers", "Courtesans", "Merchants", "Spies", "Engineers", "Mystics", "Roll twice"]
+    var guildList = ["Assassins", "Healers", "Navigators", "Bounty hunters", "Industrialists", "Peacekeepers", "Couriers", "Mercenaries", "Researchers", "Courtesans", "Merchants", "Spies", "Engineers", "Mystics"]
     func randomGuild() -> String {
         var newList = guildList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var dominionLeadershipList = ["Anarchist", "Fated or prophesied leader", "Disputed leadership", "Clan chiefs or elders", "Authoritarian dictatorship", "Elected representatives", "Oligarchical elite", "Machine intelligence", "Dynastic lineage", "Varied / decentralized"]
     func randomDominionLeadership() -> String {
         var newList = dominionLeadershipList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var dominionList = ["Agriculture", "Exploration", "Pacifism", "Artistry", "Faith", "Prophecy", "Commerce", "History", "Science", "Conquest", "Honor", "Secrecy", "Construction", "Industry", "Technology", "Diplomacy", "Isolationism", "Treachery", "Education", "Law", "Warfare", "Environmentalism", "Mysticism", "Wealth"]
     func randomDominion() -> String {
         var newList = dominionList.shuffled()
-        return newList.popLast() ?? "Error"
+        let x = "\(newList.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var influenceList = ["Forsaken", "Isolated", "Localized", "Established", "Notable", "Dominant", "Inescapable"]
     func randomInfluence() -> String {
@@ -206,9 +254,10 @@ struct Faction: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
-    var typeList = ["Dominion", "Guild", "Fringe Group", "Unknown"]
+    var typeList = ["Dominion", "Guild", "Fringe Group"]
     func randomType() -> String {
         
         let dictionary = [
@@ -225,7 +274,8 @@ struct Faction: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
 }
 

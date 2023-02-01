@@ -88,6 +88,31 @@ struct RegionView: View {
                             }
                         }
                     }
+                    // CLOCK
+                    if region.clocks != [] {
+                        Section(header:
+                                    HStack {
+                            Text("Clocks").font(.title)
+                            Spacer()
+                            Button {
+                                region.hiddenClock.toggle()
+                            } label: {
+                                Image(systemName: region.hiddenClock ? "chevron.down" : "chevron.right")
+                            }
+                        }
+                        ) {
+                            if region.hiddenClock {
+                                ForEach($region.clocks, id: \.id) { $clock in
+                                    NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                        Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                   }
+                               }.onDelete { (indexSet) in
+                                   region.clocks.remove(atOffsets: indexSet)
+                               }
+
+                            }
+                        }
+                    }
                 }.listStyle(.inset)
                 
             }
@@ -113,7 +138,7 @@ struct RegionView: View {
                             }
                         }
                         Button {
-                            region.factions.insert(Faction(), at: 0)
+                            region.factions.insert(Faction(name: NSLocalizedString("Unknown faction", comment: "")), at: 0)
                             region.hiddenFactions = true
                             campaign.writeToFile()
                         } label: {
@@ -121,15 +146,21 @@ struct RegionView: View {
                         }
                         if region.description == "" {
                             Button {
-                                region.description = "Enter your description"
+                                region.description = " "
                                 campaign.writeToFile()
                             } label: {
                                 Text("Add Description")
                             }
                         }
-
                         Button {
-                            region.sectors.insert(Sector(name: campaign.world.sectorIsLand ? "Unknown Land" : "Unknown Sector", homeRegion: region.name), at: 0)
+                            region.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                            region.hiddenClock = true
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Add Clock")
+                        }
+                        Button {
+                            region.sectors.insert(Sector(name: campaign.world.sectorIsLand ? NSLocalizedString("Unknown Land", comment: "") : NSLocalizedString("Unknown Sector", comment: ""), homeRegion: region.name), at: 0)
                             region.hiddenSectors = true
                             campaign.writeToFile()
                         } label: {

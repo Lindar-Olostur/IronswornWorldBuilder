@@ -1,0 +1,17 @@
+{
+  "subName" : "Custom world",
+  "type" : "world",
+  "storyGenerator" : false,
+  "hiddenRegions" : true,
+  "hiddenDescription" : false,
+  "hiddenTruth" : false,
+  "sectorIsLand" : true,
+  "name" : "New Campaign",
+  "description" : "",
+  "clocks" : [],
+  "hiddenClock" : true,
+  "regions" : [],
+  "truth" : [],
+  "truthMode" : "Input",
+
+}

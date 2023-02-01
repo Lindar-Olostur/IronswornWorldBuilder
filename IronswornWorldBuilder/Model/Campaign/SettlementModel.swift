@@ -10,18 +10,18 @@ import Foundation
 struct Settlement: Codable, Hashable, Identifiable {
     
     var id = UUID()
-    var name = "Unknown" {
+    var name = "" {
         didSet {
             if derilict != [] {
                 derilict[0].name = self.name
             }
         }
     }
-    var subName = "Settlement"
+    var subName = ""
     var hiddenDescription = true
     var description = ""
     var hiddenLocType = true
-    var locationType = "Unknown"
+    var locationType = ""
     var hiddenInhabitants = true
     var inhabitants: [StringContainer] = []
     var hiddenPopulation = true
@@ -60,6 +60,8 @@ struct Settlement: Codable, Hashable, Identifiable {
     var hiddenCreature = true
     var creatures: [Creature] = []
     var waitingForFaction = false
+    var clocks: [Clock] = []
+    var hiddenClock = true
     
     func randomLocationType() -> String {
         let dictionary = [
@@ -76,7 +78,8 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func randomPopulation(region: String) -> String {
         
@@ -126,7 +129,8 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var firstLookList = ["Beautiful architecture", "Built from natural materials", "Built from scrap metal", "Built within repurposed ship", "Built within terrain or asteroid", "Elevated or multilevel construction", "Hidden or subsurface location", "Hightech construction", "Industrial architecture", "Intimidating defenses", "Moving or transforming", "Obvious social stratification", "Precarious location", "Prominent emblems or signage", "Rustic architecture", "Significant structural damage", "Sprawling or dispersed structures", "Temporary or seasonal location", "Toxic or polluted habitat", "Within or near Precursor Vault"]
     func randomFirstLook() -> String {
@@ -151,7 +155,7 @@ struct Settlement: Codable, Hashable, Identifiable {
             "Temporary or seasonal location" : 3,
             "Toxic or polluted habitat" : 4,
             "Within or near Precursor Vault" : 2,
-            "\(oracle.description()) + \(oracle.focus())" : 10,
+            "\(NSLocalizedString(oracle.description(), comment: "")) + \(NSLocalizedString(oracle.focus(), comment: ""))" : 10,
         ]
         
         var pool: [String] = []
@@ -162,7 +166,8 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var contactList = ["Welcoming", "Neutral / automated", "Wary", "Uncooperative", "Hostile", "Asking for help", "In battle", "Captured", "Unresponsive", "Destroyed", "Derelict"]
     func randomContact() -> String {
@@ -188,7 +193,8 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var authorityList = ["None / lawless", "Ineffectual", "Tolerant", "Fair", "Unyielding", "Corrupt", "Oppressive"]
     func randomAuthority() -> String {
@@ -210,7 +216,8 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var projectList = ["Agriculture", "Archeology", "Automation", "Black market", "Command", "Defense", "Energy", "Engineering", "Entertainment", "Environmentalism", "Evacuation", "Expansion", "Exploration", "Festival", "History", "Hunting", "Manufacturing", "Medical", "Migration", "Mining", "Pacifism", "Raiding", "Research", "Salvage", "Secrecy", "Shipbuilding", "Spirituality", "Subsistence", "Surveillance", "Terraforming", "Trade", "Warfare"]
     func randomProject() -> String {
@@ -247,7 +254,7 @@ struct Settlement: Codable, Hashable, Identifiable {
             "Terraforming" : 2,
             "Trade" : 4,
             "Warfare" : 3,
-            "\(oracle.action()) + \(oracle.theme())" : 5,
+            "\(NSLocalizedString(oracle.action(), comment: "")) + \(NSLocalizedString(oracle.theme(), comment: ""))" : 5,
         ]
         
         var pool: [String] = []
@@ -258,7 +265,8 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     var troubleListSf = ["Battle for leadership", "Mounting debt", "Betrayal from within", "Mysterious deaths", "Caught in the crossfire", "Overdue delivery", "Changing environment", "Plagued by sickness", "Clash of cultures", "Preyed upon by raiders", "Dangerous discovery", "Revolt against leadership", "Depleted supplies", "Sabotaged technology", "Deprived of a resource", "Shunned by others", "Failing technology", "Social strife", "Feuding factions", "Someone is ill or injured", "Ghostly visitations", "Someone is missing", "Hazardous environment", "Stolen technology or object", "Hostile lifeforms", "Strange phenomenon", "Impassable route", "Toxic waste or pollution", "Impending attack", "Volatile energy source", "Impending natural disaster", "Vulnerable lifeforms", "Invasive organisms"]
     var troubleListIs = ["Outsiders rejected", "Dangerous discovery", "Dreadful omens", "Natural disaster", "Old wounds reopened", "Important object is lost", "Someone is captured", "Mysterious phenomenon", "Revolt against a leader", "Vengeful outcast", "Rival settlement", "Nature strikes back", "Someone is missing", "Production halts", "Mysterious murders", "Debt comes due", "Unjust leadership", "Disastrous accident", "In league with the enemy", "Raiders prey on the weak", "Cursed past", "An innocent is accused", "Corrupted by dark magic", "Isolated by brutal weather", "Provisions are scarce", "Sickness run amok", "Allies become enemies", "Attack is imminent", "Lost caravan", "Dark secret revealed", "Urgent expedition", "A leader falls", "Families in conflict", "Incompetent leadership", "Reckless warmongering", "Beast on the hunt", "Betrayed from within", "Broken truce", "Wrathful haunt", "Conflict with firstborn", "Trade route blocked", "In the crossfire", "Stranger causes discord", "Important event threatened", "Dangerous tradition"]
@@ -297,7 +305,7 @@ struct Settlement: Codable, Hashable, Identifiable {
             "Impending natural disaster" : 3,
             "Vulnerable lifeforms" : 2,
             "Invasive organisms" : 2,
-            "\(oracle.action()) + \(oracle.theme())" : 10,
+            "\(NSLocalizedString(oracle.action(), comment: "")) + \(NSLocalizedString(oracle.theme(), comment: ""))" : 10,
         ]
         
         var pool: [String] = []
@@ -308,14 +316,16 @@ struct Settlement: Codable, Hashable, Identifiable {
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     func randomTroubleIs() -> String {
-        let pool = ["Outsiders rejected", "Dangerous discovery", "Dreadful omens", "Natural disaster", "Old wounds reopened", "Important object is lost", "Someone is captured", "Mysterious phenomenon", "Revolt against a leader", "Vengeful outcast", "Rival settlement", "Nature strikes back", "Someone is missing", "Production halts", "Mysterious murders", "Debt comes due", "Unjust leadership", "Disastrous accident", "In league with the enemy", "Raiders prey on the weak", "Cursed past", "An innocent is accused", "Corrupted by dark magic", "Isolated by brutal weather", "Provisions are scarce", "Sickness run amok", "Allies become enemies", "Attack is imminent", "Lost caravan", "Dark secret revealed", "Urgent expedition", "A leader falls", "Families in conflict", "Incompetent leadership", "Reckless warmongering", "Beast on the hunt", "Betrayed from within", "Broken truce", "Wrathful haunt", "Conflict with firstborn", "Trade route blocked", "In the crossfire", "Stranger causes discord", "Important event threatened", "Dangerous tradition", "\(oracle.actionIS()) + \(oracle.themeIS())"]
+        let pool = ["Outsiders rejected", "Dangerous discovery", "Dreadful omens", "Natural disaster", "Old wounds reopened", "Important object is lost", "Someone is captured", "Mysterious phenomenon", "Revolt against a leader", "Vengeful outcast", "Rival settlement", "Nature strikes back", "Someone is missing", "Production halts", "Mysterious murders", "Debt comes due", "Unjust leadership", "Disastrous accident", "In league with the enemy", "Raiders prey on the weak", "Cursed past", "An innocent is accused", "Corrupted by dark magic", "Isolated by brutal weather", "Provisions are scarce", "Sickness run amok", "Allies become enemies", "Attack is imminent", "Lost caravan", "Dark secret revealed", "Urgent expedition", "A leader falls", "Families in conflict", "Incompetent leadership", "Reckless warmongering", "Beast on the hunt", "Betrayed from within", "Broken truce", "Wrathful haunt", "Conflict with firstborn", "Trade route blocked", "In the crossfire", "Stranger causes discord", "Important event threatened", "Dangerous tradition", "\(NSLocalizedString(oracle.actionIS(), comment: "")) + \(NSLocalizedString(oracle.themeIS(), comment: ""))"]
         
         var answer = pool.shuffled()
         
-        return answer.popLast() ?? "error"
+        let x = "\(answer.popLast() ?? "error")"
+        return NSLocalizedString(x, comment: "")
     }
     static func randomName(isLand: Bool) -> String {
         var name = "Unknown"

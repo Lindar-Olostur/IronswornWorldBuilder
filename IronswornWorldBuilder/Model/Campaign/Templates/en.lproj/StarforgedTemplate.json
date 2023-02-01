@@ -1,6 +1,8 @@
 {
   "subName" : "Globular Cluster NSC 8412",
   "type" : "SF",
+  "clocks" : [],
+  "hiddenClock" : true,
   "storyGenerator" : false,
   "hiddenRegions" : true,
   "hiddenDescription" : false,
@@ -13,6 +15,8 @@
       "id" : "8AF13D39-0542-4D67-9C31-4B28F1FDA781",
       "name" : "Terminus",
       "hiddenFactions" : true,
+      "clocks" : [],
+      "hiddenClock" : true,
       "factions" : [],
       "hiddenSectors" : true,
       "hiddenDescription" : false,
@@ -24,6 +28,8 @@
       "id" : "9164F36F-5017-4C5D-B018-2B08D748EA23",
       "name" : "Outlands",
       "hiddenFactions" : true,
+      "clocks" : [],
+      "hiddenClock" : true,
       "factions" : [],
       "hiddenSectors" : true,
       "hiddenDescription" : false,
@@ -37,6 +43,8 @@
       "hiddenFactions" : true,
       "factions" : [],
       "hiddenSectors" : true,
+      "clocks" : [],
+      "hiddenClock" : true,
       "hiddenDescription" : false,
       "description" : "A few bold pioneers have delved the far-flung reaches of the Forge. Isolated settlements have been built among these distant domains, but they are usually lost and disconnected from the settled regions.",
       "sectors" : [],
@@ -47,6 +55,8 @@
       "name" : "Void",
       "hiddenFactions" : true,
       "factions" : [],
+      "clocks" : [],
+      "hiddenClock" : true,
       "hiddenSectors" : true,
       "hiddenDescription" : false,
       "description" : "Beyond the Forge, there are only a few isolated stars and vast gulfs of nothing. Travel beyond the periphery of the Forge is difficult or impossible.",
@@ -58,6 +68,7 @@
     {
       "id" : "6C64B272-13F4-4720-8AD1-2B7762279F1B",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Cataclysm",
       "truth" : "The Sun Plague extinguished the stars in our home galaxy. \n\nThe anomaly traveled at incredible speeds, many times faster than light itself, and snuffed out the stars around us before we realized it was coming. Few of us survived as we made our way to this new galaxy. Here in the Forge, the stars are still aflame. We cling to their warmth like weary travelers huddled around a fire. \n\nWe suspect the Sun Plague was caused by: \n- a temporal distortion\n- a superweapon run amok\n- a scientific experiment gone away\n- the wrath of the gods",
@@ -70,6 +81,7 @@
     {
       "id" : "D96529A0-7215-4CAC-A34F-0F0A948E8570",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Exodus",
       "truth" : "When the Exodus fleet set off on a ponderous journey to a new home outside our galaxy, they marked the Forge as their destination. Countless generations lived out their lives aboard those titanic ships during the millennia-long passage.\n\nThe refugees built a rich legacy of culture and tradition during the Exodus. Some even remained in the ships after their arrival in the Forge, unwilling or unable to leave their familiar confines. Those vessels, the Ironhomes, still sail the depths of this galaxy.",
@@ -82,6 +94,7 @@
     {
       "id" : "04DB9BB8-1A10-4A72-8989-E6F35D910DD9",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Communities",
       "truth" : "Few survived the journey to the Forge, and we are scattered to the winds in this perilous place.\n\nOur settlements are often small, starved for resources, and on the brink of ruin. Hundreds of far-flung settlements are lost and isolated within the untamed chaos of this galaxy, and we do not know their fate.",
@@ -94,6 +107,7 @@
     {
       "id" : "39AD87AA-5051-4CD0-9098-06A2F08FC6C0",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Iron",
       "truth" : "Iron vows are sworn upon the remnants of ships that carried our people to the Forge.\n\nMany of our outposts were built from the iron bones of the Exodus ships. Fragments of the ships were also given to survivors as a remembrance, and passed from one generation to the next. Today, the Ironsworn swear vows upon the shards to honor the sacrifice of their forebears, the essence of the places left behind, and the souls of those great ships.",
@@ -106,6 +120,7 @@
     {
       "id" : "6990093B-6A66-4752-B73B-1F323C4973B3",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Lows",
       "truth" : "Much of the settled domains are a lawless frontier. Criminal factions and corrupt leaders often hold sway.\n\nPowers rise and fall in the Forge, so any authority is fleeting. In the end, we must fend for ourselves. A few communities are bastions of successful autonomy, but many are corrupted or preyed upon by petty despots, criminals, and raiders.",
@@ -118,6 +133,7 @@
     {
       "id" : "1741C2CE-EB0A-40D2-8252-1A19CAC04312",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Religion",
       "truth" : "Our gods failed us. We left them behind.\n\nThe Exodus was a tipping point. The gods offered no help to the billions who died in the cataclysm, and spirituality has little meaning in the Forge. Most now see religion as a useless relic of our past. But the search for meaning continues, and many are all-too-willing to follow a charismatic leader who claims to offer a better way.",
@@ -130,6 +146,7 @@
     {
       "id" : "7A74C47C-B90C-43BF-A8F0-5B49A2CA5B15",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Magic",
       "truth" : "Magic does not exist.\n\nSome look to superstition and age-old traditions for comfort in this unforgiving galaxy. But that is foolishness. What some call magic is simply a product of technologies or natural forces we aren’t yet equipped to understand.",
@@ -142,6 +159,7 @@
     {
       "id" : "F51DADAA-52A6-4675-A42C-E0855BF89D16",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Communication and Data",
       "truth" : "Much was lost when we came to the Forge. It is a dark age.\n\nThe knowledge that remains is a commodity as valuable as the rarest resource. Information is collected, hoarded, and jealously guarded. Ships and outposts endure prolonged periods of isolation, and rumors or disinformation are used to gain advantage or undermine foes.",
@@ -154,6 +172,7 @@
     {
       "id" : "5AC1AC47-53D1-4529-A08C-C69B2AF4CCFF",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Medicine",
       "truth" : "Our advanced medical technologies and expertise was lost during the Exodus.\n\nHealers are rare and ill-equipped. Untold numbers have succumbed to sickness, injury, and disease. Those who survive often bear the scars of a hard and dangerous life in the Forge.",
@@ -166,6 +185,7 @@
     {
       "id" : "A7EA50C8-5C29-4041-A841-8023B720D62E",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Artificial Intelligence",
       "truth" : "We no longer have access to advanced computer systems. Instead, we must rely on the specialists we call Adepts.\n\nOur computers are limited to simple digital systems and the most basic machine intelligence. This is because:\n\n- the energies of the Forge corrupt advanced systems\n\n- AI was outlawed in the aftermath of the machine wars\n\n- we have lost the knowledge to create and maintain AI\n\nThe Adepts serve in place of those advanced systems. They utilize mind-altering drugs to see the universe as a dazzling lattice of data, identifying trends and predicting outcomes with uncanny accuracy. But to gain this insight they sacrifice much of themselves.",
@@ -178,6 +198,7 @@
     {
       "id" : "FABB3EA7-43C2-48CC-98CE-5928973C92F8",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "War",
       "truth" : "Here in the Forge, resources are too precious to support organized fighting forces or advanced weaponry.\n\nWeapons are simple and cheap. Starships are often cobbled together from salvage. Most communities rely on ragtag bands of poorly equipped conscripts or volunteers to defend their holdings, and raiders prowl the Forge in search of easy prey.",
@@ -190,6 +211,7 @@
     {
       "id" : "34CD0B50-2AE6-4754-984E-D99B1481D189",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Lifeforms",
       "truth" : "This is a perilous and often inhospitable galaxy, but life finds a way.\n\nLife in the Forge is diverse. Planets are often home to a vast array of creatures, and our starships cruise with spaceborne lifeforms riding their wake. Even animals from our homeworld— carried aboard the Exodus ships—have adapted to live with us in the Forge.",
@@ -202,6 +224,7 @@
     {
       "id" : "FAE847CE-2722-44EB-A7C3-D74597E34CB6",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Precursors",
       "truth" : "Over eons, a vast number of civilizations rose and fell within the Forge. Today, the folk we call grubs—scavenger crews and audacious explorers—delve into the mysterious monuments and ruins of those ancient beings.\n\nIncomprehensible technologies, inexorable time, and the strange energies of the Forge have corrupted the vaults of the precursors. Despite the perils, grubs scour those places for useful resources and discoveries. But some secrets are best left buried, and many have been lost to the forsaken depths of the vaults.",
@@ -214,6 +237,7 @@
     {
       "id" : "68FC255F-6556-429A-915E-C84DFE27340C",
       "mode" : "Selection",
+      "custom" : false,
       "current" : 0,
       "title" : "Horrors",
       "truth" : "Put enough alcohol in a spacer, and they’ll tell you stories of ghost ships crewed by vengeful undead. It’s nonsense.\n\nWithin the Forge, space and time are as mutable and unstable as a flooding river. When reality can't be trusted, we are bound to encounter unsettling phenomenon.",

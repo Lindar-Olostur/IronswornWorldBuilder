@@ -418,6 +418,31 @@ struct LocationView: View {
                         }
                     }
                 }
+                // CLOCK
+                if location.clocks != [] {
+                    Section(header:
+                                HStack {
+                        Text("Clocks").font(.title)
+                        Spacer()
+                        Button {
+                            location.hiddenClock.toggle()
+                        } label: {
+                            Image(systemName: location.hiddenClock ? "chevron.down" : "chevron.right")
+                        }
+                    }
+                    ) {
+                        if location.hiddenClock {
+                            ForEach($location.clocks, id: \.id) { $clock in
+                                NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                    Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                               }
+                           }.onDelete { (indexSet) in
+                               location.clocks.remove(atOffsets: indexSet)
+                           }
+
+                        }
+                    }
+                }
             }.listStyle(.inset)
             
         }
@@ -549,6 +574,13 @@ struct LocationView: View {
                             } label: {
                                 Text("Subtitle")
                             }
+                        }
+                        Button {
+                            location.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                            location.hiddenClock = true
+                            campaign.writeToFile()
+                        } label: {
+                            Text("Add Clock")
                         }
                     } label: {
                         Text("Add")

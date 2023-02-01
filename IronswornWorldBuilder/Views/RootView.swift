@@ -14,7 +14,7 @@ struct RootView: View {
     @State private var openedFirstLaunchView = false
     @State private var isShowingRegionView = false
     @FocusState private var fieldIsFocused: Bool
-    @State private var displayText = ""
+    @State private var displayText: LocalizedStringKey = ""
     var buffer = movingBuffer.shared
     init() {
             UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.clear]
@@ -33,6 +33,7 @@ struct RootView: View {
                             .multilineTextAlignment(.center)
                             .focused($fieldIsFocused)
                     }
+                    
                     //STORY BUTTONS
                     if campaign.world.storyGenerator {
                         VStack {
@@ -157,6 +158,32 @@ struct RootView: View {
                                 }
                             }
                         }
+                        
+                        // CLOCK
+                        if campaign.world.clocks != [] {
+                            Section(header:
+                                        HStack {
+                                Text("Clocks").font(.title)
+                                Spacer()
+                                Button {
+                                    campaign.world.hiddenClock.toggle()
+                                } label: {
+                                    Image(systemName: campaign.world.hiddenClock ? "chevron.down" : "chevron.right")
+                                }
+                            }
+                            ) {
+                                if campaign.world.hiddenClock {
+                                    ForEach($campaign.world.clocks, id: \.id) { $clock in
+                                        NavigationLink(destination: ClockView(clock: $clock, campaign: self.campaign)) {
+                                            Text("\(clock.name) \(clock.currentClock)/\(clock.maxClock)")
+                                       }
+                                   }.onDelete { (indexSet) in
+                                       campaign.world.clocks.remove(atOffsets: indexSet)
+                                   }
+
+                                }
+                            }
+                        }
                     }.listStyle(.inset)
 
                 }
@@ -220,7 +247,7 @@ struct RootView: View {
     //                            }
     //                        }
                             Button {
-                                campaign.world.truth.insert(YourTruth(title: "New Truth"), at: 0)
+                                campaign.world.truth.insert(YourTruth(title: NSLocalizedString("New Truth", comment: "")), at: 0)
                                 campaign.world.hiddenTruth = true
                                 campaign.writeToFile()
                             } label: {
@@ -229,6 +256,7 @@ struct RootView: View {
                             if campaign.world.description == "" {
                                 Button {
                                     campaign.world.description = " "
+                                    campaign.world.hiddenDescription = true
                                     campaign.writeToFile()
                                 } label: {
                                     Text("Add Description")
@@ -236,18 +264,19 @@ struct RootView: View {
                             }
                             
                             Button {
-                                campaign.world.regions.insert(Region(name: "New Region"), at: 0)
+                                campaign.world.regions.insert(Region(name: NSLocalizedString("New Region", comment: "")), at: 0)
                                 campaign.world.hiddenRegions = true
                                 campaign.writeToFile()
                             } label: {
                                 Text("Add Region")
                             }
-    //                        Button {
-    //                            campaign.writeToFile()
-    //                            campaign.world.factions.append(Faction())
-    //                        } label: {
-    //                            Text("Add Faction")
-    //                        }
+                            Button {
+                                campaign.world.clocks.insert(Clock(name: NSLocalizedString("New Clock", comment: "")), at: 0)
+                                campaign.world.hiddenClock = true
+                                campaign.writeToFile()
+                            } label: {
+                                Text("Add Clock")
+                            }
                             if campaign.world.sectorIsLand == false {
                                 Toggle(isOn: $campaign.world.storyGenerator) {
                                     Text("Story Generator")
@@ -286,7 +315,7 @@ struct RootView: View {
             }
         }
     }
-    func randomStory() -> String {
+    func randomStory() -> LocalizedStringKey {
         let action = Oracle.action(Oracle())
         let theme = Oracle.theme(Oracle())
         let description = Oracle.description(Oracle())
@@ -295,8 +324,7 @@ struct RootView: View {
         let enemyName = Person.randomName(Person())
         let role = Person.randomRole(Person())
         let goal = Person.randomGoal(Person())
-        
-        let story = "I swear to \(action()) a \(theme()) of a \(description()) \(focus()) located in \(sector()). I am opposed by \(enemyName(false)), a \(role(false)) who wants to \(goal(false))."
+        let story: LocalizedStringKey = "I swear to \(action()) a \(theme()) of a \(description()) \(focus()) located in \(sector()). I am opposed by \(enemyName(false)), a \(role(false)) who wants to \(goal(false))."
 
         return story
     }
@@ -307,3 +335,5 @@ struct RootView_Previews: PreviewProvider {
         RootView().environmentObject(Campaign())
     }
 }
+
+

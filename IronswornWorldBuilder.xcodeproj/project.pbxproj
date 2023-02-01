@@ -11,10 +11,13 @@
 		9D1344662822B49E00D247DE /* RegionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1344652822B49E00D247DE /* RegionView.swift */; };
 		9D1344682822B52F00D247DE /* CampaignClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1344672822B52F00D247DE /* CampaignClass.swift */; };
 		9D13446B2822B6D200D247DE /* CampaignModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D13446A2822B6D200D247DE /* CampaignModel.swift */; };
-		9D1344712822E80100D247DE /* StarforgedTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D1344702822E80100D247DE /* StarforgedTemplate.json */; };
 		9D1344752822ED0E00D247DE /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1344742822ED0E00D247DE /* RootView.swift */; };
-		9D1CB854282A994D007E0082 /* StarsTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9D1CB853282A9465007E0082 /* StarsTemplate.json */; };
 		9D2ED5E62823E1C200F9560B /* LoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2ED5E52823E1C200F9560B /* LoadView.swift */; };
+		9D574308288AFA1C0065EC51 /* ClockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D574307288AFA1C0065EC51 /* ClockView.swift */; };
+		9D57430A288AFA4A0065EC51 /* ClockModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D574309288AFA4A0065EC51 /* ClockModel.swift */; };
+		9D5BEE2E29390FF400DB13DE /* IronswornWorldBuilderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5BEE2D29390FF400DB13DE /* IronswornWorldBuilderUITests.swift */; };
+		9D5BEE3029390FF400DB13DE /* IronswornWorldBuilderUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5BEE2F29390FF400DB13DE /* IronswornWorldBuilderUITestsLaunchTests.swift */; };
+		9D658C3A2887ECCE00477BC2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1A2285A169000F297A6 /* Localizable.strings */; };
 		9D68A97E2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D68A97D2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift */; };
 		9D68A9822816EC8100A8AC15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D68A9812816EC8100A8AC15 /* Assets.xcassets */; };
 		9D68A9852816EC8100A8AC15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D68A9842816EC8100A8AC15 /* Preview Assets.xcassets */; };
@@ -33,6 +36,14 @@
 		9DA019CA282D736900923DFF /* PlanetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DA019C9282D736900923DFF /* PlanetModel.swift */; };
 		9DAF1938282542B40032E567 /* SectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF1937282542B40032E567 /* SectorView.swift */; };
 		9DB9A19D2859F26400F297A6 /* FirstLaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DB9A19C2859F26400F297A6 /* FirstLaunchView.swift */; };
+		9DB9A1A4285CA53900F297A6 /* StarforgedTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1A6285CA53900F297A6 /* StarforgedTemplate.json */; };
+		9DB9A1A7285CA54600F297A6 /* IronswornTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1A9285CA54600F297A6 /* IronswornTemplate.json */; };
+		9DB9A1AA285CA54E00F297A6 /* StarsTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1AC285CA54E00F297A6 /* StarsTemplate.json */; };
+		9DB9A1AD285CA55500F297A6 /* WorldTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1AF285CA55500F297A6 /* WorldTemplate.json */; };
+		9DB9A1BC285CA66000F297A6 /* WorldTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1BE285CA66000F297A6 /* WorldTemplate.json */; };
+		9DB9A1C1285CA9BD00F297A6 /* StarsTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1C3285CA9BD00F297A6 /* StarsTemplate.json */; };
+		9DB9A1C6285CAA6B00F297A6 /* IronswornTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1C8285CAA6B00F297A6 /* IronswornTemplate.json */; };
+		9DB9A1CB2860977A00F297A6 /* StarforgedTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DB9A1CD2860977A00F297A6 /* StarforgedTemplate.json */; };
 		9DBF89B22836C898007961C2 /* PersonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B12836C898007961C2 /* PersonView.swift */; };
 		9DBF89B42836C8F3007961C2 /* LocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B32836C8F3007961C2 /* LocationView.swift */; };
 		9DBF89B62836CAA3007961C2 /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89B52836CAA3007961C2 /* PersonModel.swift */; };
@@ -42,19 +53,31 @@
 		9DBF89C7283E1EB5007961C2 /* FactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DBF89C6283E1EB5007961C2 /* FactionView.swift */; };
 		9DE2426C2844D43C0050264B /* PrecursorVaultsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */; };
 		9DE2426E2844F50F0050264B /* PrecursorVaultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE2426D2844F50F0050264B /* PrecursorVaultsView.swift */; };
-		9DE24270284762DC0050264B /* IronswornTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DE2426F28475C3C0050264B /* IronswornTemplate.json */; };
-		9DE242722847649B0050264B /* WorldTemplate.json in Resources */ = {isa = PBXBuildFile; fileRef = 9DE24271284763F40050264B /* WorldTemplate.json */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9D5BEE3129390FF400DB13DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D68A9722816EC8000A8AC15 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D68A9792816EC8000A8AC15;
+			remoteInfo = IronswornWorldBuilder;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9D13445A281E8D2100D247DE /* OracleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OracleModel.swift; sourceTree = "<group>"; };
 		9D1344652822B49E00D247DE /* RegionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionView.swift; sourceTree = "<group>"; };
 		9D1344672822B52F00D247DE /* CampaignClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignClass.swift; sourceTree = "<group>"; };
 		9D13446A2822B6D200D247DE /* CampaignModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampaignModel.swift; sourceTree = "<group>"; };
-		9D1344702822E80100D247DE /* StarforgedTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = StarforgedTemplate.json; sourceTree = "<group>"; };
 		9D1344742822ED0E00D247DE /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
-		9D1CB853282A9465007E0082 /* StarsTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = StarsTemplate.json; sourceTree = "<group>"; };
+		9D24DD4728C31DFF0080EB58 /* IronswornWorldBuilder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IronswornWorldBuilder.entitlements; sourceTree = "<group>"; };
 		9D2ED5E52823E1C200F9560B /* LoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadView.swift; sourceTree = "<group>"; };
+		9D574307288AFA1C0065EC51 /* ClockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockView.swift; sourceTree = "<group>"; };
+		9D574309288AFA4A0065EC51 /* ClockModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClockModel.swift; sourceTree = "<group>"; };
+		9D5BEE2B29390FF400DB13DE /* IronswornWorldBuilderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IronswornWorldBuilderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D5BEE2D29390FF400DB13DE /* IronswornWorldBuilderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronswornWorldBuilderUITests.swift; sourceTree = "<group>"; };
+		9D5BEE2F29390FF400DB13DE /* IronswornWorldBuilderUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronswornWorldBuilderUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9D68A97A2816EC8000A8AC15 /* IronswornWorldBuilder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IronswornWorldBuilder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D68A97D2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IronswornWorldBuilderApp.swift; sourceTree = "<group>"; };
 		9D68A9812816EC8100A8AC15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -74,6 +97,16 @@
 		9DA019C9282D736900923DFF /* PlanetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanetModel.swift; sourceTree = "<group>"; };
 		9DAF1937282542B40032E567 /* SectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectorView.swift; sourceTree = "<group>"; };
 		9DB9A19C2859F26400F297A6 /* FirstLaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstLaunchView.swift; sourceTree = "<group>"; };
+		9DB9A1A1285A169000F297A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9DB9A1A3285A169700F297A6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9DB9A1A5285CA53900F297A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/StarforgedTemplate.json; sourceTree = "<group>"; };
+		9DB9A1A8285CA54600F297A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/IronswornTemplate.json; sourceTree = "<group>"; };
+		9DB9A1AB285CA54E00F297A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/StarsTemplate.json; sourceTree = "<group>"; };
+		9DB9A1AE285CA55500F297A6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = en; path = en.lproj/WorldTemplate.json; sourceTree = "<group>"; };
+		9DB9A1BD285CA66000F297A6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = ru; path = ru.lproj/WorldTemplate.json; sourceTree = "<group>"; };
+		9DB9A1C2285CA9BD00F297A6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = ru; path = ru.lproj/StarsTemplate.json; sourceTree = "<group>"; };
+		9DB9A1C7285CAA6B00F297A6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = ru; path = ru.lproj/IronswornTemplate.json; sourceTree = "<group>"; };
+		9DB9A1CC2860977A00F297A6 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = ru; path = ru.lproj/StarforgedTemplate.json; sourceTree = "<group>"; };
 		9DBF89B12836C898007961C2 /* PersonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonView.swift; sourceTree = "<group>"; };
 		9DBF89B32836C8F3007961C2 /* LocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationView.swift; sourceTree = "<group>"; };
 		9DBF89B52836CAA3007961C2 /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
@@ -83,11 +116,16 @@
 		9DBF89C6283E1EB5007961C2 /* FactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactionView.swift; sourceTree = "<group>"; };
 		9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecursorVaultsModel.swift; sourceTree = "<group>"; };
 		9DE2426D2844F50F0050264B /* PrecursorVaultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrecursorVaultsView.swift; sourceTree = "<group>"; };
-		9DE2426F28475C3C0050264B /* IronswornTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = IronswornTemplate.json; sourceTree = "<group>"; };
-		9DE24271284763F40050264B /* WorldTemplate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WorldTemplate.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9D5BEE2829390FF400DB13DE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D68A9772816EC8000A8AC15 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +146,7 @@
 				9D1344652822B49E00D247DE /* RegionView.swift */,
 				9D81E55C283171AA000622A8 /* StellarObjectView.swift */,
 				9DAF1937282542B40032E567 /* SectorView.swift */,
+				9D574307288AFA1C0065EC51 /* ClockView.swift */,
 				9D9D415E282AB1BD007E8C8C /* RouteView.swift */,
 				9D9D415C282AA303007E8C8C /* SettlementView.swift */,
 				9D9D4154282AA1AF007E8C8C /* PlanetView.swift */,
@@ -125,10 +164,14 @@
 		9D1344642822781500D247DE /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				9D1344702822E80100D247DE /* StarforgedTemplate.json */,
-				9DE2426F28475C3C0050264B /* IronswornTemplate.json */,
-				9D1CB853282A9465007E0082 /* StarsTemplate.json */,
-				9DE24271284763F40050264B /* WorldTemplate.json */,
+				9DB9A1A6285CA53900F297A6 /* StarforgedTemplate.json */,
+				9DB9A1CD2860977A00F297A6 /* StarforgedTemplate.json */,
+				9DB9A1A9285CA54600F297A6 /* IronswornTemplate.json */,
+				9DB9A1C8285CAA6B00F297A6 /* IronswornTemplate.json */,
+				9DB9A1AC285CA54E00F297A6 /* StarsTemplate.json */,
+				9DB9A1C3285CA9BD00F297A6 /* StarsTemplate.json */,
+				9DB9A1BE285CA66000F297A6 /* WorldTemplate.json */,
+				9DB9A1AF285CA55500F297A6 /* WorldTemplate.json */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -139,6 +182,7 @@
 				9D838C3F28172044005DC2ED /* LocationsModel.swift */,
 				9DE2426B2844D43C0050264B /* PrecursorVaultsModel.swift */,
 				9DBF89B9283C04DD007961C2 /* DerelictModel.swift */,
+				9D574309288AFA4A0065EC51 /* ClockModel.swift */,
 				9D13446A2822B6D200D247DE /* CampaignModel.swift */,
 				9D1344672822B52F00D247DE /* CampaignClass.swift */,
 				9D838C372817179D005DC2ED /* StellarObjModel.swift */,
@@ -153,10 +197,20 @@
 			path = Campaign;
 			sourceTree = "<group>";
 		};
+		9D5BEE2C29390FF400DB13DE /* IronswornWorldBuilderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				9D5BEE2D29390FF400DB13DE /* IronswornWorldBuilderUITests.swift */,
+				9D5BEE2F29390FF400DB13DE /* IronswornWorldBuilderUITestsLaunchTests.swift */,
+			);
+			path = IronswornWorldBuilderUITests;
+			sourceTree = "<group>";
+		};
 		9D68A9712816EC8000A8AC15 = {
 			isa = PBXGroup;
 			children = (
 				9D68A97C2816EC8000A8AC15 /* IronswornWorldBuilder */,
+				9D5BEE2C29390FF400DB13DE /* IronswornWorldBuilderUITests */,
 				9D68A97B2816EC8000A8AC15 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -165,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				9D68A97A2816EC8000A8AC15 /* IronswornWorldBuilder.app */,
+				9D5BEE2B29390FF400DB13DE /* IronswornWorldBuilderUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,11 +227,13 @@
 		9D68A97C2816EC8000A8AC15 /* IronswornWorldBuilder */ = {
 			isa = PBXGroup;
 			children = (
+				9D24DD4728C31DFF0080EB58 /* IronswornWorldBuilder.entitlements */,
 				9D68A97D2816EC8000A8AC15 /* IronswornWorldBuilderApp.swift */,
 				9D13445F2822738200D247DE /* Views */,
 				9D68A98E2816ECFB00A8AC15 /* Model */,
 				9D68A9812816EC8100A8AC15 /* Assets.xcassets */,
 				9D68A9832816EC8100A8AC15 /* Preview Content */,
+				9DB9A1A2285A169000F297A6 /* Localizable.strings */,
 			);
 			path = IronswornWorldBuilder;
 			sourceTree = "<group>";
@@ -201,6 +258,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9D5BEE2A29390FF400DB13DE /* IronswornWorldBuilderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9D5BEE3529390FF400DB13DE /* Build configuration list for PBXNativeTarget "IronswornWorldBuilderUITests" */;
+			buildPhases = (
+				9D5BEE2729390FF400DB13DE /* Sources */,
+				9D5BEE2829390FF400DB13DE /* Frameworks */,
+				9D5BEE2929390FF400DB13DE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9D5BEE3229390FF400DB13DE /* PBXTargetDependency */,
+			);
+			name = IronswornWorldBuilderUITests;
+			productName = IronswornWorldBuilderUITests;
+			productReference = 9D5BEE2B29390FF400DB13DE /* IronswornWorldBuilderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		9D68A9792816EC8000A8AC15 /* IronswornWorldBuilder */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9D68A9882816EC8100A8AC15 /* Build configuration list for PBXNativeTarget "IronswornWorldBuilder" */;
@@ -225,9 +300,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastSwiftUpdateCheck = 1410;
+				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					9D5BEE2A29390FF400DB13DE = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = 9D68A9792816EC8000A8AC15;
+					};
 					9D68A9792816EC8000A8AC15 = {
 						CreatedOnToolsVersion = 13.3.1;
 					};
@@ -240,6 +319,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 9D68A9712816EC8000A8AC15;
 			productRefGroup = 9D68A97B2816EC8000A8AC15 /* Products */;
@@ -247,20 +327,33 @@
 			projectRoot = "";
 			targets = (
 				9D68A9792816EC8000A8AC15 /* IronswornWorldBuilder */,
+				9D5BEE2A29390FF400DB13DE /* IronswornWorldBuilderUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9D5BEE2929390FF400DB13DE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D68A9782816EC8000A8AC15 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DE242722847649B0050264B /* WorldTemplate.json in Resources */,
-				9DE24270284762DC0050264B /* IronswornTemplate.json in Resources */,
-				9D1CB854282A994D007E0082 /* StarsTemplate.json in Resources */,
+				9DB9A1AD285CA55500F297A6 /* WorldTemplate.json in Resources */,
+				9DB9A1A7285CA54600F297A6 /* IronswornTemplate.json in Resources */,
+				9D658C3A2887ECCE00477BC2 /* Localizable.strings in Resources */,
+				9DB9A1AA285CA54E00F297A6 /* StarsTemplate.json in Resources */,
+				9DB9A1C6285CAA6B00F297A6 /* IronswornTemplate.json in Resources */,
+				9DB9A1C1285CA9BD00F297A6 /* StarsTemplate.json in Resources */,
+				9DB9A1CB2860977A00F297A6 /* StarforgedTemplate.json in Resources */,
 				9D68A9852816EC8100A8AC15 /* Preview Assets.xcassets in Resources */,
-				9D1344712822E80100D247DE /* StarforgedTemplate.json in Resources */,
+				9DB9A1A4285CA53900F297A6 /* StarforgedTemplate.json in Resources */,
+				9DB9A1BC285CA66000F297A6 /* WorldTemplate.json in Resources */,
 				9D68A9822816EC8100A8AC15 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +361,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9D5BEE2729390FF400DB13DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9D5BEE2E29390FF400DB13DE /* IronswornWorldBuilderUITests.swift in Sources */,
+				9D5BEE3029390FF400DB13DE /* IronswornWorldBuilderUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9D68A9762816EC8000A8AC15 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -276,6 +378,7 @@
 				9D68A98C2816ECE700A8AC15 /* SettlementModel.swift in Sources */,
 				9D838C3A28171C65005DC2ED /* VehiclesModel.swift in Sources */,
 				9D9D415B282AA1D6007E8C8C /* StarshipView.swift in Sources */,
+				9D57430A288AFA4A0065EC51 /* ClockModel.swift in Sources */,
 				9D9D415F282AB1BD007E8C8C /* RouteView.swift in Sources */,
 				9D1344752822ED0E00D247DE /* RootView.swift in Sources */,
 				9D2ED5E62823E1C200F9560B /* LoadView.swift in Sources */,
@@ -289,6 +392,7 @@
 				9DB9A19D2859F26400F297A6 /* FirstLaunchView.swift in Sources */,
 				9D1344682822B52F00D247DE /* CampaignClass.swift in Sources */,
 				9DBF89BA283C04DD007961C2 /* DerelictModel.swift in Sources */,
+				9D574308288AFA1C0065EC51 /* ClockView.swift in Sources */,
 				9DBF89C7283E1EB5007961C2 /* FactionView.swift in Sources */,
 				9D81E56128338421000622A8 /* YourTruthView.swift in Sources */,
 				9DE2426E2844F50F0050264B /* PrecursorVaultsView.swift in Sources */,
@@ -308,11 +412,134 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9D5BEE3229390FF400DB13DE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D68A9792816EC8000A8AC15 /* IronswornWorldBuilder */;
+			targetProxy = 9D5BEE3129390FF400DB13DE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		9DB9A1A2285A169000F297A6 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1A1285A169000F297A6 /* en */,
+				9DB9A1A3285A169700F297A6 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		9DB9A1A6285CA53900F297A6 /* StarforgedTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1A5285CA53900F297A6 /* en */,
+			);
+			name = StarforgedTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1A9285CA54600F297A6 /* IronswornTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1A8285CA54600F297A6 /* en */,
+			);
+			name = IronswornTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1AC285CA54E00F297A6 /* StarsTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1AB285CA54E00F297A6 /* en */,
+			);
+			name = StarsTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1AF285CA55500F297A6 /* WorldTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1AE285CA55500F297A6 /* en */,
+			);
+			name = WorldTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1BE285CA66000F297A6 /* WorldTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1BD285CA66000F297A6 /* ru */,
+			);
+			name = WorldTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1C3285CA9BD00F297A6 /* StarsTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1C2285CA9BD00F297A6 /* ru */,
+			);
+			name = StarsTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1C8285CAA6B00F297A6 /* IronswornTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1C7285CAA6B00F297A6 /* ru */,
+			);
+			name = IronswornTemplate.json;
+			sourceTree = "<group>";
+		};
+		9DB9A1CD2860977A00F297A6 /* StarforgedTemplate.json */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9DB9A1CC2860977A00F297A6 /* ru */,
+			);
+			name = StarforgedTemplate.json;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		9D5BEE3329390FF400DB13DE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 537KS4297U;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Lin.IronswornWorldBuilderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = IronswornWorldBuilder;
+			};
+			name = Debug;
+		};
+		9D5BEE3429390FF400DB13DE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 537KS4297U;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Lin.IronswornWorldBuilderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = IronswornWorldBuilder;
+			};
+			name = Release;
+		};
 		9D68A9862816EC8100A8AC15 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -365,6 +592,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -373,6 +601,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -418,6 +647,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -428,12 +658,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = IronswornWorldBuilder/IronswornWorldBuilder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IronswornWorldBuilder/Preview Content\"";
 				DEVELOPMENT_TEAM = 537KS4297U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -446,6 +679,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Lin.IronswornWorldBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -457,12 +691,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_ENTITLEMENTS = IronswornWorldBuilder/IronswornWorldBuilder.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IronswornWorldBuilder/Preview Content\"";
 				DEVELOPMENT_TEAM = 537KS4297U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.role-playing-games";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -475,6 +712,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Lin.IronswornWorldBuilder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -484,6 +722,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9D5BEE3529390FF400DB13DE /* Build configuration list for PBXNativeTarget "IronswornWorldBuilderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9D5BEE3329390FF400DB13DE /* Debug */,
+				9D5BEE3429390FF400DB13DE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		9D68A9752816EC8000A8AC15 /* Build configuration list for PBXProject "IronswornWorldBuilder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

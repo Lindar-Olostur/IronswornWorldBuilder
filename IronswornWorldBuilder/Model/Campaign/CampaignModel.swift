@@ -29,6 +29,8 @@ struct World: Codable {
     var hiddenRegions = true
     var hiddenDescription = true
     var hiddenTruth = true
+    var clocks: [Clock] = []
+    var hiddenClock = true
     var regions: [Region] = []
     var truth: [YourTruth] = []
     var sectorIsLand = false
@@ -48,11 +50,15 @@ struct Region: Codable, Hashable, Identifiable {
     var hiddenFactions = true
     var factions: [Faction] = []
     var waitingForFaction = false
+    var clocks: [Clock] = []
+    var hiddenClock = true
 }
 
 struct Sector: Codable, Hashable, Identifiable {
 
     var id: UUID = UUID()
+    var clocks: [Clock] = []
+    var hiddenClock = true
     var hiddenStellar: Bool = true
     var hiddenDescription: Bool = true
     var hiddenPlanets: Bool = true
@@ -413,7 +419,7 @@ struct Sector: Codable, Hashable, Identifiable {
     func randomRoguePlanetName() -> String {
         
         let nameFormat = Int.random(in: 0...3)
-        var name = "Unknown planet"
+        var name = "Unknown"
         
         func numberPart() -> String {
             let numFormat = Int.random(in: 1...3)
@@ -472,7 +478,7 @@ struct Sector: Codable, Hashable, Identifiable {
         }
         
         if nameFormat == 0 {
-            name = "Unknown planet"
+            name = "Unknown"
         }
 
         if nameFormat >= 1 {
@@ -492,6 +498,7 @@ struct StringContainer: Codable, Hashable, Identifiable {
 struct YourTruth: Codable, Hashable, Identifiable {
     var id = UUID()
     var title = ""
+    var custom = true
     var truth = ""
     var options: [String] = []
     var mode = "Input"

@@ -79,6 +79,8 @@ struct Planet: Codable, Hashable, Identifiable {
     var waitingForFaction = false
     var locations: [Location] = []
     var hiddenLocations: Bool = true
+    var clocks: [Clock] = []
+    var hiddenClock = true
     
     var typeList = ["Desert World", "Furnance World", "Grave World", "Ice World", "Jovian World", "Jungle World", "Ocean World", "Rocky World", "Shattered World", "Tainted World", "Vital World", "Unknown World"]
     func randomPlanetType() -> String {
